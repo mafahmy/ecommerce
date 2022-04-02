@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.3"
+  },
+  "name": "ecommerce",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --watch backEnd --exec node --experimental-modules backEnd/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mafahmy/ecommerce.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mafahmy/ecommerce/issues"
+  },
+  "homepage": "https://github.com/mafahmy/ecommerce#readme",
+  "description": ""
+}

@@ -1,5 +1,10 @@
+html {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
+  height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,4 +15,40 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.logo {
+  font-size: large;
+  font-weight: bold;
+}
+
+*/common */ a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: silver;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+img {
+  max-width: 20rem;
+  width: 100%;
+}
+
+.card {
+  max-width: 20rem;
+  border: 0.1rem solid gainsboro;
+  background-color: #f8f8f8;
+  margin: 1rem;
+}
+
+.card-body {
+  padding: 1rem;
 }
