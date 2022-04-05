@@ -1,14 +1,20 @@
 import React from "react";
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import logo from "./logo.svg";
 import { Counter } from "./features/counter/Counter";
-import HomePage from "./screens/homePage/HomePage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { Slider } from "./components/Slider";
+import Slider1 from "./components/Slider1";
+import Categories from "./components/Categories";
+import HomePage from "./screens/HomePage";
+import ProductScreen from "./screens/ProductScreen";
 //import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <BrowserRouter>
+    <div className="grid-container">
       <header className="App-header">
         <Navbar />
         {/* <img src={logo} className="App-logo" alt="logo" />
@@ -54,11 +60,21 @@ function App() {
             React Redux
           </a>
         </span> */}
-        <HomePage />
       </header>
-
-      <Footer />
+      <main>
+        <Routes>
+          <Route path="/" element={<HomePage />} exact />
+          <Route path="/product/:id" element={<ProductScreen />} />
+        </Routes>
+    
+      
+        
+      </main>
+      <footer>
+        <Footer />
+      </footer>
     </div>
+    </BrowserRouter>
   );
 }
 

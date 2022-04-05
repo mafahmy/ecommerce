@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Product from "../../components/Product";
 import axios from "axios";
 import styled from "styled-components";
+import Product from "../components/Product";
+import Categories from "../components/Categories";
+import Slider1 from "../components/Slider1";
+
 
 const Container = styled.div`
   height: max-content;
@@ -31,6 +34,8 @@ const HomePage = () => {
 
   return (
     <div>
+    <Slider1 />
+    <Categories />
       <Container>
         {products.map((product) => (
           <Product key={product._id} product={product} />
