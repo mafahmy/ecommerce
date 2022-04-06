@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Product from "../components/Product";
 import Categories from "../components/Categories";
 import Slider1 from "../components/Slider1";
-
+import { useGetAllProductsQuery } from "../features/products/productsApi";
 
 const Container = styled.div`
   height: max-content;
@@ -15,31 +15,35 @@ const Container = styled.div`
 `;
 
 const HomePage = () => {
-  const [products, setProducts] = useState([]);
+   //const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data } = await axios.get("http://localhost:4000/api/products");
-        setProducts(data);
-        console.log(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-    console.log(products);
-  }, []);
-  console.log(products);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const { data } = await axios.get("http://localhost:4000/api/products");
+  //       setProducts(data);
+  //       console.log(data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   fetchData();
+  //   console.log(products);
+  // }, []);
+  const { data, error, isLoading, isFetching, isSuccess } =  useGetAllProductsQuery([]);
+ 
+  console.log(data);
 
   return (
     <div>
     <Slider1 />
     <Categories />
       <Container>
-        {products.map((product) => (
+        {isLoading ? (<p>Loading...</p>): error ? (<p>error{error}</p>) : (
+        data?.map((product) => (
           <Product key={product._id} product={product} />
-        ))}
+        ))
+        ) }
       </Container>
     </div>
   );
