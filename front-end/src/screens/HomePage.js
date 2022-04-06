@@ -6,7 +6,7 @@ import Categories from "../components/Categories";
 import Slider1 from "../components/Slider1";
 import { useGetAllProductsQuery } from "../features/products/productsApi";
 
-const Container = styled.div`
+const Container = styled.div `
   height: max-content;
   display: flex;
   flex-wrap: wrap;
