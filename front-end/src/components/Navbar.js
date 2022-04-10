@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
  
@@ -7,7 +9,7 @@ const Container = styled.div`
   background-color: #203040;
   
 `;
-const Wrapper = styled.div`
+const Wrapper = styled.div `
   // padding: 10px 20px;
  
   height: 50px;
@@ -24,16 +26,25 @@ const MenuItem = styled.a`
 `;
 
 const Navbar = () => {
+
+  const cart = useSelector((state) => state.cart);
+
+  const { cartItems } = cart;
+  console.log(cartItems)
   return (
     <Container>
       <Wrapper>
         <div className="logo">
-          <MenuItem href="/">STORE</MenuItem>
+          <Link to="/">STORE</Link>
         </div>
 
         <div>
-          <MenuItem>Cart</MenuItem>
-          <MenuItem>Sign In</MenuItem>
+          <Link to="/cart/:id">Cart
+          {cartItems.length > 0 && (
+            <span className="badge">{cartItems.length}</span>
+          )}
+          </Link>
+          <Link to="/signin">Sign In</Link>
         </div>
       </Wrapper>
     </Container>

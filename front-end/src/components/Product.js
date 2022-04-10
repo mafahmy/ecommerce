@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import Ratings from "./Ratings";
+import { Link } from "react-router-dom";
 
-const Image = styled.img`
+const Image = styled.img `
   max-width: 20rem;
   width: 100%;
 `;
@@ -14,11 +15,11 @@ const Product = (props) => {
   const { product } = props;
   return (
     <div className="card">
-      <a href={`/product/${product._id}`}>
+      <Link to={`/product/${product._id}`}>
         <Image src={product.image} alt={product.name} />
-      </a>
+      </Link>
       <div className="card-body">
-        <a href={`/product/${product._id}`}>{product.name}</a>
+        <Link to={`/product/${product._id}`}>{product.name}</Link>
         <Ratings
           rating={product.rating}
           numReviews={product.numReviews}

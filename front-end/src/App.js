@@ -9,6 +9,7 @@ import Slider1 from "./components/Slider1";
 import Categories from "./components/Categories";
 import HomePage from "./screens/HomePage";
 import ProductScreen from "./screens/ProductScreen";
+import CartScreen from "./screens/CartScreen";
 //import './App.css';
 
 function App() {
@@ -63,6 +64,8 @@ function App() {
       </header>
       <main>
         <Routes>
+          <Route path="/cart/:id" element={<CartScreen />} />
+          {/* <Route path="/cart/" element={<CartScreen />} /> */}
           <Route path="/" element={<HomePage />} exact />
           <Route path="/product/:id" element={<ProductScreen />} />
         </Routes>
