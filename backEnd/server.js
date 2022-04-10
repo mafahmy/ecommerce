@@ -1,31 +1,51 @@
-import express from 'express';
-import data from './data.js'
-import cors from 'cors'
-import bodyParser from 'body-parser';
+import express from "express";
+//import data from "./data.js";
+import cors from "cors";
+import bodyParser from "body-parser";
+import mongoose from "mongoose";
+import userRouter from "./routers/userRouter.js";
+import productRouter from "./routers/productRouter.js";
+import dotenv from 'dotenv';
 
+dotenv.config(); 
 
 const app = express();
 const port = 4000;
 
+mongoose.connect(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    
+})
 app.use(cors());
 
-app.use(bodyParser.urlencoded({ extended: true  }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/api/products', (req,res) => {
-    res.send(data.products);
-});
-app.get('/api/products/:id', (req, res) => {
-    const product = data.products.find((x) => x._id === req.params.id);
-    if (product) {
-        res.send(product);
-    } else {
-        res.status(404).send({message: 'Product Not Found'});
-    }
+app.use('/api/users', userRouter);
+app.use('/api/products', productRouter)
+
+
+
+// app.get("/api/products", (req, res) => {
+//   res.send(data.products);
+// });
+// app.get("/api/products/:id", (req, res) => {
+//   const product = data.products.find((x) => x._id === req.params.id);
+//   if (product) {
+//     res.send(product);
+//   } else {
+//     res.status(404).send({ message: "Product Not Found" });
+//   }
+// });
+
+app.get("/", (req, res) => {
+  res.send("server runs");
 });
 
-app.get('/', (req, res) => {
-    res.send('server runs');
+app.use((err, req, res, next) => {
+    res.status(500).send({ message: err.message });
 });
+
 app.listen(port, () => {
-    console.log(`server is running at port ${port}`);
+  console.log(`server is running at port ${port}`);
 });
