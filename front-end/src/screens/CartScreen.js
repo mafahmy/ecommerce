@@ -32,7 +32,7 @@ const CartScreen = (props) => {
     navigate("/signin?redirect=/shipping");
   }
   return (
-    <div div className="row top">
+    <div className="row top">
       <div className="col-1">
         <h1>Shopping Cart</h1>
         {cartItems.length === 0 ? (

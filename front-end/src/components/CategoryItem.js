@@ -39,7 +39,7 @@ const CategoryItem = ({item}) => {
   return (
       <>
       
-    <Container>
+    <Container key={item._id}>
        <Image src={item.img}/>
         <Info>
            <Title>{item.title}</Title>

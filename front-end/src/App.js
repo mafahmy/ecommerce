@@ -10,6 +10,7 @@ import Categories from "./components/Categories";
 import HomePage from "./screens/HomePage";
 import ProductScreen from "./screens/ProductScreen";
 import CartScreen from "./screens/CartScreen";
+import SigninScreen from "./screens/SigninScreen";
 //import './App.css';
 
 function App() {
@@ -68,6 +69,7 @@ function App() {
           {/* <Route path="/cart/" element={<CartScreen />} /> */}
           <Route path="/" element={<HomePage />} exact />
           <Route path="/product/:id" element={<ProductScreen />} />
+          <Route path="/signin" element={<SigninScreen />} />
         </Routes>
     
       
