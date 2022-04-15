@@ -1,84 +1,40 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import logo from "./logo.svg";
-import { Counter } from "./features/counter/Counter";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import { Slider } from "./components/Slider";
-import Slider1 from "./components/Slider1";
-import Categories from "./components/Categories";
 import HomePage from "./screens/HomePage";
 import ProductScreen from "./screens/ProductScreen";
 import CartScreen from "./screens/CartScreen";
 import SigninScreen from "./screens/SigninScreen";
-//import './App.css';
+import RegisterScreen from "./screens/RegisterScreen";
+import ShippingAddressScreen from "./screens/ShippingAdressScreen";
+import PaymentMethodScreen from "./screens/PaymentMethodScreen";
+import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 
 function App() {
   return (
     <BrowserRouter>
-    <div className="grid-container">
-      <header className="App-header">
-        <Navbar />
-        {/* <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span> */}
-      </header>
-      <main>
-        <Routes>
-          <Route path="/cart/:id" element={<CartScreen />} />
-          {/* <Route path="/cart/" element={<CartScreen />} /> */}
-          <Route path="/" element={<HomePage />} exact />
-          <Route path="/product/:id" element={<ProductScreen />} />
-          <Route path="/signin" element={<SigninScreen />} />
-        </Routes>
-    
-      
-        
-      </main>
-      <footer>
-        <Footer />
-      </footer>
-    </div>
+      <div className="grid-container">
+        <header className="App-header">
+          <Navbar />
+        </header>
+        <main>
+          <Routes>
+            <Route path="/cart/:id" element={<CartScreen />} />
+            {/* <Route path="/cart/" element={<CartScreen />} /> */}
+            <Route path="/" element={<HomePage />} exact />
+            <Route path="/product/:id" element={<ProductScreen />} />
+            <Route path="/signin" element={<SigninScreen />} />
+            <Route path="/register" element={<RegisterScreen />} />
+            <Route path="/shipping" element={<ShippingAddressScreen />} />
+            <Route path="/payment" element={<PaymentMethodScreen/>} />
+            <Route path="/placeorder" element={<PlaceOrderScreen />} />
+          </Routes>
+        </main>
+        <footer>
+          <Footer />
+        </footer>
+      </div>
     </BrowserRouter>
   );
 }

@@ -2,8 +2,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "../features/cart/cartSlice3";
 import counterReducer from "../features/counter/counterSlice";
 import { productsApi } from "../features/products/productsApi";
-//import cartReducer from '../features/cart/cartSlice';
 import logReducer from "../features/users/userLogSlice";
+import registerReducer from "../features/users/userRegisterSlice";
+import ordersReducer from "../features/orders/ordersSlice";
+
 const preloadedState = {
   cart: {
     cartItems: localStorage.getItem("cartItems")
@@ -16,6 +18,8 @@ export const store = configureStore({
     cart: cartReducer,
     counter: counterReducer,
     log: logReducer,
+    register: registerReducer,
+    orders: ordersReducer,
     [productsApi.reducerPath]: productsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

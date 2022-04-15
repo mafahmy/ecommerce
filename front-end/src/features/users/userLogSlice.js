@@ -3,6 +3,33 @@ import { setMessage } from "../messages/messageSlice";
 import axios from "axios";
 const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
+// export const register = createAsyncThunk(
+//   "USER_REGISTER",
+//   async ({ name, email, password }, thunkAPI) => {
+//     try {
+//       const { data } = await axios.post("http://localhost:4000/api/users/register", {
+//         name,
+//         email,
+//         password,
+//       });
+//       localStorage.setItem("userInfo", JSON.stringify(data));
+      
+//       return data;
+
+//     } catch (error) {
+//       const message =
+//         (error.response &&
+//           error.response.data &&
+//           error.response.data.message) ||
+//         error.message ||
+//         error.toString();
+//       thunkAPI.dispatch(setMessage(message));
+//       return thunkAPI.rejectWithValue();
+//     }
+//   }
+// );
+
+
 export const login = createAsyncThunk(
   "USER_LOGIN",
   async ({ email, password }, thunkAPI) => {

@@ -9,19 +9,19 @@ import { hydrate } from './features/cart/cartSlice3'
 store.subscribe(() => {
   localStorage.setItem('cartItems', JSON.stringify(store.getState().cart.cartItems));
 })
-const getCartItemsFromLocalStorage = () => {
-  try {
-    const savedCartItems = localStorage.getItem('cartItems');
-    if (savedCartItems) return JSON.parse(savedCartItems);
-  }
-  catch(e){
-    console.log(e);
-  }
-}
-const displayCartItems = getCartItemsFromLocalStorage();
-if(displayCartItems) {
+// const getCartItemsFromLocalStorage = () => {
+//   try {
+//     const savedCartItems = localStorage.getItem('cartItems');
+//     if (savedCartItems) return JSON.parse(savedCartItems);
+//   }
+//   catch(e){
+//     console.log(e);
+//   }
+// }
+// const displayCartItems = getCartItemsFromLocalStorage();
+// if(displayCartItems) {
   
-}
+// }
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
