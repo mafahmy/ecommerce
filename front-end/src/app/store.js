@@ -11,7 +11,9 @@ import usersReducer from "../features/admin/usersListSlice";
 import userDetailsReducer from "../features/users/userDetailsSlice";
 import userOrdersReducer from "../features/orders/userOrdersSlice";
 import userUpdateProfileReducer from "../features/users/userUpdateProfileSlice";
-import productCreateReducer from "../features/products/productCreateSlice";
+import productCreateReducer from "../features/admin/productCreateSlice";
+import productUpdateReducer from "../features/admin/productUpdateSlice";
+import productDetailsReducer from "../features/admin/productDetailsSlice";
 
 
 const preloadedState = {
@@ -35,6 +37,8 @@ export const store = configureStore({
     userOrders: userOrdersReducer,
     userUpdateProfile: userUpdateProfileReducer,
     productCreate: productCreateReducer,
+    productUpdate: productUpdateReducer,
+    productDetails: productDetailsReducer,
     [productsApi.reducerPath]: productsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

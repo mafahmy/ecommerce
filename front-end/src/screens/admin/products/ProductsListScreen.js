@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import {
   createProduct,
   resetCreateProduct,
-} from "../../../features/products/productCreateSlice";
+} from "../../../features/admin/productCreateSlice";
 
 export default function ProductsListScreen(props) {
   const navigate = useNavigate();

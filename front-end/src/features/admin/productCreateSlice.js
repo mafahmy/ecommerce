@@ -11,7 +11,7 @@ export const createProduct = createAsyncThunk(
 
     try {
       const { data } = await axios.post(
-        "/api/products",
+        "http://localhost:4000/api/products",
         {},
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -41,7 +41,7 @@ const productCreateSlice = createSlice({
         isLoading: true,
       };
     },
-    [createProduct.fullfilled]: (state, action) => {
+    [createProduct.fulfilled]: (state, action) => {
       return {
         isLoading: false,
         success: true,

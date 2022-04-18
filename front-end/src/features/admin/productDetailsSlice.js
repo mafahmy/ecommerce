@@ -1,17 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { setMessage } from "../messages/messageSlice";
+import axios from "axios";
 
-export const payOrder = createAsyncThunk(
-  "ORDER_PAY",
-  async ({ order, paymentResult }, thunkAPI) => {
+export const detailsProduct = createAsyncThunk(
+  "DETAILS_PRODUCT",
+  async (productId, thunkAPI) => {
     const {
       log: { userInfo },
     } = thunkAPI.getState();
+
     try {
-      const { data } = await axios.put(
-        `http://localhost:4000/api/orders/${order._id}/pay`,
-        paymentResult,
+      const { data } = await axios.get(
+        `http://localhost:4000/api/products/${productId}`,
+        
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         }
@@ -25,27 +26,31 @@ export const payOrder = createAsyncThunk(
     }
   }
 );
-const orderPaySlice = createSlice({
-  name: "orderPay",
-  initialState: {},
+const initialState = {
+  
+};
+const productDetailsSlice = createSlice({
+  name: "productDetails",
+  initialState,
   reducers: {
-    orderPayReset(state, action) {
-      return {};
-    },
+    // resetUpdateProduct(state, action) {
+    //   return {};
+    // },
   },
   extraReducers: {
-    [payOrder.pending]: (state, action) => {
+    [detailsProduct.pending]: (state, action) => {
       return {
         isLoading: true,
       };
     },
-    [payOrder.fulfilled]: (state, action) => {
+    [detailsProduct.fulfilled]: (state, action) => {
       return {
         isLoading: false,
-        success: true,
+        product: action.payload,
+        
       };
     },
-    [payOrder.rejected]: (state, action) => {
+    [detailsProduct.rejected]: (state, action) => {
       return {
         isLoading: false,
         error: action.payload,
@@ -53,5 +58,5 @@ const orderPaySlice = createSlice({
     },
   },
 });
-export const { orderPayReset } = orderPaySlice.actions;
-export default orderPaySlice.reducer;
+//export const { resetUpdateProduct } = productUpdateSlice.actions;
+export default productDetailsSlice.reducer;
