@@ -33,7 +33,7 @@ export const register = createAsyncThunk(
 const initialState = {};
 
 const userRegisterSlice = createSlice({
-    name: register,
+    name: 'register',
     initialState,
     extraReducers: {
         [register.pending]: (state, action) => {

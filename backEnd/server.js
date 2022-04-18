@@ -27,6 +27,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
+app.get('/api/config/paypal', (req, res) => {
+  res.send(process.env.PAPAL_CLIENT_ID || 'sb');
+})
 
 
 

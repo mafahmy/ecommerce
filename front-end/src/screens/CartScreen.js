@@ -18,8 +18,6 @@ const CartScreen = (props) => {
 
   console.log(cartItems);
 
-
-
   // useEffect(() => {
   //   if (id) {
   //     dispatch(addToCart(id, qty));
@@ -30,7 +28,7 @@ const CartScreen = (props) => {
   };
   const checkoutHandler = () => {
     navigate("/signin?redirect=/shipping");
-  }
+  };
   return (
     <div className="row top">
       <div className="col-1">
@@ -47,28 +45,26 @@ const CartScreen = (props) => {
                   <div>
                     <img className="small" src={item.image} alt={item.name} />
                   </div>
-                  
-                    {item.qty} 
-                    
-                    
+
+                  {item.qty}
+
                   <div className="min-30">
                     <Link to={`/product/${item.product}`}>{item.name}</Link>
                   </div>
-                  
-
-                  </div>
-                  <div>${item.price}</div>
-                  <div><Link to={`/product/${item.product}`}>ADD MORE</Link></div>
-                  <div>
-                    <button
-                      type="button"
-                      onClick={() => removeFromCartHandler(item)}
-                    >
-                      Delete from Cart
-                    </button>
-                  </div>
-                  <div>
                 </div>
+                <div>${item.price}</div>
+                <div>
+                  <Link to={`/product/${item.product}`}>ADD MORE</Link>
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    onClick={() => removeFromCartHandler(item)}
+                  >
+                    Delete from Cart
+                  </button>
+                </div>
+                <div></div>
               </li>
             ))}
           </ul>
@@ -79,8 +75,8 @@ const CartScreen = (props) => {
           <ul>
             <li>
               <h2>
-                Subtotal ({cartItems.reduce((a, c) => a + Number(c.qty), 0)} items) : $
-                {cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
+                Subtotal ({cartItems.reduce((a, c) => a + Number(c.qty), 0)}{" "}
+                items) : ${cartItems.reduce((a, c) => a + c.price * c.qty, 0)}
               </h2>
             </li>
             <li>
