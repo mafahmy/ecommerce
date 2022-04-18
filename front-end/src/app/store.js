@@ -14,7 +14,7 @@ import userUpdateProfileReducer from "../features/users/userUpdateProfileSlice";
 import productCreateReducer from "../features/admin/productCreateSlice";
 import productUpdateReducer from "../features/admin/productUpdateSlice";
 import productDetailsReducer from "../features/admin/productDetailsSlice";
-
+import productDeleteReducer from "../features/admin/productDeleteSlice";
 
 const preloadedState = {
   cart: {
@@ -39,6 +39,7 @@ export const store = configureStore({
     productCreate: productCreateReducer,
     productUpdate: productUpdateReducer,
     productDetails: productDetailsReducer,
+    productDelete: productDeleteReducer,
     [productsApi.reducerPath]: productsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
