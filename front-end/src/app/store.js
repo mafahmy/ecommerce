@@ -15,6 +15,8 @@ import productCreateReducer from "../features/admin/productCreateSlice";
 import productUpdateReducer from "../features/admin/productUpdateSlice";
 import productDetailsReducer from "../features/admin/productDetailsSlice";
 import productDeleteReducer from "../features/admin/productDeleteSlice";
+import ordersListReducer from "../features/admin/ordersListSlice";
+import orderDeleteReducer from "../features/admin/orderDeleteSlice";
 
 const preloadedState = {
   cart: {
@@ -40,7 +42,10 @@ export const store = configureStore({
     productUpdate: productUpdateReducer,
     productDetails: productDetailsReducer,
     productDelete: productDeleteReducer,
+    ordersList: ordersListReducer,
+    orderDelete: orderDeleteReducer,
     [productsApi.reducerPath]: productsApi.reducer,
+
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(productsApi.middleware),
