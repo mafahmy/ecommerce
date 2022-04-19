@@ -4,9 +4,9 @@ In the project root folder :
 
 # run npm start at the root server to start the server
 
-# In browser: got to http://localhost:4000/api/users/seed  to add the users in data.js file to database while server is running.
+# In browser: go to http://localhost:4000/api/users/seed  to add the users in data.js file to database while server is running.
 
-# In browser: got to http://localhost:4000/api/products/seed  to add the products in data.js file to database while server is running.
+# In browser: go to http://localhost:4000/api/products/seed  to add the products in data.js file to database while server is running.
 
 
 
