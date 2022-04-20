@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../features/users/userLogSlice";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import SearchBox from "./SearchBox";
 
 const Container = styled.div`
   height: 50px;
@@ -41,6 +42,9 @@ const Navbar = () => {
       <Wrapper>
         <div className="logo">
           <Link to="/">STORE</Link>
+        </div>
+        <div>
+          <SearchBox />
         </div>
 
         <div className="aside">

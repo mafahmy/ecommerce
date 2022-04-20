@@ -10,7 +10,7 @@ export const updateUserProfile = createAsyncThunk(
     } = thunkAPI.getState();
 
     try {
-      const { data } = await axios.get(
+      const { data } = await axios.put(
         `http://localhost:4000/api/users/profile`, user,
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -25,7 +25,8 @@ export const updateUserProfile = createAsyncThunk(
         error.message ||
         error.toString();
       thunkAPI.dispatch(setMessage(message));
-      return thunkAPI.rejectWithValue();
+      return message;
+      
     }
   }
 );

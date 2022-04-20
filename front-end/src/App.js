@@ -20,44 +20,87 @@ import OrderHistoryScreen from "./screens/OrderHistoryScreen";
 import AdminRoute from "./components/admin/AdminRoute";
 import ProductsListScreen from "./screens/admin/products/ProductsListScreen";
 import ProductEditScreen from "./screens/admin/products/productEditScreen";
+import OrdersListScreen from "./screens/admin/orders/OrdersListScreen";
+import UserEditScreen from "./screens/admin/users/UserEditScreen";
+import SearchScreen from "./screens/SearchScreen";
 
 function App() {
   const log = useSelector((state) => state.log);
   const { userInfo } = log;
   return (
     <BrowserRouter>
+      <div className="grid-container">
+        <header className="App-header">
+          <Navbar />
+        </header>
+        <main>
+          <Routes>
+            <Route path="/cart/:id" element={<CartScreen />} />
+            {/* <Route path="/cart/" element={<CartScreen />} /> */}
+            <Route path="/" element={<HomePage />} exact />
+            <Route path="/product/:id" exact element={<ProductScreen />} />
+            <Route path="/signin" element={<SigninScreen />} />
+            <Route path="/register" element={<RegisterScreen />} />
+            <Route path="/shipping" element={<ShippingAddressScreen />} />
+            <Route path="/payment" element={<PaymentMethodScreen />} />
+            <Route path="/placeorder" element={<PlaceOrderScreen />} />
+            <Route path="/order/:id" element={<OrderScreen />} />
+            <Route path="/profile" element={<ProfileScreen />} />
+            <Route path="/ordershistory" element={<OrderHistoryScreen />} />
+            <Route path="/search/name/:name?" element={<SearchScreen />} exact />
+            <Route
+              path="/productlist"
+              element={
+                <AdminRoute>
+                  <ProductsListScreen />{" "}
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/users"
+              element={
+                <AdminRoute>
+                  {" "}
+                  <UsersScreen />{" "}
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/user/:id/edit"
+              element={
+                <AdminRoute>
+                  {" "}
+                  <UserEditScreen />{" "}
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/orderlist"
+              element={
+                <AdminRoute>
+                  {" "}
+                  <OrdersListScreen />{" "}
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/product/:id/edit"
+              element={
+                <AdminRoute>
+                  {" "}
+                  <ProductEditScreen />{" "}
+                </AdminRoute>
+              }
+              exact
+            />
 
-        <div className="grid-container">
-          <header className="App-header">
-            <Navbar />
-          </header>
-          <main>
-            <Routes>
-              <Route path="/cart/:id" element={<CartScreen />} />
-              {/* <Route path="/cart/" element={<CartScreen />} /> */}
-              <Route path="/" element={<HomePage />} exact />
-              <Route path="/product/:id" exact element={<ProductScreen />} />
-              <Route path="/signin" element={<SigninScreen />} />
-              <Route path="/register" element={<RegisterScreen />} />
-              <Route path="/shipping" element={<ShippingAddressScreen />} />
-              <Route path="/payment" element={<PaymentMethodScreen />} />
-              <Route path="/placeorder" element={<PlaceOrderScreen />} />
-              <Route path="/order/:id" element={<OrderScreen />} />
-              <Route path="/profile" element={<ProfileScreen />} />
-              <Route path="/ordershistory" element={<OrderHistoryScreen />}/>
-
-              <Route path="/productlist" element={  <ProductsListScreen /> }  />
-              <Route path="/users" element={ <AdminRoute> <UsersScreen /> </AdminRoute>}  />
-              <Route path="/product/:id/edit" element={ <ProductEditScreen /> } exact />
-
-              <Route path="/admin" element={<AdminScreen />} />
-            </Routes>
-          </main>
-          <footer>
-            <Footer />
-          </footer>
-        </div>
-      
+            <Route path="/admin" element={<AdminScreen />} />
+          </Routes>
+        </main>
+        <footer>
+          <Footer />
+        </footer>
+      </div>
     </BrowserRouter>
   );
 }

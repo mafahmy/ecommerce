@@ -11,18 +11,19 @@ export const createProduct = createAsyncThunk(
 
     try {
       const { data } = await axios.post(
-        "/api/products",
+        "http://localhost:4000/api/products",
         {},
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         }
       );
-      return data;
+      return data.product;
     } catch (error) {
       const message = error.response.data.message
         ? error.response.data.message
         : error.message;
       thunkAPI.dispatch(setMessage(message));
+      return message;
     }
   }
 );
@@ -41,7 +42,7 @@ const productCreateSlice = createSlice({
         isLoading: true,
       };
     },
-    [createProduct.fullfilled]: (state, action) => {
+    [createProduct.fulfilled]: (state, action) => {
       return {
         isLoading: false,
         success: true,

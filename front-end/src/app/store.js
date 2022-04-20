@@ -11,8 +11,18 @@ import usersReducer from "../features/admin/usersListSlice";
 import userDetailsReducer from "../features/users/userDetailsSlice";
 import userOrdersReducer from "../features/orders/userOrdersSlice";
 import userUpdateProfileReducer from "../features/users/userUpdateProfileSlice";
-import productCreateReducer from "../features/products/productCreateSlice";
-
+import productCreateReducer from "../features/admin/productCreateSlice";
+import productUpdateReducer from "../features/admin/productUpdateSlice";
+import productDetailsReducer from "../features/admin/productDetailsSlice";
+import productDeleteReducer from "../features/admin/productDeleteSlice";
+import ordersListReducer from "../features/admin/ordersListSlice";
+import orderDeleteReducer from "../features/admin/orderDeleteSlice";
+import orderDeliverReducer from "../features/admin/orderDeliverSlice";
+import userDeleteReducer from "../features/admin/userDeleteSlice";
+import userUpdateReducer from "../features/admin/userUpdateSlice";
+import productsListReducer from "../features/products/productsListSlice";
+import productsCategoryListReducer from "../features/products/productsCategoryListSlice";
+import productsBrandListReducer from "../features/products/productsBrandListSlice";
 
 const preloadedState = {
   cart: {
@@ -30,12 +40,24 @@ export const store = configureStore({
     orders: ordersReducer,
     orderDetails: orderDetailsReducer,
     orderPay: orderPayReducer,
+    productsList: productsListReducer,
+    productsCategoryList: productsCategoryListReducer,
+    productsBrandList: productsBrandListReducer,
     users: usersReducer,
     userDetails: userDetailsReducer,
     userOrders: userOrdersReducer,
     userUpdateProfile: userUpdateProfileReducer,
     productCreate: productCreateReducer,
+    productUpdate: productUpdateReducer,
+    productDetails: productDetailsReducer,
+    productDelete: productDeleteReducer,
+    ordersList: ordersListReducer,
+    orderDelete: orderDeleteReducer,
+    orderDeliver: orderDeliverReducer,
+    userDelete: userDeleteReducer,
+    userUpdate: userUpdateReducer,
     [productsApi.reducerPath]: productsApi.reducer,
+
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(productsApi.middleware),

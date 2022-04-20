@@ -3,11 +3,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { Navigate, useNavigate, Link, useParams } from "react-router-dom";
 import { detailsOrder } from "../features/orders/orderDetailsSlice";
 import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import axios from "axios";
 import { PayPalButton } from "react-paypal-button-v2";
 import { orderPayReset, payOrder } from "../features/orders/orderPaySlice";
+import {
+  deliverOrder,
+  resetDeliverOrder,
+} from "../features/admin/orderDeliverSlice";
 
 const OrderScreen = () => {
   const { id: orderId } = useParams();
@@ -16,16 +21,29 @@ const OrderScreen = () => {
   const [sdkReady, setSdkReady] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const userSignin = useSelector((state) => state.log);
+  const { userInfo } = userSignin;
+
+  const orderDeliver = useSelector((state) => state.orderDeliver);
+  const {
+    isLoading: lodingDeliver,
+    error: errorDeliver,
+    success: successDeliver,
+  } = orderDeliver;
+
   const orderPay = useSelector((state) => state.orderPay);
   const {
     error: errorPay,
     success: successPay,
     isLoading: isLoadingPay,
   } = orderPay;
-  
+
   useEffect(() => {
     const addPayPalScript = async () => {
-      const { data } = await axios.get("http://localhost:4000/api/config/paypal");
+      const { data } = await axios.get(
+        "http://localhost:4000/api/config/paypal"
+      );
       const script = document.createElement("script");
       script.type = "text/javascript";
       script.src = `https://www.paypal.com/sdk/js?client-id=${data}`;
@@ -36,9 +54,14 @@ const OrderScreen = () => {
       document.body.appendChild(script);
     };
 
-    
-    if (!order || successPay || (order && order._id !== orderId)) {
+    if (
+      !order ||
+      successPay ||
+      successDeliver ||
+      (order && order._id !== orderId)
+    ) {
       dispatch(orderPayReset());
+      dispatch(resetDeliverOrder());
       dispatch(detailsOrder(orderId));
     } else {
       if (!order.isPaid) {
@@ -49,18 +72,24 @@ const OrderScreen = () => {
         }
       }
     }
-  }, [dispatch, order, orderId, successPay]);
+  }, [dispatch, order, orderId, successDeliver, successPay]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(order, paymentResult));
   };
+
+  const deliverHandler = () => {
+    dispatch(deliverOrder(order._id));
+  };
+  const adminPayOrder = () => {};
 
   return isLoading ? (
     <Box sx={{ display: "flex" }}>
       <CircularProgress />
     </Box>
   ) : error ? (
-    <Alert variant="filled" color='red' severity="error">
+    <Alert severity="error">
+      <AlertTitle>Error</AlertTitle>
       {error}
     </Alert>
   ) : (
@@ -74,7 +103,7 @@ const OrderScreen = () => {
                 <h2>Shipping</h2>
                 <p>
                   <strong>Name:</strong>
-                  {order.shippingAddress.fullName} <br />
+                  {order.shippingAddress.fullName} 
                   <strong>Address:</strong>
                   {order.shippingAddress.address},{order.shippingAddress.city},
                   {order.shippingAddress.postalCode},
@@ -85,9 +114,10 @@ const OrderScreen = () => {
                     Delivered at {order.deliveredAt}
                   </Alert>
                 ) : (
-                  <Alert variant="filled" severity="warning">
-                    Not Delivered
-                  </Alert>
+                  <Alert severity="warning">
+                  <AlertTitle>Warning</AlertTitle>
+                  Not Delivered
+                </Alert>
                 )}
               </div>
             </li>
@@ -168,28 +198,67 @@ const OrderScreen = () => {
               {!order.isPaid && (
                 <li>
                   {!sdkReady ? (
-                <Box sx={{ display: "flex" }}>
-                  <CircularProgress />
-                </Box>
-                  ):(
-                <>
-                  {errorPay && (
-                    <Alert variant="filled" severity="error">
-                      {error}
-                    </Alert>
+                    <Box sx={{ display: "flex" }}>
+                      <CircularProgress />
+                    </Box>
+                  ) : (
+                    <>
+                      {errorPay && (
+                        <Alert severity="error">
+                          <AlertTitle>Error</AlertTitle>
+                          {errorPay}
+                        </Alert>
+                      )}
+                      {isLoadingPay && (
+                        <Box sx={{ display: "flex" }}>
+                          <CircularProgress />
+                        </Box>
+                      )}
+                      <PayPalButton
+                        amount={order.totalPrice}
+                        onSuccess={successPaymentHandler}
+                      ></PayPalButton>
+                    </>
                   )}
-                  {isLoadingPay && (
+                </li>
+              )}
+              {userInfo.isAdmin && !order.isPaid  && (
+                <li>
+                  {/* {lodingDeliver && (
                     <Box sx={{ display: "flex" }}>
                       <CircularProgress />
                     </Box>
                   )}
-                  <PayPalButton
-                    amount={order.totalPrice}
-                    onSuccess={successPaymentHandler} >
-                  </PayPalButton>
-                </>
+                  {errorDeliver && (
+                    <Alert severity="error">
+                      <AlertTitle>Error</AlertTitle>
+                      {errorPay}
+                    </Alert>
+                  )} */}
+                  <button type="button" className="primary block"
+                  onClick={adminPayOrder}>
+                    Pay Order
+                  </button>
+                </li>
               )}
-              </li>
+              {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                <li>
+                  {lodingDeliver && (
+                    <Box sx={{ display: "flex" }}>
+                      <CircularProgress />
+                    </Box>
+                  )}
+                  {errorDeliver && (
+                    <Alert severity="error">
+                      <AlertTitle>Error</AlertTitle>
+                      {errorPay}
+                    </Alert>
+                  )}
+                  <button type="button" className="primary block"
+                  onClick={deliverHandler}>
+                    Deliver Order
+                  </button>
+                </li>
               )}
             </ul>
           </div>

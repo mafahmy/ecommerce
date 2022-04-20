@@ -47,7 +47,8 @@ export const login = createAsyncThunk(
         error.message ||
         error.toStrring();
       thunkAPI.dispatch(setMessage(message));
-      return thunkAPI.rejectWithValue();
+      return message;
+
     }
   }
 );

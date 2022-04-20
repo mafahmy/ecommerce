@@ -1,17 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { setMessage } from "../messages/messageSlice";
+import axios from "axios";
 
-export const payOrder = createAsyncThunk(
-  "ORDER_PAY",
-  async ({ order, paymentResult }, thunkAPI) => {
+export const updateUser = createAsyncThunk(
+  "UPDATE_USER",
+  async (user, thunkAPI) => {
     const {
       log: { userInfo },
     } = thunkAPI.getState();
+
     try {
       const { data } = await axios.put(
-        `http://localhost:4000/api/orders/${order._id}/pay`,
-        paymentResult,
+        `http://localhost:4000/api/products/${user._id}`,
+        user,
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         }
@@ -26,27 +27,33 @@ export const payOrder = createAsyncThunk(
     }
   }
 );
-const orderPaySlice = createSlice({
-  name: "orderPay",
-  initialState: {},
+const initialState = {
+  isloading: false,
+};
+const userUpdateSlice = createSlice({
+  name: "userUpdate",
+  initialState,
   reducers: {
-    orderPayReset(state, action) {
-      return {};
+    resetUpdateUser(state, action) {
+      return {
+        isloading: false
+      };
     },
   },
   extraReducers: {
-    [payOrder.pending]: (state, action) => {
+    [updateUser.pending]: (state, action) => {
       return {
         isLoading: true,
       };
     },
-    [payOrder.fulfilled]: (state, action) => {
+    [updateUser.fulfilled]: (state, action) => {
       return {
         isLoading: false,
         success: true,
+        
       };
     },
-    [payOrder.rejected]: (state, action) => {
+    [updateUser.rejected]: (state, action) => {
       return {
         isLoading: false,
         error: action.payload,
@@ -54,5 +61,5 @@ const orderPaySlice = createSlice({
     },
   },
 });
-export const { orderPayReset } = orderPaySlice.actions;
-export default orderPaySlice.reducer;
+export const { resetUpdateUser } = userUpdateSlice.actions;
+export default userUpdateSlice.reducer;

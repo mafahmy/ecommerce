@@ -5,6 +5,7 @@ import expressAsyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 import { generateToken, isAuth, isAdmin } from "../utils.js";
 
+
 const userRouter = express.Router();
 
 userRouter.get(
@@ -57,17 +58,20 @@ userRouter.post(
   })
 );
 
-userRouter.get('/:id', expressAsyncHandler(async(req, res) => {
-  const user = await User.findById(req.params.id);
-  if (user) {
-    res.send(user);
-  } else {
-    res.status(404).send({ message: 'User Not Found' });
-  }
-}));
+userRouter.get(
+  "/:id",
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      res.send(user);
+    } else {
+      res.status(404).send({ message: "User Not Found" });
+    }
+  })
+);
 
 userRouter.put(
-  '/profile',
+  "/profile",
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
@@ -98,4 +102,43 @@ userRouter.get(
     res.send(users);
   })
 );
+
+userRouter.delete(
+  "/:id",
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      if (user.email === "Mahmoud@gmail.com") {
+        res.status(400).send({ message: "Can Not Delete Admin" });
+        return;
+      }
+      const deleteUser = await user.delete();
+      res.send({ message: "User Deleted", user: deleteUser });
+    } else {
+      res.status(404).send({ message: "User Not Found" });
+    }
+  })
+);
+userRouter.put(
+  '/:id',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      user.password = req.body.password || user.password;
+      user.status = req.body.status || user.status;
+      user.isAdmin = req.body.isAdmin || user.isAdmin;
+      const updatedUser = await user.save();
+      res.send({ message: 'User Updated', user: updatedUser });
+    } else {
+      res.status(404).send({ message: 'User Not Found' });
+    }
+  })
+);
+
 export default userRouter;

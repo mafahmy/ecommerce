@@ -25,7 +25,7 @@ export const detailsUser = createAsyncThunk(
         error.message ||
         error.toString();
       thunkAPI.dispatch(setMessage(message));
-      return thunkAPI.rejectWithValue();
+      return message;
     }
   }
 );
