@@ -9,7 +9,11 @@ import { useNavigate } from "react-router-dom";
 import {
   createProduct,
   resetCreateProduct,
-} from "../../../features/products/productCreateSlice";
+} from "../../../features/admin/productCreateSlice";
+import {
+  deleteProduct,
+  resetDeleteProduct,
+} from "../../../features/admin/productDeleteSlice";
 
 export default function ProductsListScreen(props) {
   const navigate = useNavigate();
@@ -22,6 +26,13 @@ export default function ProductsListScreen(props) {
     success: successCreate,
     product: createdProduct,
   } = productCreate;
+
+  const productDelete = useSelector((state) => state.productDelete);
+  const {
+    isLoading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = productDelete;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,10 +40,15 @@ export default function ProductsListScreen(props) {
       dispatch(resetCreateProduct());
       navigate(`/product/${createdProduct._id}/edit`);
     }
-  }, [createdProduct, dispatch, navigate, successCreate]);
+    if (successDelete) {
+      dispatch(resetDeleteProduct());
+    }
+  }, [createdProduct, dispatch, navigate, successCreate, successDelete]);
 
-  const deleteHandler = () => {
-    /// TODO: dispatch delete action
+  const deleteHandler = (product) => {
+    if (window.confirm("Are you sure to delete?")) {
+      dispatch(deleteProduct(product._id));
+    }
   };
 
   const createHandler = () => {
@@ -46,7 +62,28 @@ export default function ProductsListScreen(props) {
           Create Product
         </button>
       </div>
-
+      {loadingDelete && (
+        <Box sx={{ display: "flex" }}>
+          <CircularProgress />
+        </Box>
+      )}
+      {errorDelete && (
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {errorDelete}
+        </Alert>
+      )}
+      {loadingCreate && (
+        <Box sx={{ display: "flex" }}>
+          <CircularProgress />
+        </Box>
+      )}
+      {errorCreate && (
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {errorCreate}
+        </Alert>
+      )}
       {isLoading ? (
         <Box sx={{ display: "flex" }}>
           <CircularProgress />

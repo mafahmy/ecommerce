@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { emptyCart } from "../cart/cartSlice3";
+import { setMessage } from "../messages/messageSlice";
 
 export const createOrder = createAsyncThunk(
   "CREATE_ORDER",
@@ -19,11 +20,16 @@ export const createOrder = createAsyncThunk(
           },
         }
       );
+      thunkAPI.dispatch(emptyCart());
       return data.order;
 
-      // thunkAPI.dispatch(emptyCart());
+       
     } catch (error) {
-      console.log(error);
+      const message = error.response.data.message
+      ? error.response.data.message
+      : error.message;
+    thunkAPI.dispatch(setMessage(message));
+    return message;
     }
   }
 );
@@ -49,9 +55,7 @@ const ordersSlice = createSlice({
         order: action.payload,
         success: true,
       };
-      // state.isLoading = false;
-      // state.order = action.payload;
-      // state.success = true;
+
     },
     [createOrder.rejected]: (state, action) => {
       state.isloading = false;

@@ -1,26 +1,56 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { listOrders } from "../../../features/admin/ordersListSlice";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
-import { useNavigate } from "react-router-dom";
-import { listUserOrders } from "../features/orders/userOrdersSlice";
 import AlertTitle from "@mui/material/AlertTitle";
+import { useNavigate } from "react-router-dom";
+import {
+  deleteOrder,
+  resetDeleteOrder,
+} from "../../../features/admin/orderDeleteSlice";
 
-export default function OrderHistoryScreen(props) {
-  const navigate = useNavigate();
-  const userOrders = useSelector((state) => state.userOrders);
-  const { loading, error, orders } = userOrders;
+const OrdersListScreen = () => {
+  const ordersList = useSelector((state) => state.ordersList);
+  const { isLoading, error, orders } = ordersList;
+
+  const orderDelete = useSelector((state) => state.orderDelete);
+  const {
+    isLoading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = orderDelete;
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   useEffect(() => {
-    dispatch(listUserOrders());
-  }, [dispatch]);
- 
-  
+    dispatch(resetDeleteOrder());
+    dispatch(listOrders());
+  }, [dispatch, successDelete]);
+
+  const deleteHandler = (order) => {
+    if (window.confirm("Are You Sure")) {
+      dispatch(deleteOrder(order._id));
+    }
+  };
+
   return (
     <div>
-      <h1>Order History</h1>
-      {loading ? (
+      <h1>Orders</h1>
+      {loadingDelete && (
+        <Box sx={{ display: "flex" }}>
+          <CircularProgress />
+        </Box>
+      )}
+      {errorDelete && (
+        <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {errorDelete}
+        </Alert>
+      )}
+      {isLoading ? (
         <Box sx={{ display: "flex" }}>
           <CircularProgress />
         </Box>
@@ -34,6 +64,7 @@ export default function OrderHistoryScreen(props) {
           <thead>
             <tr>
               <th>ID</th>
+              <th>USER</th>
               <th>DATE</th>
               <th>TOTAL</th>
               <th>PAID</th>
@@ -45,6 +76,7 @@ export default function OrderHistoryScreen(props) {
             {orders.map((order) => (
               <tr key={order._id}>
                 <td>{order._id}</td>
+                <td>{order.user.name}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>{order.totalPrice.toFixed(2)}</td>
                 <td>{order.isPaid ? order.paidAt.substring(0, 10) : "No"}</td>
@@ -63,6 +95,13 @@ export default function OrderHistoryScreen(props) {
                   >
                     Details
                   </button>
+                  <button
+                    type="button"
+                    className="small"
+                    onClick={() => deleteHandler(order)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}
@@ -71,4 +110,6 @@ export default function OrderHistoryScreen(props) {
       )}
     </div>
   );
-}
+};
+
+export default OrdersListScreen;
