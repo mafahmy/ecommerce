@@ -9,10 +9,36 @@ const productRouter = express.Router();
 productRouter.get(
   "/",
   expressAsyncHandler(async (req, res) => {
-    const products = await Product.find({});
+    const name = req.query.name || '';
+    const category = req.query.category || '';
+    const brand = req.query.brand || '';
+    const nameFilter = name ? { name: { $regex: name, $options: 'i' } } : {};
+    const categoryFilter = category ? { category } : {};
+    const brandFilter = brand ? { brand } : {};
+    
+    const products = await Product.find({
+      ...nameFilter,
+      ...categoryFilter,
+      ...brandFilter,
+    });
     res.send(products);
   })
 );
+
+productRouter.get(
+  '/categories',
+  expressAsyncHandler(async(req, res) => {
+    const categories = await Product.find().distinct('category');
+    res.send(categories);
+  })
+)
+productRouter.get(
+  '/brands',
+  expressAsyncHandler(async(req, res) => {
+    const brands = await Product.find().distinct('brand');
+    res.send(brands);
+  })
+)
 
 productRouter.get(
   "/seed",
@@ -45,7 +71,7 @@ productRouter.post(
       price: 0,
       category: "sample category",
       brand: "sample brand",
-      countInStock: 0,
+      countInstock: 0,
       rating: 0,
       numReviews: 0,
       description: "sample description",

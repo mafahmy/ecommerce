@@ -15,11 +15,7 @@ export default function OrderHistoryScreen(props) {
   useEffect(() => {
     dispatch(listUserOrders());
   }, [dispatch]);
-  if (!orders) {
-    return(
-      <h1>No Orders Found</h1>
-    )
-  }else 
+ 
   
   return (
     <div>

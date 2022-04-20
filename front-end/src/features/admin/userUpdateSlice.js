@@ -2,22 +2,22 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage } from "../messages/messageSlice";
 import axios from "axios";
 
-export const createProduct = createAsyncThunk(
-  "CREATE_PRODUCT",
-  async (sample, thunkAPI) => {
+export const updateUser = createAsyncThunk(
+  "UPDATE_USER",
+  async (user, thunkAPI) => {
     const {
       log: { userInfo },
     } = thunkAPI.getState();
 
     try {
-      const { data } = await axios.post(
-        "http://localhost:4000/api/products",
-        {},
+      const { data } = await axios.put(
+        `http://localhost:4000/api/products/${user._id}`,
+        user,
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         }
       );
-      return data.product;
+      return data;
     } catch (error) {
       const message = error.response.data.message
         ? error.response.data.message
@@ -27,29 +27,33 @@ export const createProduct = createAsyncThunk(
     }
   }
 );
-const initialState = {};
-const productCreateSlice = createSlice({
-  name: "productCreate",
+const initialState = {
+  isloading: false,
+};
+const userUpdateSlice = createSlice({
+  name: "userUpdate",
   initialState,
   reducers: {
-    resetCreateProduct(state, action) {
-      return {};
+    resetUpdateUser(state, action) {
+      return {
+        isloading: false
+      };
     },
   },
   extraReducers: {
-    [createProduct.pending]: (state, action) => {
+    [updateUser.pending]: (state, action) => {
       return {
         isLoading: true,
       };
     },
-    [createProduct.fulfilled]: (state, action) => {
+    [updateUser.fulfilled]: (state, action) => {
       return {
         isLoading: false,
         success: true,
-        product: action.payload,
+        
       };
     },
-    [createProduct.rejected]: (state, action) => {
+    [updateUser.rejected]: (state, action) => {
       return {
         isLoading: false,
         error: action.payload,
@@ -57,5 +61,5 @@ const productCreateSlice = createSlice({
     },
   },
 });
-export const { resetCreateProduct } = productCreateSlice.actions;
-export default productCreateSlice.reducer;
+export const { resetUpdateUser } = userUpdateSlice.actions;
+export default userUpdateSlice.reducer;

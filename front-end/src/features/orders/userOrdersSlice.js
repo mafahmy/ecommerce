@@ -11,7 +11,7 @@ export const listUserOrders = createAsyncThunk(
 
     try {
       const { data } = await axios.get(
-        `http://localhost:4000/api/orders/mine`,
+        'http://localhost:4000/api/orders/mine',
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         }
@@ -25,12 +25,13 @@ export const listUserOrders = createAsyncThunk(
         error.message ||
         error.toString();
       thunkAPI.dispatch(setMessage(message));
-      return thunkAPI.rejectWithValue();
+      return message;
     }
   }
 );
 const initialState = {
-  isLoading: true,
+  
+  order: []
 };
 
 const userOrdersSlice = createSlice({

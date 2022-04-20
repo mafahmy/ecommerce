@@ -2,22 +2,22 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { setMessage } from "../messages/messageSlice";
 import axios from "axios";
 
-export const createProduct = createAsyncThunk(
-  "CREATE_PRODUCT",
-  async (sample, thunkAPI) => {
+export const deliverOrder = createAsyncThunk(
+  "DELIVER_ORDER",
+  async (orderId, thunkAPI) => {
     const {
       log: { userInfo },
     } = thunkAPI.getState();
 
     try {
-      const { data } = await axios.post(
-        "http://localhost:4000/api/products",
-        {},
+      const { data } = await axios.put(
+        `http://localhost:4000/api/orders/${orderId}/deliver`,
+
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         }
       );
-      return data.product;
+      return data;
     } catch (error) {
       const message = error.response.data.message
         ? error.response.data.message
@@ -28,28 +28,27 @@ export const createProduct = createAsyncThunk(
   }
 );
 const initialState = {};
-const productCreateSlice = createSlice({
-  name: "productCreate",
+const orderDeliverSlice = createSlice({
+  name: "orderDeliver",
   initialState,
   reducers: {
-    resetCreateProduct(state, action) {
+    resetDeliverOrder(state, action) {
       return {};
     },
   },
   extraReducers: {
-    [createProduct.pending]: (state, action) => {
+    [deliverOrder.pending]: (state, action) => {
       return {
         isLoading: true,
       };
     },
-    [createProduct.fulfilled]: (state, action) => {
+    [deliverOrder.fulfilled]: (state, action) => {
       return {
         isLoading: false,
         success: true,
-        product: action.payload,
       };
     },
-    [createProduct.rejected]: (state, action) => {
+    [deliverOrder.rejected]: (state, action) => {
       return {
         isLoading: false,
         error: action.payload,
@@ -57,5 +56,5 @@ const productCreateSlice = createSlice({
     },
   },
 });
-export const { resetCreateProduct } = productCreateSlice.actions;
-export default productCreateSlice.reducer;
+export const { resetDeliverOrder } = orderDeliverSlice.actions;
+export default orderDeliverSlice.reducer;

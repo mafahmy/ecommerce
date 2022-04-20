@@ -23,6 +23,7 @@ export const updateProduct = createAsyncThunk(
         ? error.response.data.message
         : error.message;
       thunkAPI.dispatch(setMessage(message));
+      return message;
     }
   }
 );

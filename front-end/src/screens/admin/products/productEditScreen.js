@@ -124,18 +124,18 @@ const ProductEditScreen = (props) => {
           console.log("File available at", downloadURL);
           // console.log({...inputs, image: downloadURL})
 
-          dispatch(
-            updateProduct({
-              _id: id,
-              name,
-              price,
-              image: downloadURL,
-              category,
-              brand,
-              countInstock,
-              description,
-            })
-          );
+          // dispatch(
+          //   updateProduct({
+          //     _id: id,
+          //     name,
+          //     price,
+          //     image: downloadURL,
+          //     category,
+          //     brand,
+          //     countInstock,
+          //     description,
+          //   })
+          // );
         });
       }
     );
@@ -199,7 +199,7 @@ const ProductEditScreen = (props) => {
                 type="text"
                 placeholder="Enter Image"
                 value={image}
-                // onChange={handleChange}
+                 onChange={(e) => setImage(e.target.value)}
               ></input>
             </div>
             <div>
@@ -240,7 +240,7 @@ const ProductEditScreen = (props) => {
                 type="text"
                 placeholder="Enter countInStock"
                 value={countInstock}
-                // onChange={(e) => setCountInstock(e.target.value)}
+                onChange={(e) => setCountInstock(e.target.value)}
                 // onChange={handleChange}
               ></input>
             </div>

@@ -20,6 +20,7 @@ export const listOrders = createAsyncThunk(
             ? error.response.data.message
             : error.message;
           thunkAPI.dispatch(setMessage(message));
+          return message;
             
         }
 

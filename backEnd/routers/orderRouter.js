@@ -5,6 +5,15 @@ import { isAuth, isAdmin } from "../utils.js";
 
 const orderRouter = express.Router();
 
+orderRouter.get(
+  "/mine",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const orders = await Order.find({ user: req.user._id });
+    res.send(orders);
+  })
+);
+
 orderRouter.post(
   "/",
   isAuth,
@@ -62,14 +71,7 @@ orderRouter.put(
     }
   })
 );
-orderRouter.get(
-  "/mine",
-  isAuth,
-  expressAsyncHandler(async (req, res) => {
-    const orders = await Order.find({ user: req.user._id });
-    res.send(orders);
-  })
-);
+
 
 orderRouter.get(
   "/",
@@ -92,6 +94,23 @@ orderRouter.delete(
       res.send({ message: "Order Deleted", order: deleteOrder });
     } else {
       res.status(401).send({ message: "Order Not Found" });
+    }
+  })
+);
+orderRouter.put(
+  '/:id/deliver',
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id);
+    if (order) {
+      order.isDelivered = true;
+      order.deliveredAt = Date.now();
+
+      const updatedOrder = await order.save();
+      res.send({ message: 'Order Delivered', order: updatedOrder });
+    } else {
+      res.status(404).send({ message: 'Order Not Found' });
     }
   })
 );

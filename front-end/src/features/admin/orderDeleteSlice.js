@@ -23,6 +23,7 @@ export const deleteOrder = createAsyncThunk(
         ? error.response.data.message
         : error.message;
       thunkAPI.dispatch(setMessage(message));
+      return message;
     }
   }
 );
@@ -31,7 +32,7 @@ const orderDeleteSlice = createSlice({
   name: "orderDelete",
   initialState,
   reducers: {
-    resetDeleteorder(state, action) {
+    resetDeleteOrder(state, action) {
       return {};
     },
   },

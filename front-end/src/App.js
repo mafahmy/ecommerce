@@ -21,6 +21,8 @@ import AdminRoute from "./components/admin/AdminRoute";
 import ProductsListScreen from "./screens/admin/products/ProductsListScreen";
 import ProductEditScreen from "./screens/admin/products/productEditScreen";
 import OrdersListScreen from "./screens/admin/orders/OrdersListScreen";
+import UserEditScreen from "./screens/admin/users/UserEditScreen";
+import SearchScreen from "./screens/SearchScreen";
 
 function App() {
   const log = useSelector((state) => state.log);
@@ -45,7 +47,7 @@ function App() {
             <Route path="/order/:id" element={<OrderScreen />} />
             <Route path="/profile" element={<ProfileScreen />} />
             <Route path="/ordershistory" element={<OrderHistoryScreen />} />
-
+            <Route path="/search/name/:name?" element={<SearchScreen />} exact />
             <Route
               path="/productlist"
               element={
@@ -64,7 +66,16 @@ function App() {
               }
             />
             <Route
-              path="/users"
+              path="/user/:id/edit"
+              element={
+                <AdminRoute>
+                  {" "}
+                  <UserEditScreen />{" "}
+                </AdminRoute>
+              }
+            />
+            <Route
+              path="/orderlist"
               element={
                 <AdminRoute>
                   {" "}

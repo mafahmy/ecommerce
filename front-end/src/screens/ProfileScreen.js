@@ -8,7 +8,7 @@ import {
   resetUpdateProfile,
   updateUserProfile,
 } from "../features/users/userUpdateProfileSlice";
-import AlertTitle from '@mui/material/AlertTitle';
+import AlertTitle from "@mui/material/AlertTitle";
 
 export default function ProfileScreen() {
   const [name, setName] = useState("");
@@ -36,7 +36,7 @@ export default function ProfileScreen() {
       setName(user.name);
       setEmail(user.email);
     }
-  }, [dispatch, user, userInfo._id]);
+  }, [dispatch, user, userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -57,7 +57,7 @@ export default function ProfileScreen() {
             <CircularProgress />
           </Box>
         ) : error ? (
-          <Alert  severity="error">
+          <Alert severity="error">
             <AlertTitle>Error</AlertTitle>
             {error}
           </Alert>

@@ -2,19 +2,14 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { setMessage } from "../messages/messageSlice";
 
-export const listUsers = createAsyncThunk(
-  "LIST_USERS",
-  async (number, thunkAPI) => {
-    const {
-      log: { userInfo },
-    } = thunkAPI.getState();
-
+export const listProductsBrand = createAsyncThunk(
+  "LIST_PRODUCTS_BRAND",
+  async ( sample, thunkAPI) => {
     try {
-      const { data } = await axios.get("http://localhost:4000/api/users", {
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      });
+      const { data } = await axios.get(
+        `http://localhost:4000/api/products/brand`
+       
+      );
       return data;
     } catch (error) {
       const message = error.response.data.message
@@ -27,26 +22,26 @@ export const listUsers = createAsyncThunk(
 );
 const initialState = {
   isLoading: true,
-  users: [],
+  brands: [],
 };
 
-const usersListSlice = createSlice({
-  name: "users",
+const productsBrandListSlice = createSlice({
+  name: "productsCategoryList",
   initialState,
 
   extraReducers: {
-    [listUsers.pending]: (state, action) => {
+    [listProductsBrand.pending]: (state, action) => {
       return {
         isLoading: true,
       };
     },
-    [listUsers.fulfilled]: (state, action) => {
+    [listProductsBrand.fulfilled]: (state, action) => {
       return {
         isLoading: false,
-        users: action.payload,
+        brands: action.payload,
       };
     },
-    [listUsers.rejected]: (state, action) => {
+    [listProductsBrand.rejected]: (state, action) => {
       return {
         isLoading: false,
         error: action.payload,
@@ -54,4 +49,4 @@ const usersListSlice = createSlice({
     },
   },
 });
-export default usersListSlice.reducer;
+export default productsBrandListSlice.reducer;

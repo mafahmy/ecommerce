@@ -98,7 +98,7 @@ const OrdersListScreen = () => {
                   <button
                     type="button"
                     className="small"
-                    onclick={() => deleteHandler(order)}
+                    onClick={() => deleteHandler(order)}
                   >
                     Delete
                   </button>
