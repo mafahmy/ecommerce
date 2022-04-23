@@ -72,7 +72,6 @@ orderRouter.put(
   })
 );
 
-
 orderRouter.get(
   "/",
   isAuth,
@@ -98,7 +97,7 @@ orderRouter.delete(
   })
 );
 orderRouter.put(
-  '/:id/deliver',
+  "/:id/deliver",
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
@@ -108,9 +107,9 @@ orderRouter.put(
       order.deliveredAt = Date.now();
 
       const updatedOrder = await order.save();
-      res.send({ message: 'Order Delivered', order: updatedOrder });
+      res.send({ message: "Order Delivered", order: updatedOrder });
     } else {
-      res.status(404).send({ message: 'Order Not Found' });
+      res.status(404).send({ message: "Order Not Found" });
     }
   })
 );

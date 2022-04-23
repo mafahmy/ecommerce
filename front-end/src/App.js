@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+
 import Footer from "./components/Footer";
 import HomePage from "./screens/HomePage";
 import ProductScreen from "./screens/ProductScreen";
@@ -11,8 +11,8 @@ import ShippingAddressScreen from "./screens/ShippingAdressScreen";
 import PaymentMethodScreen from "./screens/PaymentMethodScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
-import { useSelector } from "react-redux";
-import AdminScreen from "./screens/admin/AdminScreen";
+
+
 import UsersScreen from "./screens/admin/users/UsersScreen";
 //import SideBar from "./components/admin/sideBar/SideBar";
 import ProfileScreen from "./screens/ProfileScreen";
@@ -24,19 +24,25 @@ import OrdersListScreen from "./screens/admin/orders/OrdersListScreen";
 import UserEditScreen from "./screens/admin/users/UserEditScreen";
 import SearchScreen from "./screens/SearchScreen";
 
+
+import Navbar1 from "./components/Navbar1";
+
+
 function App() {
-  const log = useSelector((state) => state.log);
-  const { userInfo } = log;
+  
   return (
     <BrowserRouter>
       <div className="grid-container">
         <header className="App-header">
-          <Navbar />
+          <Navbar1 />
         </header>
+        
         <main>
           <Routes>
             <Route path="/cart/:id" element={<CartScreen />} />
             {/* <Route path="/cart/" element={<CartScreen />} /> */}
+          
+            
             <Route path="/" element={<HomePage />} exact />
             <Route path="/product/:id" exact element={<ProductScreen />} />
             <Route path="/signin" element={<SigninScreen />} />
@@ -48,6 +54,8 @@ function App() {
             <Route path="/profile" element={<ProfileScreen />} />
             <Route path="/ordershistory" element={<OrderHistoryScreen />} />
             <Route path="/search/name/:name?" element={<SearchScreen />} exact />
+            <Route path="/search/category/:category" element={<SearchScreen />} exact />
+            <Route path="/search/brand/:brand" element={<SearchScreen />} exact />
             <Route
               path="/productlist"
               element={
@@ -94,7 +102,7 @@ function App() {
               exact
             />
 
-            <Route path="/admin" element={<AdminScreen />} />
+            
           </Routes>
         </main>
         <footer>

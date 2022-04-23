@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { detailsProduct } from "../../../features/admin/productDetailsSlice";
-//import { useGetProductQuery } from "../../../features/products/productsApi";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
@@ -18,6 +17,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import app from "../../../firebase";
+import Container from "@mui/material/Container";
 
 const ProductEditScreen = (props) => {
   const { id } = useParams();
@@ -37,8 +37,6 @@ const ProductEditScreen = (props) => {
   const productDetails = useSelector((state) => state.productDetails);
   const { isLoading, error, product } = productDetails;
 
-  // const { data, isError, isLoading, isFetching, isSuccess } =
-  //   useGetProductQuery(id);
 
   const productUpdate = useSelector((state) => state.productUpdate);
 
@@ -124,25 +122,27 @@ const ProductEditScreen = (props) => {
           console.log("File available at", downloadURL);
           // console.log({...inputs, image: downloadURL})
 
-          // dispatch(
-          //   updateProduct({
-          //     _id: id,
-          //     name,
-          //     price,
-          //     image: downloadURL,
-          //     category,
-          //     brand,
-          //     countInstock,
-          //     description,
-          //   })
-          // );
+          dispatch(
+            updateProduct({
+              _id: id,
+              name,
+              price,
+              image: downloadURL,
+              category,
+              brand,
+              countInstock,
+              description,
+            })
+          );
         });
       }
     );
   };
 
   return (
+   
     <div>
+       <Container maxWidth="lg" disableGutters>
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Edit Product {id}</h1>
@@ -249,6 +249,7 @@ const ProductEditScreen = (props) => {
               <textarea
                 id="description"
                 rows="3"
+               
                 type="text"
                 placeholder="Enter description"
                 value={description}
@@ -265,7 +266,9 @@ const ProductEditScreen = (props) => {
           </>
         )}
       </form>
+      </Container>
     </div>
+    
   );
 };
 export default ProductEditScreen;

@@ -12,8 +12,6 @@ const cartSlice = createSlice({
       return action.payload;
     },
     addToCart(state, action) {
-      // state.cartItems.push(action.payload);
-      // st
       const item = action.payload;
       const existItem = state.cartItems.find((x) => x.product === item.product);
       if (existItem) {
@@ -53,7 +51,6 @@ const cartSlice = createSlice({
       };
     },
     getTotals(state, action) {
-      // const toPrice = (num) => Number(num.toFixed(2));
       const total = state.cartItems.reduce(
         (acc, value) => acc + value.price * value.qty,
         0

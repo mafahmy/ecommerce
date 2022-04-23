@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Ratings from "./Ratings";
 import { Link } from "react-router-dom";
 
-const Image = styled.img `
+const Image = styled.img`
   max-width: 20rem;
   width: 100%;
 `;
@@ -24,9 +24,7 @@ const Product = (props) => {
           rating={product.rating}
           numReviews={product.numReviews}
         ></Ratings>
-        <Price>
-          {product.price}
-        </Price>
+        <Price>{product.price}</Price>
       </div>
     </div>
   );

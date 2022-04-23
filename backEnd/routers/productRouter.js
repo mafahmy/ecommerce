@@ -9,13 +9,13 @@ const productRouter = express.Router();
 productRouter.get(
   "/",
   expressAsyncHandler(async (req, res) => {
-    const name = req.query.name || '';
-    const category = req.query.category || '';
-    const brand = req.query.brand || '';
-    const nameFilter = name ? { name: { $regex: name, $options: 'i' } } : {};
+    const name = req.query.name || "";
+    const category = req.query.category || "";
+    const brand = req.query.brand || "";
+    const nameFilter = name ? { name: { $regex: name, $options: "i" } } : {};
     const categoryFilter = category ? { category } : {};
     const brandFilter = brand ? { brand } : {};
-    
+
     const products = await Product.find({
       ...nameFilter,
       ...categoryFilter,
@@ -26,19 +26,19 @@ productRouter.get(
 );
 
 productRouter.get(
-  '/categories',
-  expressAsyncHandler(async(req, res) => {
-    const categories = await Product.find().distinct('category');
+  "/categories",
+  expressAsyncHandler(async (req, res) => {
+    const categories = await Product.find().distinct("category");
     res.send(categories);
   })
-)
+);
 productRouter.get(
-  '/brands',
-  expressAsyncHandler(async(req, res) => {
-    const brands = await Product.find().distinct('brand');
+  "/brands",
+  expressAsyncHandler(async (req, res) => {
+    const brands = await Product.find().distinct("brand");
     res.send(brands);
   })
-)
+);
 
 productRouter.get(
   "/seed",
@@ -113,6 +113,42 @@ productRouter.delete(
       res.send({ message: "Product Deleted", product: deleteProduct });
     } else {
       res.status(401).send({ message: "Product Not Found" });
+    }
+  })
+);
+
+productRouter.post(
+  "/:id/reviews",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const productId = req.params.id;
+    const product = await Product.findById(productId);
+    if (product) {
+      if (product.reviews.find((x) => x.name === req.user.name)) {
+        return res
+          .status(400)
+          .send({ message: "You ALREADY SUBMITTED A REVIEW" });
+      }
+      const review = {
+        name: req.user.name,
+        rating: Number(req.body.rating),
+        comment: req.body.comment,
+      };
+      product.reviews.push(review);
+      product.numReviews = product.reviews.length;
+      product.rating =
+        product.reviews.reduce((a, c) => c.rating + a, 0) /
+        product.reviews.length;
+
+      const updatedProduct = await product.save();
+      res
+        .status(201)
+        .send({
+          message: "Review Created",
+          review: updatedProduct.reviews[updatedProduct.reviews.length - 1],
+        });
+    } else {
+      res.status(404).send({ message: "Product Not Found" });
     }
   })
 );
