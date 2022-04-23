@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import styled from "styled-components";
-import Product from "../components/Product";
+// import React, { useState, useEffect } from "react";
+// import axios from "axios";
+// import styled from "styled-components";
+// import Product from "../components/Product";
 import Categories from "../components/Categories";
 import Slider1 from "../components/Slider1";
-import { useGetAllProductsQuery } from "../features/products/productsApi";
+// import { useGetAllProductsQuery } from "../features/products/productsApi";
 import Brands from "../components/Brands";
 
-const Container = styled.div `
-  height: max-content;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-`;
+// const Container = styled.div `
+//   height: max-content;
+//   display: flex;
+//   flex-wrap: wrap;
+//   align-items: center;
+//   justify-content: center;
+// `;
 
 const HomePage = () => {
    //const [products, setProducts] = useState([]);
@@ -31,22 +31,22 @@ const HomePage = () => {
   //   fetchData();
   //   console.log(products);
   // }, []);
-  const { data, error, isLoading, isFetching, isSuccess } =  useGetAllProductsQuery([]);
+  // const { data, error, isLoading, isFetching, isSuccess } =  useGetAllProductsQuery([]);
  
-  console.log(data);
+  // console.log(data);
 
   return (
     <div>
     <Slider1 />
     <Categories />
     <Brands />
-      <Container>
+      {/* <Container>
         {isLoading ? (<p>Loading...</p>): error ? (<p>error{error}</p>) : (
         data?.map((product) => (
           <Product key={product._id} product={product} />
         ))
         ) }
-      </Container>
+      </Container> */}
     </div>
   );
 };

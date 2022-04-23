@@ -32,11 +32,12 @@ const brands = [
 ];
 
 const Container1 = styled.div`
-  margin: 4rem 0 2rem 0;
+  margin: 4rem 0 12rem 0;
   display: flex;
   padding: 50px;
   justify-content: center;
   flex-wrap: wrap;
+
 `;
 const Brands = () => {
   return (
