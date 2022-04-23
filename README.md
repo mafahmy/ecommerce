@@ -1,3 +1,10 @@
+# admin credential:
+  email: Mahmoud@gmail.com
+  password: Mah1234
+
+
+
+
 In the project root folder :
 # add a .env file contain your Mongo-db atlas uri like that:
     MONGODB_URL=<your uri>
