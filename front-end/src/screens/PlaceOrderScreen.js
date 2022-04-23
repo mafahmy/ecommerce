@@ -9,35 +9,32 @@ import { createOrder, resetOrder } from "../features/orders/ordersSlice";
 
 const PlaceOrderScreen = () => {
   const cart = useSelector((state) => state.cart);
+  const userSignin = useSelector((state) => state.log);
+  const { isLoggedIn } = userSignin;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const orderCreate = useSelector((state) => state.orders);
-  const { isLoading, success, error, order } = orderCreate;
+  const { success, order } = orderCreate;
 
   useEffect(() => {
     dispatch(getTotals());
     if (success) {
       navigate(`/order/${order._id}`);
-      // dispatch(resetOrder());
+       dispatch(resetOrder());
     }
   }, [dispatch, navigate, order, success]);
 
   if (!cart.shippingAddress.address) {
     return <Navigate to="/payment" />;
   }
-  // const toPrice = (num) => {
-  //   return Number(num.toFixed(2));
-  // };
-  // cart.itemsPrice = toPrice(
-  //   cart.cartItems.reduce((a, c) => a + c.qty * c.price, 0)
-  // );
-  // cart.shippingPrice = cart.itemsPrice > 100 ? 0 : 10;
-  // cart.totalPrice = toPrice(cart.itemsPrice + cart.shippingPrice);
 
   const placeOrderHandler = () => {
     dispatch(createOrder({ ...cart, orderItems: cart.cartItems }));
   };
+  if (!isLoggedIn) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div>

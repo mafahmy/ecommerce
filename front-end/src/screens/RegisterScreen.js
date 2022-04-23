@@ -4,6 +4,8 @@ import * as Yup from "yup";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { register } from "../features/users/userRegisterSlice";
+import Container from "@mui/material/Container";
+
 
 const RegisterScreen = () => {
   const dispatch = useDispatch();
@@ -40,7 +42,8 @@ const RegisterScreen = () => {
   }, [navigate, redirect, userInfo]);
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <Container maxWidth="lg" disableGutters="true">
+    <form className="form"onSubmit={formik.handleSubmit}>
       <div>
         <h1>Create an Account</h1>
       </div>
@@ -88,7 +91,7 @@ const RegisterScreen = () => {
       </div>
       <div>
         <label />
-        <button type="submit" className="primary block">
+        <button type="submit" className="primary">
           Register
         </button>
       </div>
@@ -101,6 +104,7 @@ const RegisterScreen = () => {
         </div>
       </div>
     </form>
+    </Container>
   );
 };
 

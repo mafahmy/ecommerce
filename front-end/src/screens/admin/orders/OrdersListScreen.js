@@ -10,6 +10,7 @@ import {
   deleteOrder,
   resetDeleteOrder,
 } from "../../../features/admin/orderDeleteSlice";
+import Container from "@mui/material/Container";
 
 const OrdersListScreen = () => {
   const ordersList = useSelector((state) => state.ordersList);
@@ -37,78 +38,80 @@ const OrdersListScreen = () => {
   };
 
   return (
-    <div>
-      <h1>Orders</h1>
-      {loadingDelete && (
-        <Box sx={{ display: "flex" }}>
-          <CircularProgress />
-        </Box>
-      )}
-      {errorDelete && (
-        <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          {errorDelete}
-        </Alert>
-      )}
-      {isLoading ? (
-        <Box sx={{ display: "flex" }}>
-          <CircularProgress />
-        </Box>
-      ) : error ? (
-        <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          {error}
-        </Alert>
-      ) : (
-        <table className="table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>USER</th>
-              <th>DATE</th>
-              <th>TOTAL</th>
-              <th>PAID</th>
-              <th>DELIVERED</th>
-              <th>ACTIONS</th>
-            </tr>
-          </thead>
-          <tbody>
-            {orders.map((order) => (
-              <tr key={order._id}>
-                <td>{order._id}</td>
-                <td>{order.user.name}</td>
-                <td>{order.createdAt.substring(0, 10)}</td>
-                <td>{order.totalPrice.toFixed(2)}</td>
-                <td>{order.isPaid ? order.paidAt.substring(0, 10) : "No"}</td>
-                <td>
-                  {order.isDelivered
-                    ? order.deliveredAt.substring(0, 10)
-                    : "No"}
-                </td>
-                <td>
-                  <button
-                    type="button"
-                    className="small"
-                    onClick={() => {
-                      navigate(`/order/${order._id}`);
-                    }}
-                  >
-                    Details
-                  </button>
-                  <button
-                    type="button"
-                    className="small"
-                    onClick={() => deleteHandler(order)}
-                  >
-                    Delete
-                  </button>
-                </td>
+    <Container maxWidth="lg" disableGutters>
+      <div>
+        <h1>Orders</h1>
+        {loadingDelete && (
+          <Box sx={{ display: "flex" }}>
+            <CircularProgress />
+          </Box>
+        )}
+        {errorDelete && (
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {errorDelete}
+          </Alert>
+        )}
+        {isLoading ? (
+          <Box sx={{ display: "flex" }}>
+            <CircularProgress />
+          </Box>
+        ) : error ? (
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {error}
+          </Alert>
+        ) : (
+          <table className="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>USER</th>
+                <th>DATE</th>
+                <th>TOTAL</th>
+                <th>PAID</th>
+                <th>DELIVERED</th>
+                <th>ACTIONS</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </div>
+            </thead>
+            <tbody>
+              {orders.map((order) => (
+                <tr key={order._id}>
+                  <td>{order._id}</td>
+                  <td>{order.user.name}</td>
+                  <td>{order.createdAt.substring(0, 10)}</td>
+                  <td>{order.totalPrice.toFixed(2)}</td>
+                  <td>{order.isPaid ? order.paidAt.substring(0, 10) : "No"}</td>
+                  <td>
+                    {order.isDelivered
+                      ? order.deliveredAt.substring(0, 10)
+                      : "No"}
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      className="small"
+                      onClick={() => {
+                        navigate(`/order/${order._id}`);
+                      }}
+                    >
+                      Details
+                    </button>
+                    <button
+                      type="button"
+                      className="small"
+                      onClick={() => deleteHandler(order)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </Container>
   );
 };
 

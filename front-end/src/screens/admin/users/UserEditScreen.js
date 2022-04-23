@@ -10,6 +10,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
+import Radio from "@mui/material/Radio";
 
 const UserEditScreen = () => {
   const { id: userId } = useParams();
@@ -36,7 +37,7 @@ const UserEditScreen = () => {
   useEffect(() => {
     if (successUpdate) {
       dispatch(resetUpdateUser());
-      navigate("/userlist");
+      navigate("/users");
     }
     if (!user) {
       dispatch(detailsUser(userId));
@@ -50,14 +51,16 @@ const UserEditScreen = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(updateUser({
+    dispatch(
+      updateUser({
         _id: userId,
         name,
         email,
         password,
         status,
         isAdmin,
-    }));
+      })
+    );
   };
 
   return (
@@ -79,13 +82,13 @@ const UserEditScreen = () => {
         </div>
         {isLoading ? (
           <Box sx={{ display: "flex" }}>
-          <CircularProgress />
-        </Box>
+            <CircularProgress />
+          </Box>
         ) : error ? (
-            <Alert severity="error">
-              <AlertTitle>Error</AlertTitle>
-              {error}
-            </Alert>
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            {error}
+          </Alert>
         ) : (
           <>
             <div>
@@ -114,7 +117,6 @@ const UserEditScreen = () => {
                 id="password"
                 type="password"
                 placeholder="Enter Password"
-                
                 onChange={(e) => setPassword(e.target.value)}
               ></input>
             </div>
@@ -124,27 +126,61 @@ const UserEditScreen = () => {
                 id="confirmPassword"
                 type="password"
                 placeholder="Enter Confirm Password"
-                
                 onChange={(e) => setConfirmPassword(e.target.value)}
               ></input>
             </div>
-            <div onChange={(e) => setStatus(e.target.value)}>
-              <label htmlFor="status" ></label>
-              <input
-                id="status"
+            <div>
+              {console.log(status)}
+              <label htmlFor="status"></label>
+              ACTIVE
+              <Radio
+                checked={status === "Active"}
+                onChange={(e) => setStatus(e.target.value)}
+                value="active"
+                name="radio-buttons"
+                // inputProps={{ "aria-label": "A" }}
+              /> 
+              Inactive
+              <Radio
+                checked={status === "inActive"}
+                onChange={(e) => setStatus(e.target.value)}
+                value="inActive"
+                name="radio-buttons"
+                // inputProps={{ "aria-label": "B" }}
+              />
+              suspended
+              <Radio
+                checked={status === "suspended"}
+                onChange={(e) => setStatus(e.target.value)}
+                value="suspended"
+                name="radio-buttons"
+                // inputProps={{ "aria-label": "B" }}
+              />
+
+              {/* <input
+                
                 type="radio"
-                value='active'            
-              >Active</input>
+                // checked={setStatus(e.target.checked)}
+                 value= {status}
+                onChange={(e) => setStatus(e.target.value)}
+                
+
+              />Active
               <input
-                id="status"
+                
                 type="radio"
-                value='inActive'            
-              >In Active</input>
+                // checked={setStatus('')}
+                 value={status}
+                onChange={(e) => setStatus(e.target.value)}
+              />In Active
               <input
-                id="status"
+                
                 type="radio"
-                value='suspended'            
-              >suspended</input>
+                // checked={setStatus(e.target.checked)}
+                value={status} 
+                onChange={(e) => setStatus(e.target.value)}
+
+              />suspended */}
             </div>
             <div>
               <label htmlFor="isAdmin">Is Admin</label>
@@ -153,7 +189,7 @@ const UserEditScreen = () => {
                 type="checkbox"
                 checked={isAdmin}
                 onChange={(e) => setIsAdmin(e.target.checked)}
-              ></input>
+              />
             </div>
             <div>
               <button type="submit" className="primary">

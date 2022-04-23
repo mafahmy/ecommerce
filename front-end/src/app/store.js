@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from "../features/cart/cartSlice3";
-import counterReducer from "../features/counter/counterSlice";
+
 import { productsApi } from "../features/products/productsApi";
 import logReducer from "../features/users/userLogSlice";
 import registerReducer from "../features/users/userRegisterSlice";
@@ -23,6 +23,7 @@ import userUpdateReducer from "../features/admin/userUpdateSlice";
 import productsListReducer from "../features/products/productsListSlice";
 import productsCategoryListReducer from "../features/products/productsCategoryListSlice";
 import productsBrandListReducer from "../features/products/productsBrandListSlice";
+import productReviewReducer from "../features/products/productReviewSlice";
 
 const preloadedState = {
   cart: {
@@ -34,7 +35,7 @@ const preloadedState = {
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
-    counter: counterReducer,
+   
     log: logReducer,
     register: registerReducer,
     orders: ordersReducer,
@@ -43,6 +44,7 @@ export const store = configureStore({
     productsList: productsListReducer,
     productsCategoryList: productsCategoryListReducer,
     productsBrandList: productsBrandListReducer,
+    productReview: productReviewReducer,
     users: usersReducer,
     userDetails: userDetailsReducer,
     userOrders: userOrdersReducer,

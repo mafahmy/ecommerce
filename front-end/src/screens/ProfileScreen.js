@@ -9,6 +9,9 @@ import {
   updateUserProfile,
 } from "../features/users/userUpdateProfileSlice";
 import AlertTitle from "@mui/material/AlertTitle";
+import Container from "@mui/material/Container";
+import { Navigate } from "react-router-dom";
+
 
 export default function ProfileScreen() {
   const [name, setName] = useState("");
@@ -17,7 +20,7 @@ export default function ProfileScreen() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const userSignin = useSelector((state) => state.log);
-  const { userInfo } = userSignin;
+  const { isLoggedIn ,userInfo } = userSignin;
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
@@ -46,8 +49,12 @@ export default function ProfileScreen() {
       dispatch(updateUserProfile({ userId: user._id, name, email, password }));
     }
   };
+  if (!isLoggedIn) {
+    return <Navigate to='/' />
+  }
   return (
     <div>
+      <Container maxWidth="lg" disableGutters="true">
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>User Profile</h1>
@@ -126,6 +133,7 @@ export default function ProfileScreen() {
           </>
         )}
       </form>
+      </Container>
     </div>
   );
 }
