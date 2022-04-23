@@ -3,42 +3,15 @@ import { setMessage } from "../messages/messageSlice";
 import axios from "axios";
 const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
-// export const register = createAsyncThunk(
-//   "USER_REGISTER",
-//   async ({ name, email, password }, thunkAPI) => {
-//     try {
-//       const { data } = await axios.post("http://localhost:4000/api/users/register", {
-//         name,
-//         email,
-//         password,
-//       });
-//       localStorage.setItem("userInfo", JSON.stringify(data));
-      
-//       return data;
-
-//     } catch (error) {
-//       const message =
-//         (error.response &&
-//           error.response.data &&
-//           error.response.data.message) ||
-//         error.message ||
-//         error.toString();
-//       thunkAPI.dispatch(setMessage(message));
-//       return thunkAPI.rejectWithValue();
-//     }
-//   }
-// );
-
-
 export const login = createAsyncThunk(
   "USER_LOGIN",
   async ({ email, password }, thunkAPI) => {
     try {
-      const  { data }  = await axios.post(
+      const { data } = await axios.post(
         "http://localhost:4000/api/users/signin",
         { email, password }
       );
-    console.log(email);
+      console.log(email);
       localStorage.setItem("userInfo", JSON.stringify(data));
       return data;
     } catch (error) {
@@ -48,20 +21,18 @@ export const login = createAsyncThunk(
         error.toStrring();
       thunkAPI.dispatch(setMessage(message));
       return message;
-
     }
   }
 );
 
 export const logout = createAsyncThunk("USER_LOGOUT", () => {
-  localStorage.removeItem('userInfo');
-  localStorage.removeItem('cartItems');
-})
+  localStorage.removeItem("userInfo");
+  localStorage.removeItem("cartItems");
+});
 
-const initialState = 
- userInfo
-   ?  {isLoggedIn: true, userInfo} 
-   :  {isLoggedIn: false, userInfo: null} ;
+const initialState = userInfo
+  ? { isLoggedIn: true, userInfo }
+  : { isLoggedIn: false, userInfo: null };
 
 const userLogSlice = createSlice({
   name: "log",
@@ -69,16 +40,15 @@ const userLogSlice = createSlice({
   extraReducers: {
     [login.pending]: (state, action) => {
       state.isLoggedIn = false;
-      
     },
     [login.fulfilled]: (state, action) => {
       state.isLoggedIn = true;
-      
+
       state.userInfo = action.payload;
     },
     [login.rejected]: (state, action) => {
       state.isLoggedIn = false;
-      
+
       state.error = action.payload;
     },
     // [logout.pending]: (state, action) => {
@@ -86,7 +56,6 @@ const userLogSlice = createSlice({
     //   state.isLoggedIn = true;
     // },
     [logout.fulfilled]: (state, action) => {
-      
       state.isLoggedIn = false;
       state.userInfo = null;
     },
