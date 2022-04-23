@@ -5,6 +5,8 @@ import * as Yup from "yup";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import  { login }  from "../features/users/userLogSlice";
+import Container from "@mui/material/Container";
+
 
 const SigninScreen = () => {
 
@@ -43,8 +45,8 @@ const SigninScreen = () => {
   },[navigate, redirect, userInfo]);
   
   return (
-
-      <form onSubmit={formik.handleSubmit}>
+    // <Container maxWidth="lg" disableGutters="true">
+      <form className="form" onSubmit={formik.handleSubmit}>
         <div>
           <h1>Sign In</h1>
         </div>
@@ -81,7 +83,7 @@ const SigninScreen = () => {
         </div>
         <div>
         <label />
-          <button type="submit" className="primary block">
+          <button type="submit" className="primary">
             Login
           </button>
           </div>
@@ -92,6 +94,7 @@ const SigninScreen = () => {
             </div>
           </div>
       </form>
+      // </Container>
    
   );
 };

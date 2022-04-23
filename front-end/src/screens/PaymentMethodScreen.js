@@ -11,11 +11,15 @@ const PaymentMethodScreen = () => {
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
+  const userSignin = useSelector((state) => state.log);
+  const { isLoggedIn } = userSignin;
 
   const formik = useFormik({
-    initialValues: "paypal",
+    initialValues:{
+      paymentMethod: 'paypal'
+    }, 
     onSubmit: (values) => {
-      dispatch(savePaymentMethod(values));
+      dispatch(savePaymentMethod(values.paymentMethod));
       navigate("/placeorder");
     },
   });
@@ -28,6 +32,9 @@ const PaymentMethodScreen = () => {
   //     dispatch(savePaymentMethod(paymentMethod));
   //     navigate('/placeorder');
   // }
+  if (!isLoggedIn) {
+    return <Navigate to='/' />
+  }
   return (
     <div>
       <CheckoutSteps step1 step2 step3 />
@@ -40,7 +47,7 @@ const PaymentMethodScreen = () => {
             <input
               type="radio"
               id="paypal"
-              value={formik.values}
+              value="paypal"
               name="paymentMethod"
               required
               checked
@@ -54,7 +61,7 @@ const PaymentMethodScreen = () => {
             <input
               type="radio"
               id="cashOnDelivery"
-              value={formik.values}
+              value="cashOnDelivery"
               name="paymentMethod"
               required
               onChange={formik.handleChange}

@@ -5,6 +5,7 @@ import Product from "../components/Product";
 import Categories from "../components/Categories";
 import Slider1 from "../components/Slider1";
 import { useGetAllProductsQuery } from "../features/products/productsApi";
+import Brands from "../components/Brands";
 
 const Container = styled.div `
   height: max-content;
@@ -38,6 +39,7 @@ const HomePage = () => {
     <div>
     <Slider1 />
     <Categories />
+    <Brands />
       <Container>
         {isLoading ? (<p>Loading...</p>): error ? (<p>error{error}</p>) : (
         data?.map((product) => (

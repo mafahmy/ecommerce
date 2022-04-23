@@ -13,6 +13,7 @@ import {
   deliverOrder,
   resetDeliverOrder,
 } from "../features/admin/orderDeliverSlice";
+import Typography from "@mui/material/Typography";
 
 const OrderScreen = () => {
   const { id: orderId } = useParams();
@@ -23,7 +24,7 @@ const OrderScreen = () => {
   const navigate = useNavigate();
 
   const userSignin = useSelector((state) => state.log);
-  const { userInfo } = userSignin;
+  const { isLoggedIn,userInfo } = userSignin;
 
   const orderDeliver = useSelector((state) => state.orderDeliver);
   const {
@@ -53,7 +54,7 @@ const OrderScreen = () => {
       };
       document.body.appendChild(script);
     };
-
+    
     if (
       !order ||
       successPay ||
@@ -72,7 +73,7 @@ const OrderScreen = () => {
         }
       }
     }
-  }, [dispatch, order, orderId, successDeliver, successPay]);
+  }, [dispatch, navigate, order, orderId, successDeliver, successPay, userInfo]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(order, paymentResult));
@@ -83,8 +84,12 @@ const OrderScreen = () => {
   };
   const adminPayOrder = () => {};
 
+  if (!isLoggedIn) {
+    return <Navigate to='/' />
+  }
+
   return isLoading ? (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", alignItem:"center" }}>
       <CircularProgress />
     </Box>
   ) : error ? (
@@ -101,14 +106,21 @@ const OrderScreen = () => {
             <li>
               <div className="card card-body">
                 <h2>Shipping</h2>
-                <p>
+                  
                   <strong>Name:</strong>
+                  <Typography variant="h8" sx={{ flexGrow: 1, fontWeight: 700, margin: '2px' }}>
                   {order.shippingAddress.fullName} 
+                  
+                  <br/>
+                  
                   <strong>Address:</strong>
                   {order.shippingAddress.address},{order.shippingAddress.city},
+                  
+                  <br/>
                   {order.shippingAddress.postalCode},
-                  {order.shippingAddress.country},
-                </p>
+                  {order.shippingAddress.country}
+                </Typography>
+                
                 {order.isDelivered ? (
                   <Alert variant="filled" severity="success">
                     Delivered at {order.deliveredAt}
@@ -195,7 +207,7 @@ const OrderScreen = () => {
                   <div>${order.totalPrice}</div>
                 </div>
               </li>
-              {!order.isPaid && (
+              {!order.isPaid && order.PaymentMethod === "paypal" &&(
                 <li>
                   {!sdkReady ? (
                     <Box sx={{ display: "flex" }}>
@@ -221,6 +233,9 @@ const OrderScreen = () => {
                     </>
                   )}
                 </li>
+              )}
+              {!order.isPaid && order.paymentMethod === "cashOnDelivery" && (
+                <h1>Order will be delivered soon</h1>
               )}
               {userInfo.isAdmin && !order.isPaid  && (
                 <li>

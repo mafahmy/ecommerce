@@ -14,6 +14,7 @@ import {
   deleteProduct,
   resetDeleteProduct,
 } from "../../../features/admin/productDeleteSlice";
+import Container from "@mui/material/Container";
 
 export default function ProductsListScreen(props) {
   const navigate = useNavigate();
@@ -55,6 +56,7 @@ export default function ProductsListScreen(props) {
     dispatch(createProduct());
   };
   return (
+    <Container maxWidth="lg" disableGutters>
     <div>
       <div className="row">
         <h1>Products</h1>
@@ -135,5 +137,6 @@ export default function ProductsListScreen(props) {
         </table>
       )}
     </div>
+    </Container>
   );
 }

@@ -1,26 +1,31 @@
 import React, { useEffect } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 import Alert from "@mui/material/Alert";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { listUserOrders } from "../features/orders/userOrdersSlice";
 import AlertTitle from "@mui/material/AlertTitle";
 
 export default function OrderHistoryScreen(props) {
   const navigate = useNavigate();
   const userOrders = useSelector((state) => state.userOrders);
-  const { loading, error, orders } = userOrders;
+  const { isLoading, error, orders } = userOrders;
+  const userSignin = useSelector((state) => state.log);
+  const { isLoggedIn } = userSignin;
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(listUserOrders());
   }, [dispatch]);
  
-  
+  if (!isLoggedIn) {
+    return <Navigate to='/' />
+  }
   return (
     <div>
       <h1>Order History</h1>
-      {loading ? (
+      {isLoading ? (
         <Box sx={{ display: "flex" }}>
           <CircularProgress />
         </Box>
@@ -42,7 +47,7 @@ export default function OrderHistoryScreen(props) {
             </tr>
           </thead>
           <tbody>
-            {orders.map((order) => (
+            {orders?.map((order) => (
               <tr key={order._id}>
                 <td>{order._id}</td>
                 <td>{order.createdAt.substring(0, 10)}</td>

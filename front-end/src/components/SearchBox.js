@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import SearchIcon from '@mui/icons-material/Search';
 import Search from "@mui/icons-material/Search";
 
+
+
 const SearchBox = () => {
   const [name, setName] = useState("");
   const navigate = useNavigate();
@@ -14,15 +16,19 @@ const SearchBox = () => {
   return (
     <form className="search" onSubmit={submitHandler}>
       <div className="row">
-        <input
+  
+        <input 
           type="text"
           name="q"
           id="q"
           onChange={(e) => setName(e.target.value)}
-        ></input>
-        <button className="primary" type="submit">
+        >
+        </input>
+        <SearchIcon />
+
+        {/* <button className="primary" type="submit">
           <SearchIcon />
-        </button>
+        </button> */}
       </div>
     </form>
   );

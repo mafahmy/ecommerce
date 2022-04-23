@@ -1,32 +1,33 @@
 import Typography from "@mui/material/Typography";
 import React from "react";
 import styled from "styled-components";
-import CategoryItem from "./CategoryItem";
+
 import Container from "@mui/material/Container";
-const categories = [
+import Brand from "./Brand";
+const brands = [
   {
     id: 1,
     img: "images/appleIphone13.jpg",
-    title: "Mobiles",
-    category: "MOBILE",
+    title: "Apple",
+    brand: "Apple",
   },
   {
     id: 2,
     img: "images/lapTopDellI7.jpg",
-    title: "LapTops",
-    category: "LAPTOP",
+    title: "Dell",
+    brand: "Dell",
   },
   {
     id: 3,
     img: "images/samsungtv.jpg",
-    title: "TV",
-    category: "TV",
+    title: "Samsung",
+    brand: "Samsung",
   },
   {
     id: 4,
     img: "images/canonEOSCam.jpg",
-    title: "Cameras",
-    category: "CAMERAS",
+    title: "Canon",
+    brand: "Canon",
   },
 ];
 
@@ -37,7 +38,7 @@ const Container1 = styled.div`
   justify-content: center;
   flex-wrap: wrap;
 `;
-const Categories = () => {
+const Brands = () => {
   return (
     <>
       <Container maxWidth="lg" disableGutters>
@@ -50,11 +51,11 @@ const Categories = () => {
             textAlign: "center",
           }}
         >
-          SHOP BY CATEGORY
+          SHOP BY BRAND
         </Typography>
         <Container1>
-          {categories.map((item) => (
-            <CategoryItem key={item.id} item={item} />
+          {brands.map((item) => (
+            <Brand key={item.id} item={item} />
           ))}
         </Container1>
       </Container>
@@ -62,4 +63,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default Brands;

@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
-//import "./users.css";
+
 import Alert from "@mui/material/Alert";
-import { DeleteOutline } from "@material-ui/icons";
-import { userRows } from "../../../dummyData";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { listUsers } from "../../../features/admin/usersListSlice";
 import { AlertTitle, Box, CircularProgress } from "@mui/material";
 import { deleteUser } from "../../../features/admin/userDeleteSlice";
+import { useNavigate } from "react-router-dom";
+import { resetUpdateUser } from "../../../features/admin/userUpdateSlice";
 
 const UsersScreen = () => {
   const usersList = useSelector((state) => state.users);
@@ -23,9 +22,10 @@ const UsersScreen = () => {
   } = userDelete;
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(listUsers());
+    dispatch(resetUpdateUser());
   }, [dispatch, successDelete]);
 
   const deleteHandler = (user) => {
@@ -84,7 +84,13 @@ const UsersScreen = () => {
                 <td>{user.status}</td>
                 <td>{user.isAdmin ? "YES" : "NO"}</td>
                 <td>
-                  <button>Edit</button>
+                  <button
+                    type="button"
+                    className="small"
+                    onClick={() => navigate(`/user/${user._id}/edit`)}
+                  >
+                    Edit
+                  </button>
                   <button
                     type="button"
                     className="small"

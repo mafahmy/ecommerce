@@ -7,7 +7,7 @@ export const listProductsBrand = createAsyncThunk(
   async ( sample, thunkAPI) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:4000/api/products/brand`
+        `http://localhost:4000/api/products/brands`
        
       );
       return data;
@@ -26,7 +26,7 @@ const initialState = {
 };
 
 const productsBrandListSlice = createSlice({
-  name: "productsCategoryList",
+  name: "productsBrandList",
   initialState,
 
   extraReducers: {

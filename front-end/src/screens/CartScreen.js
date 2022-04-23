@@ -1,15 +1,21 @@
-import React, { useEffect } from "react";
-import { useParams, useLocation, Link, useNavigate } from "react-router-dom";
+import React from "react";
+import {
+  useParams,
+  useLocation,
+  Link,
+  useNavigate,
+  
+} from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { addToCart, removeFromCart } from "../features/cart/cartSlice3";
+import {  removeFromCart } from "../features/cart/cartSlice3";
 import Alert from "@mui/material/Alert";
 
 const CartScreen = (props) => {
-  const { id } = useParams();
-  const { search } = useLocation();
-  const qtyInUrl = new URLSearchParams(search).get("qty");
-  const qty = qtyInUrl ? Number(qtyInUrl) : 1;
+  //const { id } = useParams();
+ // const { search } = useLocation();
+  //const qtyInUrl = new URLSearchParams(search).get("qty");
+  //const qty = qtyInUrl ? Number(qtyInUrl) : 1;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -18,17 +24,13 @@ const CartScreen = (props) => {
 
   console.log(cartItems);
 
-  // useEffect(() => {
-  //   if (id) {
-  //     dispatch(addToCart(id, qty));
-  //   }
-  // }, [dispatch, id, qty]);
   const removeFromCartHandler = (item) => {
     dispatch(removeFromCart(item));
   };
   const checkoutHandler = () => {
     navigate("/signin?redirect=/shipping");
   };
+
   return (
     <div className="row top">
       <div className="col-1">
