@@ -85,8 +85,8 @@ const SigninScreen = () => {
             onChange={formik.handleChange}
             value={formik.values.password}
           ></input>
-          {formik.touched.email && formik.errors.email ? (
-            <div>{formik.errors.email}</div>
+          {formik.touched.password && formik.errors.password ? (
+            <div>{formik.errors.password}</div>
           ) : null}
         </div>
         <div>
