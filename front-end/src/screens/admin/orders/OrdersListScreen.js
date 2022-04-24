@@ -41,26 +41,35 @@ const OrdersListScreen = () => {
     <Container maxWidth="lg" disableGutters>
       <div>
         <h1>Orders</h1>
+        <div className="row center">
         {loadingDelete && (
           <Box sx={{ display: "flex" }}>
             <CircularProgress />
           </Box>
         )}
+        </div>
+        <div className="row center">
         {errorDelete && (
           <Alert severity="error">
             <AlertTitle>Error</AlertTitle>
             {errorDelete}
           </Alert>
         )}
+        </div>
+
         {isLoading ? (
+          <div className="row center">
           <Box sx={{ display: "flex" }}>
             <CircularProgress />
           </Box>
+          </div>
         ) : error ? (
+          <div className="row center">
           <Alert severity="error">
             <AlertTitle>Error</AlertTitle>
             {error}
           </Alert>
+          </div>
         ) : (
           <table className="table">
             <thead>

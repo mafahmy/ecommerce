@@ -1,21 +1,15 @@
 import React from "react";
-import {
-  useParams,
-  useLocation,
-  Link,
-  useNavigate,
-  
-} from "react-router-dom";
+import { useParams, useLocation, Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import {  removeFromCart } from "../features/cart/cartSlice3";
+import { removeFromCart } from "../features/cart/cartSlice3";
 import Alert from "@mui/material/Alert";
 
 const CartScreen = (props) => {
-  //const { id } = useParams();
- // const { search } = useLocation();
-  //const qtyInUrl = new URLSearchParams(search).get("qty");
-  //const qty = qtyInUrl ? Number(qtyInUrl) : 1;
+  const { id } = useParams();
+  const { search } = useLocation();
+  const qtyInUrl = new URLSearchParams(search).get("qty");
+  const qty = qtyInUrl ? Number(qtyInUrl) : 1;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

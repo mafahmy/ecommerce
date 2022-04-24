@@ -59,7 +59,7 @@ const RegisterScreen = () => {
       )}
       {error && (
             <Alert severity="error">
-              <AlertTitle>wrong email or Password</AlertTitle>
+              <AlertTitle>un able to register now!</AlertTitle>
               {error}
             </Alert>
           )}
