@@ -30,7 +30,7 @@ code {
     'main'
     'footer';
   grid-template-columns: 1fr;
-  grid-template-rows: 50px auto 265px;
+  grid-template-rows: 50px 1fr 265px;
   height: 100%;
 
 }
