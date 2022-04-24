@@ -89,6 +89,7 @@ const OrderScreen = () => {
   }
 
   return isLoading ? (
+    <div className="row center">
     <Box sx={{ display: "flex", alignItem:"center" }}>
       <CircularProgress />
     </Box>
@@ -97,6 +98,7 @@ const OrderScreen = () => {
       <AlertTitle>Error</AlertTitle>
       {error}
     </Alert>
+    </div>
   ) : (
     <div>
       <h1>Order {order._id}</h1>
