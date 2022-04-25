@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { setMessage } from "../messages/messageSlice";
+
 import axios from "axios";
 
 export const detailsUser = createAsyncThunk(
@@ -19,13 +19,11 @@ export const detailsUser = createAsyncThunk(
       return data;
     } catch (error) {
       const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      thunkAPI.dispatch(setMessage(message));
-      return message;
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );
