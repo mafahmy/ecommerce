@@ -158,6 +158,7 @@ export default function Navbar1() {
                   </Typography>
                 </div>
               </Box>
+              {!userInfo && (
               <Box
                 component="div"
                 sx={{
@@ -168,6 +169,28 @@ export default function Navbar1() {
                 }}
               >
                 <div>
+                  <Typography
+                    variant="h6"
+                    sx={{ flexGrow: 1, fontWeight: 700 }}
+                  >
+                    <Link to="/register">
+                      Register
+                    </Link>
+                  </Typography>
+                </div>
+              </Box>
+              )}
+              <Box
+                component="div"
+                sx={{
+                  display: {
+                    xs: "none",
+                    sm: "block",
+                  },
+                }}
+              >
+                <div>
+
                   {userInfo ? (
                     <div className="dropdown">
                       <Typography
@@ -202,7 +225,26 @@ export default function Navbar1() {
                       </ul>
                     </div>
                   ) : (
+                    <Box
+                component="div"
+                sx={{
+                  display: {
+                    xs: "none",
+                    sm: "block",
+                  },
+                }}
+              >
+                <div>
+                  <Typography
+                    variant="h6"
+                    sx={{ flexGrow: 1, fontWeight: 700 }}
+                  >
                     <Link to="/signin">Sign In</Link>
+                  </Typography>
+                </div>
+              </Box>
+                    
+                    
                   )}
                   {userInfo && userInfo.isAdmin && (
                     <div className="dropdown">
@@ -315,6 +357,8 @@ export default function Navbar1() {
 
                   {/* {search} */}
 
+                  {!userInfo && (
+
                   <Box
                     sx={{
                       display: "flex",
@@ -326,13 +370,20 @@ export default function Navbar1() {
                     }}
                   >
                     <Button variant="contained" sx={{ m: 1, width: 0.5 }}>
+                      <Link to="/register">
                       Register
+                      </Link>
                     </Button>
                     <Button variant="outlined" sx={{ m: 1, width: 0.5 }}>
+                      <Link to="/signin">
                       Login
+                      </Link>
                     </Button>
                   </Box>
+                  )}
                 </Box>
+                
+
               </Drawer>
             </Toolbar>
           </Container>
