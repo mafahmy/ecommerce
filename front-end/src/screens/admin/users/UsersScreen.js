@@ -38,15 +38,19 @@ const UsersScreen = () => {
     <div>
       <h1>Users</h1>
       {loadingDelete && (
+        <div className="row center">
         <Box sx={{ display: "flex" }}>
           <CircularProgress />
         </Box>
+        </div>
       )}
       {errorDelete && (
+        <div className="row center">
         <Alert severity="error">
           <AlertTitle>Error</AlertTitle>
           {errorDelete}
         </Alert>
+        </div>
       )}
       {successDelete && (
         <Alert severity="success">
@@ -55,14 +59,18 @@ const UsersScreen = () => {
         </Alert>
       )}
       {isLoading ? (
+        <div className="row center">
         <Box sx={{ display: "flex" }}>
           <CircularProgress />
         </Box>
+        </div>
       ) : error ? (
+        <div className="row center">
         <Alert severity="error">
           <AlertTitle>Error</AlertTitle>
           {error}
         </Alert>
+        </div>
       ) : (
         <table className="table">
           <thead>
