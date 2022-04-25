@@ -1,29 +1,25 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { setMessage } from "../messages/messageSlice";
+
 import axios from "axios";
 
 export const detailsProduct = createAsyncThunk(
   "DETAILS_PRODUCT",
   async (productId, thunkAPI) => {
-    const {
-      log: { userInfo },
-    } = thunkAPI.getState();
+    
 
     try {
       const { data } = await axios.get(
-        `http://localhost:4000/api/products/${productId}`,
+        `http://localhost:4000/api/products/${productId}`
         
-        {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
-        }
+        
       );
       return data;
     } catch (error) {
       const message = error.response.data.message
         ? error.response.data.message
         : error.message;
-      thunkAPI.dispatch(setMessage(message));
-      return message;
+
+      return thunkAPI.rejectWithValue(message);  
     }
   }
 );
@@ -47,7 +43,7 @@ const productDetailsSlice = createSlice({
     [detailsProduct.fulfilled]: (state, action) => {
       return {
         isLoading: false,
-        product: action.payload,
+        data: action.payload,
         
       };
     },

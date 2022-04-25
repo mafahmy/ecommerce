@@ -147,27 +147,35 @@ const ProductEditScreen = (props) => {
         <div>
           <h1>Edit Product {id}</h1>
         </div>
+        <div className="row center">
         {loadingUpdate && (
           <Box sx={{ display: "flex" }}>
             <CircularProgress />
           </Box>
         )}
+        </div>
+        <div className="row center">
         {errorUpdate && (
           <Alert severity="error">
             <AlertTitle>Error</AlertTitle>
             {errorUpdate}
           </Alert>
         )}
-
+        </div>
+        
         {isLoading ? (
+          <div className="row center">
           <Box sx={{ display: "flex" }}>
             <CircularProgress />
           </Box>
+          </div>
         ) : error ? (
+          <div className="row center">
           <Alert severity="error">
             <AlertTitle>Error</AlertTitle>
             {error}
           </Alert>
+          </div>
         ) : (
           <>
             <div>
