@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { setMessage } from "../messages/messageSlice";
+
 import axios from "axios";
 import { login } from "./userLogSlice";
+
 
 export const register = createAsyncThunk(
   "USER_REGISTER",
@@ -21,16 +22,17 @@ export const register = createAsyncThunk(
 
       return data;
     } catch (error) {
-      const message =
-        (error.response &&
-          error.response.data &&
-          error.response.data.message) ||
-        error.message ||
-        error.toString();
-      thunkAPI.dispatch(setMessage(message));
 
-      return message;
-    }
+      
+        const message =
+          error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+         
+         return thunkAPI.rejectWithValue(message);
+  
+      }
+
   }
 );
 const initialState = {};

@@ -24,7 +24,7 @@ const OrderScreen = () => {
   const navigate = useNavigate();
 
   const userSignin = useSelector((state) => state.log);
-  const { isLoggedIn,userInfo } = userSignin;
+  const { isLoggedIn, userInfo } = userSignin;
 
   const orderDeliver = useSelector((state) => state.orderDeliver);
   const {
@@ -54,7 +54,7 @@ const OrderScreen = () => {
       };
       document.body.appendChild(script);
     };
-    
+
     if (
       !order ||
       successPay ||
@@ -73,7 +73,15 @@ const OrderScreen = () => {
         }
       }
     }
-  }, [dispatch, navigate, order, orderId, successDeliver, successPay, userInfo]);
+  }, [
+    dispatch,
+    navigate,
+    order,
+    orderId,
+    successDeliver,
+    successPay,
+    userInfo,
+  ]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(order, paymentResult));
@@ -85,18 +93,22 @@ const OrderScreen = () => {
   const adminPayOrder = () => {};
 
   if (!isLoggedIn) {
-    return <Navigate to='/' />
+    return <Navigate to="/" />;
   }
 
   return isLoading ? (
-    <Box sx={{ display: "flex", alignItem:"center" }}>
-      <CircularProgress />
-    </Box>
+    <div className="row center">
+      <Box sx={{ display: "flex", alignItem: "center" }}>
+        <CircularProgress />
+      </Box>
+    </div>
   ) : error ? (
-    <Alert severity="error">
-      <AlertTitle>Error</AlertTitle>
-      {error}
-    </Alert>
+    <div className="row center">
+      <Alert severity="error">
+        <AlertTitle>Error</AlertTitle>
+        {error}
+      </Alert>
+    </div>
   ) : (
     <div>
       <h1>Order {order._id}</h1>
@@ -106,30 +118,30 @@ const OrderScreen = () => {
             <li>
               <div className="card card-body">
                 <h2>Shipping</h2>
-                  
-                  <strong>Name:</strong>
-                  <Typography variant="h8" sx={{ flexGrow: 1, fontWeight: 700, margin: '2px' }}>
-                  {order.shippingAddress.fullName} 
-                  
-                  <br/>
-                  
+
+                <strong>Name:</strong>
+                <Typography
+                  variant="h8"
+                  sx={{ flexGrow: 1, fontWeight: 700, margin: "2px" }}
+                >
+                  {order.shippingAddress.fullName}
+                  <br />
                   <strong>Address:</strong>
                   {order.shippingAddress.address},{order.shippingAddress.city},
-                  
-                  <br/>
+                  <br />
                   {order.shippingAddress.postalCode},
                   {order.shippingAddress.country}
                 </Typography>
-                
+
                 {order.isDelivered ? (
                   <Alert variant="filled" severity="success">
                     Delivered at {order.deliveredAt}
                   </Alert>
                 ) : (
                   <Alert severity="warning">
-                  <AlertTitle>Warning</AlertTitle>
-                  Not Delivered
-                </Alert>
+                    <AlertTitle>Warning</AlertTitle>
+                    Not Delivered
+                  </Alert>
                 )}
               </div>
             </li>
@@ -207,7 +219,8 @@ const OrderScreen = () => {
                   <div>${order.totalPrice}</div>
                 </div>
               </li>
-              {!order.isPaid && order.PaymentMethod === "paypal" &&(
+              {console.log(order.paymentMethod)}
+              {!order.isPaid && order.paymentMethod === "paypal" && (
                 <li>
                   {!sdkReady ? (
                     <Box sx={{ display: "flex" }}>
@@ -237,7 +250,7 @@ const OrderScreen = () => {
               {!order.isPaid && order.paymentMethod === "cashOnDelivery" && (
                 <h1>Order will be delivered soon</h1>
               )}
-              {userInfo.isAdmin && !order.isPaid  && (
+              {userInfo.isAdmin && !order.isPaid && (
                 <li>
                   {/* {lodingDeliver && (
                     <Box sx={{ display: "flex" }}>
@@ -250,8 +263,11 @@ const OrderScreen = () => {
                       {errorPay}
                     </Alert>
                   )} */}
-                  <button type="button" className="primary block"
-                  onClick={adminPayOrder}>
+                  <button
+                    type="button"
+                    className="primary block"
+                    onClick={adminPayOrder}
+                  >
                     Pay Order
                   </button>
                 </li>
@@ -269,8 +285,11 @@ const OrderScreen = () => {
                       {errorPay}
                     </Alert>
                   )}
-                  <button type="button" className="primary block"
-                  onClick={deliverHandler}>
+                  <button
+                    type="button"
+                    className="primary block"
+                    onClick={deliverHandler}
+                  >
                     Deliver Order
                   </button>
                 </li>

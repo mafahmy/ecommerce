@@ -20,17 +20,22 @@ import Divider from "@mui/material/Divider";
 import { Typography } from "@mui/material";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { HomeOutlined } from "@material-ui/icons";
+import { detailsProduct } from "../features/admin/productDetailsSlice";
 
-const Image = styled.img`
-  margin-top: 2rem;
+const Image = styled.img
+  `margin-top: 2rem;
   max-width: 50%;
-  max-height: 500px;
-`;
+  max-height: 500px;`
+
 
 const ProductScreen = (props) => {
   const { id: productId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // const productDetails = useSelector((state) => state.productDetails);
+  // const { data, isLoading, error } = productDetails;
+
 
   const { data, error, isLoading, isFetching, isSuccess } =
     useGetProductQuery(productId);
@@ -47,12 +52,11 @@ const ProductScreen = (props) => {
     error: errorReviewCreate,
     success: successReviewCreate,
   } = productReview;
-
+  // dispatch(detailsProduct(productId));
   //const product = data.products.filter((x) => x._id ===id);
   // if (!data) {
   //   return <div>Product not found</div>;
   // }
-
   const payload = {
     name: data?.name,
     image: data?.image,
@@ -63,14 +67,21 @@ const ProductScreen = (props) => {
   };
 
   useEffect(() => {
+
+    
+
     if (successReviewCreate) {
       window.alert("Review Submitted Successfully");
       setRating("");
       setComment("");
       dispatch(resetReview());
-      navigate('/');
+      navigate("/");
     }
-  }, [dispatch, successReviewCreate]);
+    // dispatch(detailsProduct(productId));
+
+  }, [dispatch, navigate, successReviewCreate]);
+
+ 
 
   const addToCartHandler = (payload) => {
     navigate(`/cart/${productId}?qty=${qty}`);
@@ -80,25 +91,34 @@ const ProductScreen = (props) => {
     e.preventDefault();
     if (comment && rating) {
       dispatch(
-        reviewProduct({productId, rating, comment, name: userInfo.name })
+        reviewProduct({ productId, rating, comment, name: userInfo.name })
       );
     }
   };
   console.log(rating);
+  // if (!data) {
+  //   return <h2>....Loading</h2>
+  // }
   return (
-    <Container maxWidth="lg" disableGutters={true}>
+    <Container maxWidth="lg" disableGutters>
+
       <div>
         {isLoading ? (
-          <Box sx={{ display: "flex" }}>
-            <CircularProgress />
-          </Box>
-        ) : error ? (
-          <Alert severity="error">
-            <AlertTitle>Error</AlertTitle>
-            <h3>{error} </h3>
-          </Alert>
+          <div className="row center">
+            <Box sx={{ display: "flex" }}>
+              <CircularProgress />
+            </Box>
+            </div>
+            ) : error ? (
+              <div className="row center">
+            <Alert severity="error">
+              <AlertTitle>Error</AlertTitle>
+              <h3>{error} </h3>
+            </Alert>
+          </div>
         ) : (
           <div>
+            {console.log(payload)}
             <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 700 }}>
               <Link to="/">
                 <HomeOutlined />
