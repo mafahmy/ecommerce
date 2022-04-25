@@ -22,6 +22,7 @@ export const register = createAsyncThunk(
 
       return data;
     } catch (error) {
+
       
         const message =
           error.response && error.response.data.message
@@ -31,6 +32,7 @@ export const register = createAsyncThunk(
          return thunkAPI.rejectWithValue(message);
   
       }
+
   }
 );
 const initialState = {};

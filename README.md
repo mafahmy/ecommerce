@@ -1,12 +1,11 @@
-In the project root folder :
-# add a .env file contain your Mongo-db atlas uri like that:
-    MONGODB_URL=<your uri>
+# admin credential:
+  email: Mahmoud@gmail.com
+  password: Mah1234
 
-# run npm start at the root server to start the server
 
-# In browser: got to http://localhost:4000/api/users/seed  to add the users in data.js file to database while server is running.
 
-# In browser: got to http://localhost:4000/api/products/seed  to add the products in data.js file to database while server is running.
+
+
 
 
 
