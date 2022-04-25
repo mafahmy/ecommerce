@@ -43,8 +43,6 @@ const userLogSlice = createSlice({
   initialState,
   extraReducers: {
     [login.pending]: (state, action) => {
-      // state.isLoggedIn = false;
-      // state.isLoading = true;
       return {
         isLoading: true,
         isLoggedIn: false,
@@ -69,7 +67,7 @@ const userLogSlice = createSlice({
     [logout.fulfilled]: (state, action) => {
       return {
         isLoading: false,
-         userInfo: null,
+        userInfo: null,
         isLoggedIn: false,
       };
     },
