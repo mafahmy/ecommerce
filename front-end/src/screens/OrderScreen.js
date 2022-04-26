@@ -90,7 +90,21 @@ const OrderScreen = () => {
   const deliverHandler = () => {
     dispatch(deliverOrder(order._id));
   };
-  const adminPayOrder = () => {};
+  
+  const adminPayOrder = async (e)  => {
+    e.preventDefault();
+     await axios
+      .put(`http://localhost:4000/api/orders/${orderId}/adminpay`,orderId ,{
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      })
+      .then((response) => {
+        console.log(response);
+        
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   if (!isLoggedIn) {
     return <Navigate to="/" />;

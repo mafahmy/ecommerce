@@ -11,7 +11,7 @@ const userRouter = express.Router();
 userRouter.get(
   "/seed",
   expressAsyncHandler(async (req, res) => {
-    await User.deleteMany({});
+    //await User.deleteMany({});
     const createdUsers = await User.insertMany(data.users);
     res.send({ createdUsers });
   })
@@ -75,6 +75,9 @@ userRouter.put(
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
+    if(user.isAdmin) {
+      res.send({ message: "Can not do that" })
+    }
     if (user) {
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;

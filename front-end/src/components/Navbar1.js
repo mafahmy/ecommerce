@@ -17,7 +17,7 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import Button from "@mui/material/Button";
-
+import Stack from "@mui/material/Stack";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import HistoryIcon from "@mui/icons-material/History";
@@ -34,6 +34,7 @@ import UserMenu from "./UserMenu";
 import AdminMenu from "./AdminMenu";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Grid, ListItemText } from "@mui/material";
 
 // const StyledSearch = styled("div")(({ theme }) => ({
 //   position: "relative",
@@ -88,17 +89,11 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 //   </StyledSearch>
 // );
 
-const theme = createTheme({
-  palette: {
-    type: "light",
-    primary: {
-      main: "#203040",
-    },
-    secondary: {
-      main: "#f0c040",
-    },
-  },
-});
+const MenuWrapper = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  height: "100%",
+}));
 
 export default function Navbar1() {
   const cart = useSelector((state) => state.cart);
@@ -106,7 +101,6 @@ export default function Navbar1() {
   const userSignin = useSelector((state) => state.log);
   const { userInfo } = userSignin;
   const dispatch = useDispatch();
- 
 
   const signoutHandler = () => {
     dispatch(logout());
@@ -127,14 +121,41 @@ export default function Navbar1() {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <AppBar position="static" color="primary">
-          <Container maxWidth="lg" disableGutters>
-            <Toolbar>
-              <Typography variant="h4" sx={{ flexGrow: 1, fontWeight: 700 }}>
-                <Link to="/">Brand</Link>
-              </Typography>
+      <AppBar position="static" color="primary">
+        <Container maxWidth="lg" height="60px" disableGutters>
+          <Toolbar
+            sx={{
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "center",
+              hight: "100%",
+            }}
+          >
+            <Typography variant="h4" sx={{ flexGrow: 1, fontWeight: 500 }}>
+              <Link to="/">Brand</Link>
+            </Typography>
 
+            <Box
+              component="div"
+              sx={{
+                display: {
+                  xs: "none",
+                  sm: "block",
+                },
+              }}
+            >
+              <div>
+                <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 500 }}>
+                  <Link to="/cart/:id">
+                    Cart
+                    {cartItems.length > 0 && (
+                      <span className="badge">{cartItems.length}</span>
+                    )}
+                  </Link>
+                </Typography>
+              </div>
+            </Box>
+            {!userInfo && (
               <Box
                 component="div"
                 sx={{
@@ -147,168 +168,163 @@ export default function Navbar1() {
                 <div>
                   <Typography
                     variant="h6"
-                    sx={{ flexGrow: 1, fontWeight: 700 }}
+                    sx={{ flexGrow: 1, fontWeight: 500 }}
                   >
-                    <Link to="/cart/:id">
-                      Cart
-                      {cartItems.length > 0 && (
-                        <span className="badge">{cartItems.length}</span>
-                      )}
-                    </Link>
+                    <Link to="/register">Register</Link>
                   </Typography>
                 </div>
               </Box>
-              {!userInfo && (
-              <Box
-                component="div"
-                sx={{
-                  display: {
-                    xs: "none",
-                    sm: "block",
-                  },
-                }}
-              >
-                <div>
-                  <Typography
-                    variant="h6"
-                    sx={{ flexGrow: 1, fontWeight: 700 }}
-                  >
-                    <Link to="/register">
-                      Register
-                    </Link>
-                  </Typography>
-                </div>
-              </Box>
-              )}
-              <Box
-                component="div"
-                sx={{
-                  display: {
-                    xs: "none",
-                    sm: "block",
-                  },
-                }}
-              >
-                <div>
-
-                  {userInfo ? (
-                    <div className="dropdown">
-                      <Typography
-                        variant="h6"
-                        sx={{ flexGrow: 1, fontWeight: 700 }}
-                      >
-                        <Link to="#">
+            )}
+            <Box
+              component="div"
+              sx={{
+                display: {
+                  xs: "none",
+                  sm: "block",
+                },
+              }}
+            >
+              <div>
+                {userInfo ? (
+                  <div className="dropdown">
+                    <Link to="#">
+                      <Stack direction="row">
+                        <MenuWrapper>
+                        <Typography
+                          variant="h6"
+                          sx={{
+                            flexGrow: 1,
+                            fontWeight: 500,
+                            alignItems: "center",
+                          }}
+                        >
                           {userInfo.name}
-                          <ArrowDropDownIcon color="white" />
-                        </Link>
-                      </Typography>
-
-                      <ul className="dropdown-content">
-                        <li>
-                          <Link to="/profile">
+                        </Typography>
+                        <ArrowDropDownIcon color="white" />
+                        </MenuWrapper>
+                      </Stack>
+                    </Link>
+                    <ul className="dropdown-content">
+                      <li>
+                        <Link to="/profile">
+                          <MenuWrapper>
                             <PersonOutlineOutlinedIcon />
                             User Profile
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/ordershistory">
+                          </MenuWrapper>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/ordershistory">
+                          <MenuWrapper>
                             <HistoryIcon />
                             Order History
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="#signout" onClick={signoutHandler}>
+                          </MenuWrapper>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="#signout" onClick={signoutHandler}>
+                          <MenuWrapper>
                             <LogoutIcon />
                             Sign Out
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
-                  ) : (
-                    <Box
-                component="div"
-                sx={{
-                  display: {
-                    xs: "none",
-                    sm: "block",
-                  },
-                }}
-              >
-                <div>
-                  <Typography
-                    variant="h6"
-                    sx={{ flexGrow: 1, fontWeight: 700 }}
+                          </MenuWrapper>
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                ) : (
+                  <Box
+                    component="div"
+                    sx={{
+                      display: {
+                        xs: "none",
+                        sm: "block",
+                      },
+                    }}
                   >
-                    <Link to="/signin">Sign In</Link>
-                  </Typography>
-                </div>
-              </Box>
-                    
-                    
-                  )}
-                  {userInfo && userInfo.isAdmin && (
-                    <div className="dropdown">
-                      <Link to="#Admin">
-                        <AdminPanelSettingsOutlinedIcon />
-                        Admin
-                        <ArrowDropDownIcon color="white" />
-                      </Link>
-                      <ul className="dropdown-content">
-                        <li>
-                          <Link to="/dashboard">Dashboard</Link>
-                        </li>
-                        <li>
-                          <Link to="/productlist">Products</Link>
-                        </li>
-                        <li>
-                          <Link to="/orderlist">Orders</Link>
-                        </li>
-                        <li>
-                          <Link to="/users">Users</Link>
-                        </li>
-                        <li>
-                          <Link to="#signout" onClick={signoutHandler}>
-                            Sign Out
-                          </Link>
-                        </li>
-                      </ul>
+                    <div>
+                      <Typography
+                        variant="h6"
+                        sx={{ flexGrow: 1, fontWeight: 500 }}
+                      >
+                        <Link to="/signin">Sign In</Link>
+                      </Typography>
                     </div>
-                  )}
-                </div>
-              </Box>
+                  </Box>
+                )}
 
-              <IconButton
-                edge="start"
-                color="inherit"
-                aria-label="open drawer"
-                onClick={toggleDrawer(true)}
+                {userInfo && userInfo.isAdmin && (
+                  <div className="dropdown">
+                    <Link to="#">
+                      <Stack direction="row" alignItems="center" gap={1}>
+                        <AdminPanelSettingsOutlinedIcon />
+
+                        <Typography
+                          variant="h6"
+                          sx={{ flexGrow: 1, fontWeight: 500 }}
+                        >
+                          Admin
+                        </Typography>
+                        <ArrowDropDownIcon color="white" />
+                      </Stack>
+                    </Link>
+
+                    <ul className="dropdown-content">
+                      {/* <li>
+                          <Link to="/dashboard">Dashboard</Link>
+                        </li> */}
+                      <li>
+                        <Link to="/productlist">Products</Link>
+                      </li>
+                      <li>
+                        <Link to="/orderlist">Orders</Link>
+                      </li>
+                      <li>
+                        <Link to="/users">Users</Link>
+                      </li>
+                      <li>
+                        <Link to="#signout" onClick={signoutHandler}>
+                          Sign Out
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </Box>
+
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={toggleDrawer(true)}
+              sx={{
+                ml: 2,
+                display: {
+                  xs: "block",
+                  sm: "none",
+                },
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+
+            <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
+              <Box
                 sx={{
-                  mr: 2,
-                  display: {
-                    xs: "block",
-                    sm: "none",
-                  },
+                  p: 2,
+                  height: 1,
+
+                  backgroundColor: "white",
                 }}
               >
-                <MenuIcon />
-              </IconButton>
+                <IconButton onClick={toggleDrawer(false)} sx={{ mb: 2 }}>
+                  <CloseIcon />
+                </IconButton>
 
-              <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
-                <Box
-                  sx={{
-                    p: 2,
-                    height: 1,
-                    backgroundColor: "white",
-                  }}
-                >
-                  <IconButton onClick={toggleDrawer(false)} sx={{ mb: 2 }}>
-                    <CloseIcon />
-                  </IconButton>
+                <Divider sx={{ mb: 2 }} />
 
-                  <Divider sx={{ mb: 2 }} />
-
-                  <Box sx={{ mb: 2 }}>
-                    {/* <ListItemButton>
+                <Box sx={{ mb: 2 }}>
+                  {/* <ListItemButton>
 
                   <MenuItemSign  />
                   <ListItemIcon>
@@ -317,48 +333,47 @@ export default function Navbar1() {
                   <ListItemText primary="Pictures" />
                 </ListItemButton> */}
 
-                    <ListItemButton>
-                      <ListItemIcon>
-                        <DescriptionIcon sx={{ color: "primary.main" }} />
-                      </ListItemIcon>
-                      {/* <ListItemText primary="CART" /> */}
-                      <div>
-                        <Link to="/cart/:id">
-                          Cart
-                          {cartItems.length > 0 && (
-                            <span className="badge">{cartItems.length}</span>
-                          )}
-                        </Link>
-                      </div>
-                    </ListItemButton>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <DescriptionIcon sx={{ color: "primary.main" }} />
+                    </ListItemIcon>
+                    {/* <ListItemText primary="CART" /> */}
+                    <div>
+                      <Link to="/cart/:id">
+                        Cart
+                        {cartItems.length > 0 && (
+                          <span className="badge">{cartItems.length}</span>
+                        )}
+                      </Link>
+                    </div>
+                  </ListItemButton>
 
+                  <ListItemButton>
+                    <ListItemIcon>
+                      <PersonOutlineOutlinedIcon
+                        sx={{ color: "primary.main" }}
+                      />
+                    </ListItemIcon>
+                    <UserMenu />
+                    {/* <ListItemText primary="Other" /> */}
+                  </ListItemButton>
+
+                  {userInfo && userInfo.isAdmin && (
                     <ListItemButton>
                       <ListItemIcon>
-                        <PersonOutlineOutlinedIcon
+                        <AdminPanelSettingsOutlinedIcon
                           sx={{ color: "primary.main" }}
                         />
                       </ListItemIcon>
-                      <UserMenu />
-                      {/* <ListItemText primary="Other" /> */}
+                      <AdminMenu />
+                      {/* <ListItemText primary="CART" /> */}
                     </ListItemButton>
+                  )}
+                </Box>
 
-                    {userInfo && userInfo.isAdmin && (
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <AdminPanelSettingsOutlinedIcon
-                            sx={{ color: "primary.main" }}
-                          />
-                        </ListItemIcon>
-                        <AdminMenu />
-                        {/* <ListItemText primary="CART" /> */}
-                      </ListItemButton>
-                    )}
-                  </Box>
+                {/* {search} */}
 
-                  {/* {search} */}
-
-                  {!userInfo && (
-
+                {!userInfo && (
                   <Box
                     sx={{
                       display: "flex",
@@ -369,26 +384,19 @@ export default function Navbar1() {
                       transform: "translate(-50%, 0)",
                     }}
                   >
-                    <Button variant="contained" sx={{ m: 1, width: 0.5 }}>
-                      <Link to="/register">
-                      Register
-                      </Link>
+                    <Button variant="outlined" sx={{ m: 1, width: 0.5 }}>
+                      <Link to="/register">Register</Link>
                     </Button>
                     <Button variant="outlined" sx={{ m: 1, width: 0.5 }}>
-                      <Link to="/signin">
-                      Login
-                      </Link>
+                      <Link to="/signin">Login</Link>
                     </Button>
                   </Box>
-                  )}
-                </Box>
-                
-
-              </Drawer>
-            </Toolbar>
-          </Container>
-        </AppBar>
-      </ThemeProvider>
+                )}
+              </Box>
+            </Drawer>
+          </Toolbar>
+        </Container>
+      </AppBar>
     </>
   );
 }

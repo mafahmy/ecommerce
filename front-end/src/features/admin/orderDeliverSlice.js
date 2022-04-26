@@ -11,7 +11,7 @@ export const deliverOrder = createAsyncThunk(
 
     try {
       const { data } = await axios.put(
-        `http://localhost:4000/api/orders/${orderId}/deliver`,
+        `http://localhost:4000/api/orders/${orderId}/deliver`, orderId,
 
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
