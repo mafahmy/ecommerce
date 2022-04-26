@@ -34,6 +34,11 @@ app.get("/", (req, res) => {
   res.send("server runs");
 });
 
+
+
+//AN express error handling for async requests
+// got it from https://expressjs.com/en/guide/error-handling.html
+
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
 });
