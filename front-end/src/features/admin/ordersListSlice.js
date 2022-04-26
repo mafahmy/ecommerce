@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { setMessage } from '../messages/messageSlice';
+
 
 export const listOrders = createAsyncThunk(
     'ORDERS_LIST',
@@ -16,11 +16,12 @@ export const listOrders = createAsyncThunk(
             return data;
             
         } catch (error) {
-            const message = error.response.data.message
-            ? error.response.data.message
-            : error.message;
-          thunkAPI.dispatch(setMessage(message));
-          return message;
+            const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+
+      return thunkAPI.rejectWithValue(message);
             
         }
 

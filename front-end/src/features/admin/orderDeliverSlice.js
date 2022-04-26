@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { setMessage } from "../messages/messageSlice";
+
 import axios from "axios";
 
 export const deliverOrder = createAsyncThunk(
@@ -11,7 +11,7 @@ export const deliverOrder = createAsyncThunk(
 
     try {
       const { data } = await axios.put(
-        `http://localhost:4000/api/orders/${orderId}/deliver`,
+        `http://localhost:4000/api/orders/${orderId}/deliver`, orderId,
 
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
@@ -19,11 +19,12 @@ export const deliverOrder = createAsyncThunk(
       );
       return data;
     } catch (error) {
-      const message = error.response.data.message
-        ? error.response.data.message
-        : error.message;
-      thunkAPI.dispatch(setMessage(message));
-      return message;
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );

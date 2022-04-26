@@ -113,4 +113,22 @@ orderRouter.put(
     }
   })
 );
+
+orderRouter.put(
+  "/:id/adminpay",
+  isAuth,
+  isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id);
+    if (order) {
+      order.isPaid = true;
+      order.isPaidAt = Date.now();
+
+      const updatedOrder = await order.save();
+      res.send({ message: "Order Is Paid By Admin", order: updatedOrder });
+    } else {
+      res.status(404).send({ message: "Order Not Found" });
+    }
+  })
+);
 export default orderRouter;
