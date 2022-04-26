@@ -64,37 +64,51 @@ export default function ProductsListScreen(props) {
           Create Product
         </button>
       </div>
+      
       {loadingDelete && (
+        <div className="row center">
         <Box sx={{ display: "flex" }}>
           <CircularProgress />
         </Box>
+        </div>
       )}
+      
       {errorDelete && (
+        <div className="row center">
         <Alert severity="error">
           <AlertTitle>Error</AlertTitle>
           {errorDelete}
         </Alert>
+        </div>
       )}
       {loadingCreate && (
+        <div className="row center">
         <Box sx={{ display: "flex" }}>
           <CircularProgress />
         </Box>
+        </div>
       )}
       {errorCreate && (
-        <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          {errorCreate}
-        </Alert>
+         <div className="row center">
+         <Alert severity="error">
+           <AlertTitle>Error</AlertTitle>
+           {errorCreate}
+         </Alert>
+         </div>
       )}
       {isLoading ? (
-        <Box sx={{ display: "flex" }}>
-          <CircularProgress />
-        </Box>
+       <div className="row center">
+       <Box sx={{ display: "flex" }}>
+         <CircularProgress />
+       </Box>
+       </div>
       ) : error ? (
+        <div className="row center">
         <Alert severity="error">
           <AlertTitle>Error</AlertTitle>
           {error}
         </Alert>
+        </div>
       ) : (
         <table className="table">
           <thead>

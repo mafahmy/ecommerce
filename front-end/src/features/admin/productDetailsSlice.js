@@ -43,7 +43,7 @@ const productDetailsSlice = createSlice({
     [detailsProduct.fulfilled]: (state, action) => {
       return {
         isLoading: false,
-        data: action.payload,
+        product: action.payload,
         
       };
     },

@@ -18,7 +18,7 @@ export const register = createAsyncThunk(
       );
       await thunkAPI.dispatch(login({ email, password }));
 
-      //   localStorage.setItem("userInfo", JSON.stringify(data));
+         localStorage.setItem("userInfo", JSON.stringify(data));
 
       return data;
     } catch (error) {

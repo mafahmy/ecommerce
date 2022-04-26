@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Button from '@mui/material/Button';
 
-const Container = styled.div `
+const Container = styled.div`
   flex: 1;
   margin: 6px;
   padding: 20px;
-  height: 70vh;
+  height: 50vh;
   max-width: 250px;
   min-width: 200px;
   border: 0.5px solid gray;
@@ -35,7 +36,8 @@ const CategoryItem = ({ item }) => {
           <Image src={item.img} />
           <Info>
             <Title>{item.title}</Title>
-            <button className="primary block">SHOP NOW</button>
+            {/* <button className="primary block">SHOP NOW</button> */}
+            <Button variant="contained" fullWidth>SHOP NOW</Button>
           </Info>
         </Link>
       </Container>
