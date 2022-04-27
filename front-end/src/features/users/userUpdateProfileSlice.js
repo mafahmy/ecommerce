@@ -11,7 +11,7 @@ export const updateUserProfile = createAsyncThunk(
 
     try {
       const { data } = await axios.put(
-        `http://localhost:4000/api/users/profile`, user,
+        `/api/users/profile`, user,
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         }

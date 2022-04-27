@@ -9,7 +9,7 @@ export const register = createAsyncThunk(
   async ({ name, email, password }, thunkAPI) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:4000/api/users/register",
+        "/api/users/register",
         {
           name,
           email,

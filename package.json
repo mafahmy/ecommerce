@@ -18,7 +18,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --watch backEnd --exec node --experimental-modules backEnd/server.js"
+    "start": "nodemon --watch backEnd --exec node --experimental-modules backEnd/server.js",
+    "build": "cd front-end && npm install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -31,5 +32,9 @@
     "url": "https://github.com/mafahmy/ecommerce/issues"
   },
   "homepage": "https://github.com/mafahmy/ecommerce#readme",
-  "description": ""
+  "description": "",
+  "engines": {
+    "node": "16.x",
+    "npm": "8.x"
+  }
 }

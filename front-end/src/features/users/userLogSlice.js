@@ -9,7 +9,7 @@ export const login = createAsyncThunk(
   async ({ email, password }, thunkAPI) => {
     try {
       const { data } = await axios.post(
-        "http://localhost:4000/api/users/signin",
+        "/api/users/signin",
         { email, password }
       );
 

@@ -11,7 +11,7 @@ export const deleteUser = createAsyncThunk(
 
     try {
       const { data } = await axios.delete(
-        `http://localhost:4000/api/users/${userId}`,
+        `/api/users/${userId}`,
 
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },

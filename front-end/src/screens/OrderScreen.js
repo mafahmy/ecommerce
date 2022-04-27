@@ -43,7 +43,7 @@ const OrderScreen = () => {
   useEffect(() => {
     const addPayPalScript = async () => {
       const { data } = await axios.get(
-        "http://localhost:4000/api/config/paypal"
+        "/api/config/paypal"
       );
       const script = document.createElement("script");
       script.type = "text/javascript";
@@ -94,7 +94,7 @@ const OrderScreen = () => {
   const adminPayOrder = async (e)  => {
     e.preventDefault();
      await axios
-      .put(`http://localhost:4000/api/orders/${orderId}/adminpay`,orderId ,{
+      .put(`/api/orders/${orderId}/adminpay`,orderId ,{
         headers: { Authorization: `Bearer ${userInfo.token}` },
       })
       .then((response) => {

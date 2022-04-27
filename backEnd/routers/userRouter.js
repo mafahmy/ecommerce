@@ -5,7 +5,6 @@ import expressAsyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
 import { generateToken, isAuth, isAdmin } from "../utils.js";
 
-
 const userRouter = express.Router();
 
 userRouter.get(
@@ -23,7 +22,7 @@ userRouter.post(
     const user = await User.findOne({ email: req.body.email });
 
     if (user) {
-      if (bcrypt.compareSync(req.body.password, user.password)) {
+      if (bcrypt.compare(req.body.password, user.password)) {
         res.send({
           _id: user._id,
           name: user.name,
@@ -75,8 +74,8 @@ userRouter.put(
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
-    if(user.isAdmin) {
-      res.send({ message: "Can not do that" })
+    if (user.isAdmin) {
+      res.send({ message: "Can not do that" });
     }
     if (user) {
       user.name = req.body.name || user.name;
@@ -125,7 +124,7 @@ userRouter.delete(
   })
 );
 userRouter.put(
-  '/:id',
+  "/:id",
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
@@ -137,9 +136,9 @@ userRouter.put(
       user.status = req.body.status || user.status;
       user.isAdmin = req.body.isAdmin || user.isAdmin;
       const updatedUser = await user.save();
-      res.send({ message: 'User Updated', user: updatedUser });
+      res.send({ message: "User Updated", user: updatedUser });
     } else {
-      res.status(404).send({ message: 'User Not Found' });
+      res.status(404).send({ message: "User Not Found" });
     }
   })
 );

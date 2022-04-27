@@ -9,7 +9,7 @@ export const detailsProduct = createAsyncThunk(
 
     try {
       const { data } = await axios.get(
-        `http://localhost:4000/api/products/${productId}`
+        `/api/products/${productId}`
         
         
       );

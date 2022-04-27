@@ -7,7 +7,7 @@ export const listProductsCategories = createAsyncThunk(
   async ( sample, thunkAPI) => {
     try {
       const { data } = await axios.get(
-        `http://localhost:4000/api/products/categories`
+        `/api/products/categories`
        
       );
       return data;

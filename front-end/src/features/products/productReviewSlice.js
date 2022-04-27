@@ -10,7 +10,7 @@ export const reviewProduct = createAsyncThunk(
     } = thunkAPI.getState();
     try {
       const { data } = await axios.post(
-        `http://localhost:4000/api/products/${productId}/reviews`,
+        `/api/products/${productId}/reviews`,
         {
           name,
           rating,
