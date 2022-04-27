@@ -10,7 +10,7 @@ export const payOrder = createAsyncThunk(
     } = thunkAPI.getState();
     try {
       const { data } = await axios.put(
-        `http://localhost:4000/api/orders/${order._id}/pay`,
+        `/api/orders/${order._id}/pay`,
         paymentResult,
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
