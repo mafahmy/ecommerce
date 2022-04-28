@@ -25,6 +25,7 @@ import productsCategoryListReducer from "../features/products/productsCategoryLi
 import productsBrandListReducer from "../features/products/productsBrandListSlice";
 import productReviewReducer from "../features/products/productReviewSlice";
 import messageReducer from "../features/messages/messageSlice";
+import adminPayReducer from "../features/admin/adminPaySlice";
 
 const preloadedState = {
   cart: {
@@ -42,6 +43,7 @@ export const store = configureStore({
     orders: ordersReducer,
     orderDetails: orderDetailsReducer,
     orderPay: orderPayReducer,
+    adminPay: adminPayReducer,
     productsList: productsListReducer,
     productsCategoryList: productsCategoryListReducer,
     productsBrandList: productsBrandListReducer,
