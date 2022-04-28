@@ -96,6 +96,7 @@ const ProductScreen = (props) => {
     }
   };
   console.log(rating);
+  console.log("mahmoud")
   // if (!data) {
   //   return <h2>....Loading</h2>
   // }
@@ -109,6 +110,7 @@ const ProductScreen = (props) => {
               <CircularProgress />
             </Box>
             </div>
+            
             ) : error ? (
               <div className="row center">
             <Alert severity="error">
@@ -118,6 +120,7 @@ const ProductScreen = (props) => {
           </div>
         ) : (
           <div>
+            {console.log('mahmoud')}
             {console.log(payload)}
             <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 700 }}>
               <Link to="/">
