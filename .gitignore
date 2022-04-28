@@ -17,3 +17,4 @@ front-end/node_modules
 .DS_Store
 .env.local
 .env.development.localher
+.env
