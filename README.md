@@ -1,3 +1,8 @@
+# The app is deployed at 
+https://ecommerse191.herokuapp.com/
+
+
+
 # If You have any problems running the project:
     - let me know in a message or a commit because the project is tested and it is running
     - in the root folder npm start & in the front-end folder npm start
