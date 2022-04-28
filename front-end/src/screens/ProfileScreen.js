@@ -54,7 +54,7 @@ export default function ProfileScreen() {
   }
   return (
     <div>
-      <Container maxWidth="lg" disableGutters="true">
+      <Container maxWidth="lg" disableGutters>
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>User Profile</h1>
