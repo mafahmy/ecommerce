@@ -14,6 +14,7 @@ import {
   resetDeliverOrder,
 } from "../features/admin/orderDeliverSlice";
 import Typography from "@mui/material/Typography";
+import { adminPayOrder, resetAdminPay } from "../features/admin/adminPaySlice";
 
 const OrderScreen = () => {
   const { id: orderId } = useParams();
@@ -40,6 +41,9 @@ const OrderScreen = () => {
     isLoading: isLoadingPay,
   } = orderPay;
 
+  const adminPay = useSelector((state) => state.adminPay);
+  const { isLoading: loadingAdminPay, success: successAdminPay, error: errorAdminPay } = adminPay;
+
   useEffect(() => {
     const addPayPalScript = async () => {
       const { data } = await axios.get(
@@ -59,11 +63,14 @@ const OrderScreen = () => {
       !order ||
       successPay ||
       successDeliver ||
+      successAdminPay ||
       (order && order._id !== orderId)
     ) {
       dispatch(orderPayReset());
       dispatch(resetDeliverOrder());
       dispatch(detailsOrder(orderId));
+      dispatch(resetAdminPay());
+
     } else {
       if (!order.isPaid) {
         if (!window.paypal) {
@@ -73,15 +80,7 @@ const OrderScreen = () => {
         }
       }
     }
-  }, [
-    dispatch,
-    navigate,
-    order,
-    orderId,
-    successDeliver,
-    successPay,
-    userInfo,
-  ]);
+  }, [dispatch, navigate, order, orderId, successAdminPay, successDeliver, successPay, userInfo]);
 
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(order, paymentResult));
@@ -91,19 +90,8 @@ const OrderScreen = () => {
     dispatch(deliverOrder(order._id));
   };
   
-  const adminPayOrder = async (e)  => {
-    e.preventDefault();
-     await axios
-      .put(`/api/orders/${orderId}/adminpay`,orderId ,{
-        headers: { Authorization: `Bearer ${userInfo.token}` },
-      })
-      .then((response) => {
-        console.log(response);
-        
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const adminPayOrderHandler = async ()  => {
+   dispatch(adminPayOrder(order._id));
   };
 
   if (!isLoggedIn) {
@@ -280,7 +268,7 @@ const OrderScreen = () => {
                   <button
                     type="button"
                     className="primary block"
-                    onClick={adminPayOrder}
+                    onClick={adminPayOrderHandler}
                   >
                     Pay Order
                   </button>
