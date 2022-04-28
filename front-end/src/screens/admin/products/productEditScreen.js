@@ -73,15 +73,10 @@ const ProductEditScreen = (props) => {
   // if (isSuccess) {
 
   // }
-  const handleChange = (e) => {
-    setInputs((prev) => {
-      return {
-        ...prev,
-        [e.target]: e.target.value,
-      };
-    });
+
+  const uploadFileHandler = () => {
+    
   };
-  const uploadFileHandler = () => {};
   const submitHandler = (e) => {
     e.preventDefault();
 

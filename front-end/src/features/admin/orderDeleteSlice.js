@@ -11,7 +11,7 @@ export const deleteOrder = createAsyncThunk(
 
     try {
       const { data } = await axios.delete(
-        `http://localhost:4000/api/orders/${orderId}`,
+        `/api/orders/${orderId}`,
 
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },

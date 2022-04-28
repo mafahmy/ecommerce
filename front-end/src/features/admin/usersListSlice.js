@@ -10,7 +10,7 @@ export const listUsers = createAsyncThunk(
     } = thunkAPI.getState();
 
     try {
-      const { data } = await axios.get("http://localhost:4000/api/users", {
+      const { data } = await axios.get("/api/users", {
         headers: {
           Authorization: `Bearer ${userInfo.token}`,
         },

@@ -60,7 +60,7 @@ const SigninScreen = () => {
           <h1>Sign In</h1>
         </div>
 
-        {console.log(error)}
+        
         <div>
           <label htmlFor="email"></label>
           <input
