@@ -11,7 +11,7 @@ import path from "path";
 
 dotenv.config();
 const app = express();
-const port = 4000 || process.env.port;
+const port = process.env.port || 4000;
 const __dirname = path.resolve();
 app.use(express.json());
 app.use(cors());
