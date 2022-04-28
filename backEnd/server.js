@@ -44,9 +44,9 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "front-end/build/index.html"));
 });
 
-app.get("/", (req, res) => {
-  res.send("server runs");
-});
+// app.get("/", (req, res) => {
+//   res.send("server runs");
+// });
 
 //AN express error handling for async requests for all routes
 // got it from https://expressjs.com/en/guide/error-handling.html
