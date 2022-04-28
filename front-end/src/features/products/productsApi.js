@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const dynamicBaseQuery = async () => {
 
 }
-const base = 
+
 export const productsApi = createApi({
 
     reducerPath: "productsApi",
