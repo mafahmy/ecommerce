@@ -25,6 +25,8 @@ import UserEditScreen from "./screens/admin/users/UserEditScreen";
 import SearchScreen from "./screens/SearchScreen";
 import ScrollToTop from "./components/ScrollToTop";
 import Navbar1 from "./components/Navbar1";
+import VerificationEmailScreen from "./screens/VerificationEmailScreen";
+import UserVerifyEmail from "./screens/UserVerifyEmail";
 
 export const theme = createTheme({
   palette: {
@@ -65,6 +67,8 @@ function App() {
               <Route path="/order/:id" element={<OrderScreen />} />
               <Route path="/profile" element={<ProfileScreen />} />
               <Route path="/ordershistory" element={<OrderHistoryScreen />} />
+              <Route path="/verification" element={<VerificationEmailScreen />} />
+              <Route path="/email/verify/:token" element={<UserVerifyEmail />} />
               <Route
                 path="/search/name/:name?"
                 element={<SearchScreen />}

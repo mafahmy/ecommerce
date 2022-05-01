@@ -12,7 +12,7 @@ const PaymentMethodScreen = () => {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
   const userSignin = useSelector((state) => state.log);
-  const { isLoggedIn } = userSignin;
+  const { isLoggedIn, userInfo } = userSignin;
 
   const formik = useFormik({
     initialValues:{
@@ -32,6 +32,7 @@ const PaymentMethodScreen = () => {
   //     dispatch(savePaymentMethod(paymentMethod));
   //     navigate('/placeorder');
   // }
+  
   if (!isLoggedIn) {
     return <Navigate to='/' />
   }

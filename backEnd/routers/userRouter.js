@@ -85,10 +85,31 @@ userRouter.post(
       user.emailVerificationToken = verificationToken;
       await user.save();
 
-      // const link = `http://localhost:3000/api/email/verify?token=${token}`;
-      // const subject = "verify email";
-      // const sendMail = await sendEmail(user.email, subject,verifyEmailTemp(link));
+      const link = `http://localhost:3000/email/verify/${verificationToken}`;
+      const subject = "verify email";
+      const sendMail = await sendEmail(
+        user.email,
+        subject,
+        verifyEmailTemp(link)
+      );
+      res.send({ message: `An email was sent to ${user.email} please verify` })
     }
+  })
+);
+userRouter.post(
+  "/email/verify/:token",
+  expressAsyncHandler(async (req, res) => {
+    let user = await User.findOne({ emailVerificationToken: req.params.token });
+
+    if (!user) {
+      res.status(400).send({ message: "Invalid Link" });
+    }
+    user.isVerified = true;
+    user.emailVerificationToken = "";
+    await user.save();
+    
+
+    res.send({ message: "Email Verified Successfully" });
   })
 );
 

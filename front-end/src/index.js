@@ -8,6 +8,8 @@ import * as serviceWorker from './serviceWorker';
 import { hydrate } from './features/cart/cartSlice3' 
 store.subscribe(() => {
   localStorage.setItem('cartItems', JSON.stringify(store.getState().cart.cartItems));
+  localStorage.setItem('shippingAddress', JSON.stringify(store.getState().cart.shippingAddress));
+  localStorage.setItem('paymentMethod', JSON.stringify(store.getState().cart.paymentMethod));
 })
 // const getCartItemsFromLocalStorage = () => {
 //   try {

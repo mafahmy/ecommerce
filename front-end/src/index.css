@@ -99,6 +99,10 @@ li {
 .row.center {
   justify-content: center;
 }
+.row.center.vertical{
+  align-items: center;
+  height: 100%;
+}
 
 .row.top {
   align-items: flex-start;
