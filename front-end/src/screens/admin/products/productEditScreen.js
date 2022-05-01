@@ -79,7 +79,7 @@ const ProductEditScreen = (props) => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-
+  
     const storage = getStorage();
     const storageRef = ref(storage, imageFile.name);
 
@@ -116,7 +116,7 @@ const ProductEditScreen = (props) => {
         await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           console.log("File available at", downloadURL);
           // console.log({...inputs, image: downloadURL})
-
+              
           dispatch(
             updateProduct({
               _id: id,
