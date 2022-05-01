@@ -10,7 +10,7 @@ import { createOrder, resetOrder } from "../features/orders/ordersSlice";
 const PlaceOrderScreen = () => {
   const cart = useSelector((state) => state.cart);
   const userSignin = useSelector((state) => state.log);
-  const { isLoggedIn } = userSignin;
+  const { isLoggedIn, userInfo } = userSignin;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,6 +35,10 @@ const PlaceOrderScreen = () => {
   if (!isLoggedIn) {
     return <Navigate to="/" />;
   }
+  if (!userInfo.isVerified) {
+    return <Navigate to="/verification" />
+  }
+
 
   return (
     <div>

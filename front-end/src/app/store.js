@@ -26,6 +26,7 @@ import productsBrandListReducer from "../features/products/productsBrandListSlic
 import productReviewReducer from "../features/products/productReviewSlice";
 import messageReducer from "../features/messages/messageSlice";
 import adminPayReducer from "../features/admin/adminPaySlice";
+import userVerificationReducer from "../features/users/userVerificationSlice";
 
 const preloadedState = {
   cart: {
@@ -61,6 +62,7 @@ export const store = configureStore({
     orderDeliver: orderDeliverReducer,
     userDelete: userDeleteReducer,
     userUpdate: userUpdateReducer,
+    userVerification: userVerificationReducer,
     message: messageReducer,
     [productsApi.reducerPath]: productsApi.reducer,
 
