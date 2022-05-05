@@ -32,7 +32,8 @@ const userVerificationSlice = createSlice({
     },
     [verification.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.verification = action.payload;
+      state.success = true;
+      state.verificationUser = action.payload;
     },
     [verification.rejected]: (state, action) => {
       state.isLoading = false;

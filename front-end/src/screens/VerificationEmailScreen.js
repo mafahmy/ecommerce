@@ -21,7 +21,13 @@ const VerificationEmailScreen = () => {
   // const redirect = redirectUrl ? redirectUrl : "/";
   const userSignin = useSelector((state) => state.log);
   const { userInfo, isLoading, error, isLoggedIn } = userSignin;
-
+  const userVerification = useSelector((state) => state.userVerification);
+  const { 
+    isLoading: loadingUserVerification,
+    error: errorUserVerification,
+    success: sucessUserVerification,
+    verificationUser
+   } = userVerification;
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -54,6 +60,24 @@ const VerificationEmailScreen = () => {
             <CircularProgress />
           </Box>
         )}
+        {loadingUserVerification && (
+          <Box sx={{ display: "flex", alignItem: "center" }}>
+            <CircularProgress />
+          </Box>
+        )}
+        {errorUserVerification && (
+          <Alert severity="error">
+          <AlertTitle>Error</AlertTitle>
+          {errorUserVerification}
+        </Alert>
+        )}
+        {sucessUserVerification && (
+          <Alert severity="success">
+          <AlertTitle>Success</AlertTitle>
+          {verificationUser.message}
+        </Alert>
+        )}
+        
       </div>
 
       <form className="form" onSubmit={formik.handleSubmit}>

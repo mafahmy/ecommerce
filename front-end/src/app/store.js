@@ -27,12 +27,19 @@ import productReviewReducer from "../features/products/productReviewSlice";
 import messageReducer from "../features/messages/messageSlice";
 import adminPayReducer from "../features/admin/adminPaySlice";
 import userVerificationReducer from "../features/users/userVerificationSlice";
+import userCheckTokenReducer from "../features/users/userCheckTokenSlice";
 
 const preloadedState = {
   cart: {
     cartItems: localStorage.getItem("cartItems")
       ? JSON.parse(localStorage.getItem("cartItems"))
       : [],
+    shippingAddress: localStorage.getItem("shippingAddress")
+    ? JSON.parse(localStorage.getItem("shippingAddress")) 
+    : [],
+    paymentMethod: localStorage.getItem("paymentMethod")
+    ? JSON.parse(localStorage.getItem("paymentMethod")) 
+    : []
   },
 };
 export const store = configureStore({
@@ -63,6 +70,7 @@ export const store = configureStore({
     userDelete: userDeleteReducer,
     userUpdate: userUpdateReducer,
     userVerification: userVerificationReducer,
+    userCheckToken: userCheckTokenReducer,
     message: messageReducer,
     [productsApi.reducerPath]: productsApi.reducer,
 
