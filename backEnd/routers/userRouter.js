@@ -85,7 +85,7 @@ userRouter.post(
       user.emailVerificationToken = verificationToken;
       await user.save();
 
-      const link = `http://localhost:3000/email/verify/${verificationToken}`;
+      const link = `https://ecommerse191.herokuapp.com/email/verify/${verificationToken}`;
       const subject = "verify email";
       const sendMail = await sendEmail(
         user.email,
