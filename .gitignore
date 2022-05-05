@@ -5,7 +5,7 @@ front-end/node_modules
 /node_modules
 /.pnp
 .pnp.js
- .env
+.env
  front-end/.env
 # testing
 /coverage
@@ -17,3 +17,4 @@ front-end/node_modules
 .DS_Store
 .env.local
 .env.development.localher
+.env
