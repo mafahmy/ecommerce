@@ -16,41 +16,31 @@ const VerificationEmailScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { search } = useLocation();
-
-  // const redirectUrl = new URLSearchParams(search).get("redirect");
-  // const redirect = redirectUrl ? redirectUrl : "/";
   const userSignin = useSelector((state) => state.log);
   const { userInfo, isLoading, error, isLoggedIn } = userSignin;
   const userVerification = useSelector((state) => state.userVerification);
-  const { 
+  const {
     isLoading: loadingUserVerification,
     error: errorUserVerification,
     success: sucessUserVerification,
-    verificationUser
-   } = userVerification;
+    verificationUser,
+  } = userVerification;
   const formik = useFormik({
     initialValues: {
       email: "",
-      
     },
 
     validationSchema: Yup.object().shape({
       email: Yup.string()
         .email("Must be a valid email")
         .required("This field is required!"),
-     
     }),
     onSubmit: (values) => {
-       const { email } = values;
+      const { email } = values;
 
       dispatch(verification({ email }));
     },
   });
-  // useEffect(() => {
-  //   if (userInfo && isLoggedIn) {
-  //     navigate(redirect);
-  //   }
-  // }, [isLoggedIn, navigate, redirect, userInfo]);
 
   return (
     <Container maxWidth="lg" disableGutters>
@@ -67,17 +57,16 @@ const VerificationEmailScreen = () => {
         )}
         {errorUserVerification && (
           <Alert severity="error">
-          <AlertTitle>Error</AlertTitle>
-          {errorUserVerification}
-        </Alert>
+            <AlertTitle>Error</AlertTitle>
+            {errorUserVerification}
+          </Alert>
         )}
         {sucessUserVerification && (
           <Alert severity="success">
-          <AlertTitle>Success</AlertTitle>
-          {verificationUser.message}
-        </Alert>
+            <AlertTitle>Success</AlertTitle>
+            {verificationUser.message}
+          </Alert>
         )}
-        
       </div>
 
       <form className="form" onSubmit={formik.handleSubmit}>
@@ -85,7 +74,6 @@ const VerificationEmailScreen = () => {
           <h1>Verify Email</h1>
         </div>
 
-        
         <div>
           <label htmlFor="email"></label>
           <input
@@ -100,24 +88,13 @@ const VerificationEmailScreen = () => {
             <div>{formik.errors.email}</div>
           ) : null}
         </div>
-     
+
         <div>
           <label />
           <button type="submit" className="primary">
             Send Link
           </button>
         </div>
-        {/* <div>
-          {" "}
-          {error && (
-            <Alert severity="error">
-              <AlertTitle>wrong email or Password</AlertTitle>
-              {error}
-            </Alert>
-          )}
-          <label />
-          
-        </div> */}
       </form>
     </Container>
   );

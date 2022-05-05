@@ -105,9 +105,9 @@ userRouter.post(
       res.status(400).send({ message: "Invalid Link" });
     }
     user.isVerified = true;
-    // user.emailVerificationToken = "";
+    user.emailVerificationToken = "";
     await user.save();
-    console.log(user);
+    
 
     res.send({ message: "Email Verified Successfully" });
   })
