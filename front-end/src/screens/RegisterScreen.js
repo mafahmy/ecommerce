@@ -50,7 +50,7 @@ const RegisterScreen = () => {
   }, [navigate, redirect, userInfo]);
 
   return (
-    <Container maxWidth="lg" disableGutters="true">
+    <Container maxWidth="lg" disableGutters>
       <div className="row center">
       {isLoading && (
         <Box sx={{ display: "flex", alignItem:"center" }}>

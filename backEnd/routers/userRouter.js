@@ -3,7 +3,14 @@ import data from "../data.js";
 import User from "../models/userModel.js";
 import expressAsyncHandler from "express-async-handler";
 import bcrypt from "bcrypt";
-import { generateToken, isAuth, isAdmin } from "../utils.js";
+import {
+  generateToken,
+  isAuth,
+  isAdmin,
+  generateEmailVerificationToken,
+} from "../utils.js";
+import { sendEmail } from "../utils/email.js";
+import { verifyEmailTemp } from "../utils/verifyEmailTemp.js";
 
 const userRouter = express.Router();
 
@@ -28,6 +35,7 @@ userRouter.post(
           name: user.name,
           email: user.email,
           isAdmin: user.isAdmin,
+          isVerified: user.isVerified,
           token: generateToken(user),
         });
 
@@ -41,19 +49,67 @@ userRouter.post(
 userRouter.post(
   "/register",
   expressAsyncHandler(async (req, res) => {
-    const user = new User({
-      name: req.body.name,
-      email: req.body.email,
-      password: bcrypt.hashSync(req.body.password, 8),
-    });
+    let user = await User.findOne({ email: req.body.email });
+    if (user) {
+      res
+        .status(401)
+        .send({ message: "User with a given email already Exist!" });
+    } else {
+      user = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: bcrypt.hashSync(req.body.password, 8),
+      });
+    }
+
     const createdUser = await user.save();
     res.send({
       _id: createdUser._id,
       name: createdUser.name,
       email: createdUser.email,
       isAdmin: createdUser.isAdmin,
+      isVerified: createdUser.isVerified,
       token: generateToken(createdUser),
     });
+  })
+);
+
+userRouter.post(
+  "/verification",
+  expressAsyncHandler(async (req, res) => {
+    let user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      res.status(400).send({ message: "User Not FOUND" });
+    } else {
+      const verificationToken = generateEmailVerificationToken(user);
+      user.emailVerificationToken = verificationToken;
+      await user.save();
+
+      const link = `http://localhost:3000/email/verify/${verificationToken}`;
+      const subject = "verify email";
+      const sendMail = await sendEmail(
+        user.email,
+        subject,
+        verifyEmailTemp(link)
+      );
+      res.send({ message: `An email was sent to ${user.email} please verify` })
+    }
+  })
+);
+userRouter.post(
+  "/email/verify/:token",
+  expressAsyncHandler(async (req, res) => {
+    let user = await User.findOne({ emailVerificationToken: req.params.token });
+
+    if (!user) {
+      res.status(400).send({ message: "Invalid Link" });
+    }
+    user.isVerified = true;
+    user.emailVerificationToken = "";
+    await user.save();
+    
+
+    res.send({ message: "Email Verified Successfully" });
   })
 );
 
