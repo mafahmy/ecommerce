@@ -13,25 +13,31 @@ import { listProductsBrand } from "../features/products/productsBrandListSlice";
 
 const Conatainer = styled.div`
   display: grid;
-  grid-template-columns: 13vw auto;
-  grid-template-areas: " sd main";
+  //grid-template-columns: 13vw auto;
+  //grid-template-areas: " sd main";
 `;
 const LoadingWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 `;
 
 const SideBar = styled.div`
-  grid-area: sd;
+ // grid-area: sd;
   display: flex;
-  justify-content: center;
+  
+  justify-content: space-evenly;
+  padding: 15px;
+  background-color: #f8f8f8;
+  border-radius: 15px;
+  margin-bottom: 100px;
 `;
 const Main = styled.div`
-  grid-area: main;
+ // grid-area: main;
 `;
 const SideWrapper = styled.div`
   margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 const SearchScreen = () => {
@@ -67,26 +73,29 @@ const SearchScreen = () => {
     <Conatainer>
       <SideBar>
         <SideWrapper>
-          <h3>Categories</h3>
+          <h2>Categories</h2>
           <ul>
             {categories?.map((category) => (
               <li key={category}>
-                <Link to={`/search/category/${category}`}>{category}</Link>
+                <Link to={`/search/category/${category}`}><h4>{category}</h4></Link>
               </li>
             ))}
 
             
           </ul>
-          <h3>Brands</h3>
+          </SideWrapper>
+          <SideWrapper>
+          <h2>Brands</h2>
           <ul>
             {brands?.map((brand) => (
               <li key={brand}>
-                <Link to={`/search/brand/${brand}`}>{brand}</Link>
+                <Link to={`/search/brand/${brand}`}><h4>{brand}</h4></Link>
               </li>
             ))}
             
           </ul>
-        </SideWrapper>
+          </SideWrapper>
+        
       </SideBar>
       <Main>
         <div>

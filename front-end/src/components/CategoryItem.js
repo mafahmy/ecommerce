@@ -26,6 +26,7 @@ const Info = styled.div`
 
 const Title = styled.p`
   text-align: center;
+  font-size: 32px;
 `;
 
 const CategoryItem = ({ item }) => {

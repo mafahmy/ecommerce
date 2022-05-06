@@ -76,7 +76,7 @@ a {
 }
 
 a:hover {
-  color: silver;
+  color: #f0c040
 }
 
 ul {
@@ -270,7 +270,7 @@ a.brand {
   z-index: 1;
   background-color: #626e7aeb;
   margin: 0;
-  margin-top: 1.14px;
+  margin-top: 0px;
 } 
   
 
