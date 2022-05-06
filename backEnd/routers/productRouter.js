@@ -93,7 +93,7 @@ productRouter.put(
       product.image = req.body.image;
       product.category = req.body.category;
       product.brand = req.body.brand;
-      product.countInStock = req.body.countInStock;
+      product.countInstock = req.body.countInstock;
       product.description = req.body.description;
       const updatedProduct = await product.save();
       res.send({ message: "Product Updated", product: updatedProduct });
@@ -141,12 +141,10 @@ productRouter.post(
         product.reviews.length;
 
       const updatedProduct = await product.save();
-      res
-        .status(201)
-        .send({
-          message: "Review Created",
-          review: updatedProduct.reviews[updatedProduct.reviews.length - 1],
-        });
+      res.status(201).send({
+        message: "Review Created",
+        review: updatedProduct.reviews[updatedProduct.reviews.length - 1],
+      });
     } else {
       res.status(404).send({ message: "Product Not Found" });
     }
