@@ -10,7 +10,7 @@ import {
   generateEmailVerificationToken,
 } from "../utils.js";
 import { sendEmail } from "../utils/email.js";
-import { verifyEmailTemp } from "../utils/verifyEmailTemp.js";
+import { verifyEmailTemp } from "../utils/EmailTemp.js";
 
 const userRouter = express.Router();
 
