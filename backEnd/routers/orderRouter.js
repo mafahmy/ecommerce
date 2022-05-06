@@ -1,7 +1,10 @@
 import express from "express";
 import expressAsyncHandler from "express-async-handler";
 import Order from "../models/orderModel.js";
+import User from "../models/userModel.js";
 import { isAuth, isAdmin } from "../utils.js";
+import { sendEmail } from "../utils/email.js";
+import { orderReciept } from "../utils/EmailTemp.js";
 
 const orderRouter = express.Router();
 
@@ -31,6 +34,13 @@ orderRouter.post(
         user: req.user._id,
       });
       const createdOrder = await order.save();
+      const userMail = await User.findById(req.user._id);
+      if (userMail) {
+        const email = userMail.email;
+        const subject = "Order Reciept";
+
+        await sendEmail(email, subject, orderReciept(order));
+      }
       res
         .status(201)
         .send({ message: "New Order Created", order: createdOrder });

@@ -37,7 +37,6 @@ const ProductEditScreen = (props) => {
   const productDetails = useSelector((state) => state.productDetails);
   const { isLoading, error, product } = productDetails;
 
-
   const productUpdate = useSelector((state) => state.productUpdate);
 
   const {
@@ -63,215 +62,211 @@ const ProductEditScreen = (props) => {
       setDescription(product.description);
     }
   }, [dispatch, id, navigate, product, successUpdate]);
-  //   const productDetails = useSelector((state) => state.productDetails);
-  //   const { loading, error, product } = productDetails;
-  // useEffect(() => {
-  //   console.log(id);
 
-  //   console.log(data)
-
-  // if (isSuccess) {
-
-  // }
-
-  const uploadFileHandler = () => {
-    
-  };
   const submitHandler = (e) => {
     e.preventDefault();
-  
-    const storage = getStorage();
-    const storageRef = ref(storage, imageFile.name);
+    if (imageFile) {
+      const storage = getStorage();
+      const storageRef = ref(storage, imageFile.name);
 
-    const uploadTask = uploadBytesResumable(storageRef, imageFile);
+      const uploadTask = uploadBytesResumable(storageRef, imageFile);
 
-    // Register three observers:
-    // 1. 'state_changed' observer, called any time the state changes
-    // 2. Error observer, called on failure
-    // 3. Completion observer, called on successful completion
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        // Observe state change events such as progress, pause, and resume
-        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        console.log("Upload is " + progress + "% done");
-        switch (snapshot.state) {
-          case "paused":
-            console.log("Upload is paused");
-            break;
-          case "running":
-            console.log("Upload is running");
-            break;
-          default:
+      // Register three observers:
+      // 1. 'state_changed' observer, called any time the state changes
+      // 2. Error observer, called on failure
+      // 3. Completion observer, called on successful completion
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Observe state change events such as progress, pause, and resume
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+          switch (snapshot.state) {
+            case "paused":
+              console.log("Upload is paused");
+              break;
+            case "running":
+              console.log("Upload is running");
+              break;
+            default:
+          }
+        },
+        (error) => {
+          // Handle unsuccessful uploads
+        },
+        async () => {
+          // Handle successful uploads on complete
+          // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+          await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log("File available at", downloadURL);
+            // console.log({...inputs, image: downloadURL})
+            dispatch(
+              updateProduct({
+                _id: id,
+                name,
+                price,
+                image: downloadURL,
+                category,
+                brand,
+                countInstock,
+                description,
+              })
+            );
+          });
         }
-      },
-      (error) => {
-        // Handle unsuccessful uploads
-      },
-      async () => {
-        // Handle successful uploads on complete
-        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-        await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log("File available at", downloadURL);
-          // console.log({...inputs, image: downloadURL})
-              
-          dispatch(
-            updateProduct({
-              _id: id,
-              name,
-              price,
-              image: downloadURL,
-              category,
-              brand,
-              countInstock,
-              description,
-            })
-          );
-        });
-      }
-    );
+      );
+    } else
+      dispatch(
+        updateProduct({
+          _id: id,
+          name,
+          price,
+          image,
+          category,
+          brand,
+          countInstock,
+          description,
+        })
+      );
   };
 
   return (
-   
     <div>
-       <Container maxWidth="lg" disableGutters>
-      <form className="form" onSubmit={submitHandler}>
-        <div>
-          <h1>Edit Product {id}</h1>
-        </div>
-        <div className="row center">
-        {loadingUpdate && (
-          <Box sx={{ display: "flex" }}>
-            <CircularProgress />
-          </Box>
-        )}
-        </div>
-        <div className="row center">
-        {errorUpdate && (
-          <Alert severity="error">
-            <AlertTitle>Error</AlertTitle>
-            {errorUpdate}
-          </Alert>
-        )}
-        </div>
-        
-        {isLoading ? (
-          <div className="row center">
-          <Box sx={{ display: "flex" }}>
-            <CircularProgress />
-          </Box>
+      <Container maxWidth="lg" disableGutters>
+        <form className="form" onSubmit={submitHandler}>
+          <div>
+            <h1>Edit Product {id}</h1>
           </div>
-        ) : error ? (
           <div className="row center">
-          <Alert severity="error">
-            <AlertTitle>Error</AlertTitle>
-            {error}
-          </Alert>
+            {loadingUpdate && (
+              <Box sx={{ display: "flex" }}>
+                <CircularProgress />
+              </Box>
+            )}
           </div>
-        ) : (
-          <>
-            <div>
-              <label htmlFor="name">Name</label>
-              <input
-                id="name"
-                type="text"
-                placeholder="Enter name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                // onChange={handleChange}
-              ></input>
+          <div className="row center">
+            {errorUpdate && (
+              <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+                {errorUpdate}
+              </Alert>
+            )}
+          </div>
+
+          {isLoading ? (
+            <div className="row center">
+              <Box sx={{ display: "flex" }}>
+                <CircularProgress />
+              </Box>
             </div>
-            <div>
-              <label htmlFor="price">Price</label>
-              <input
-                id="price"
-                type="text"
-                placeholder="Enter price"
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                // onChange={handleChange}
-              ></input>
+          ) : error ? (
+            <div className="row center">
+              <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+                {error}
+              </Alert>
             </div>
-            <div>
-              <label htmlFor="image">Image</label>
-              <input
-                id="image"
-                type="text"
-                placeholder="Enter Image"
-                value={image}
-                 onChange={(e) => setImage(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="imageFile">Image File</label>
-              <input
-                id="imageFile"
-                type="file"
-                label="Choose Image"
-                onChange={(e) => setImageFile(e.target.files[0])}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="category">Category</label>
-              <input
-                id="category"
-                type="text"
-                placeholder="Enter category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-                // onChange={handleChange}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="brand">Brand</label>
-              <input
-                id="brand"
-                type="text"
-                placeholder="Enter brand"
-                value={brand}
-                onChange={(e) => setBrand(e.target.value)}
-                // onChange={handleChange}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="countInStock">Count In Stock</label>
-              <input
-                id="countInStock"
-                type="text"
-                placeholder="Enter countInStock"
-                value={countInstock}
-                onChange={(e) => setCountInstock(e.target.value)}
-                // onChange={handleChange}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="description">Description</label>
-              <textarea
-                id="description"
-                rows="3"
-               
-                type="text"
-                placeholder="Enter description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                // onChange={handleChange}
-              ></textarea>
-            </div>
-            <div>
-              <label></label>
-              <button className="primary" type="submit">
-                Update
-              </button>
-            </div>
-          </>
-        )}
-      </form>
+          ) : (
+            <>
+              <div>
+                <label htmlFor="name">Name</label>
+                <input
+                  id="name"
+                  type="text"
+                  placeholder="Enter name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  // onChange={handleChange}
+                ></input>
+              </div>
+              <div>
+                <label htmlFor="price">Price</label>
+                <input
+                  id="price"
+                  type="text"
+                  placeholder="Enter price"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  // onChange={handleChange}
+                ></input>
+              </div>
+              <div>
+                <label htmlFor="image">Image</label>
+                <input
+                  id="image"
+                  type="text"
+                  placeholder="Enter Image"
+                  value={image}
+                  onChange={(e) => setImage(e.target.value)}
+                ></input>
+              </div>
+              <div>
+                <label htmlFor="imageFile">Image File</label>
+                <input
+                  id="imageFile"
+                  type="file"
+                  label="Choose Image"
+                  onChange={(e) => setImageFile(e.target.files[0])}
+                ></input>
+              </div>
+              <div>
+                <label htmlFor="category">Category</label>
+                <input
+                  id="category"
+                  type="text"
+                  placeholder="Enter category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  // onChange={handleChange}
+                ></input>
+              </div>
+              <div>
+                <label htmlFor="brand">Brand</label>
+                <input
+                  id="brand"
+                  type="text"
+                  placeholder="Enter brand"
+                  value={brand}
+                  onChange={(e) => setBrand(e.target.value)}
+                  // onChange={handleChange}
+                ></input>
+              </div>
+              <div>
+                <label htmlFor="countInStock">Count In Stock</label>
+                <input
+                  id="countInstock"
+                  type="text"
+                  placeholder="Enter countInStock"
+                  value={countInstock}
+                  onChange={(e) => setCountInstock(e.target.value)}
+                  // onChange={handleChange}
+                ></input>
+              </div>
+              <div>
+                <label htmlFor="description">Description</label>
+                <textarea
+                  id="description"
+                  rows="3"
+                  type="text"
+                  placeholder="Enter description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  // onChange={handleChange}
+                ></textarea>
+              </div>
+              <div>
+                <label></label>
+                <button className="primary" type="submit">
+                  Update
+                </button>
+              </div>
+            </>
+          )}
+        </form>
       </Container>
     </div>
-    
   );
 };
 export default ProductEditScreen;
