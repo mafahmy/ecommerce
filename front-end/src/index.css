@@ -255,8 +255,11 @@ a.brand {
   margin: 1rem 0;
   display: block;
 }
-.form h1 {
+.form h1, h3   {
   color: #ffffff;
+}
+.form a :hover {
+  color: #f0c040
 }
 
 /* Dropdown */
