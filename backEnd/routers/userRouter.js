@@ -122,7 +122,7 @@ userRouter.post(
       user.emailVerificationToken = verificationToken;
       await user.save();
 
-      const link = `http://localhost:3000/resetpassword/${verificationToken}`;
+      const link = `https://ecommerse191.herokuapp.com/resetpassword/${verificationToken}`;
       const subject = "reset password";
       const sendMail = await sendEmail(
         user.email,
