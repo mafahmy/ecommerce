@@ -32,6 +32,7 @@ code {
   grid-template-columns: 1fr;
   grid-template-rows: 50px 1fr 265px;
   height: 100%;
+  width:100%;
 
 }
 
@@ -41,9 +42,12 @@ header {
 }
 
 main {
-  margin-top: 3rem;
+  margin-top: 2rem;
   grid-area: main;
   padding: 1rem;
+ 
+  
+  
 }
 
 footer {
@@ -251,6 +255,9 @@ a.brand {
   margin: 1rem 0;
   display: block;
 }
+.form h1 {
+  color: #ffffff;
+}
 
 /* Dropdown */
 
@@ -378,4 +385,19 @@ a.brand {
 
 #submit-btn:hover {
   background-color: #12a159;
+}
+.loginBack {
+  background-image: linear-gradient(to top,rgba(0,0,0,.8) 0,rgba(0,0,0,0) 60%,rgba(0,0,0,.8) 100%),url("../public/images/public/back1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+}
+.search-wrapper {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  margin-bottom: 50px;
+}
+.search-wrapper:hover{
+  font-size: 24px;
 }

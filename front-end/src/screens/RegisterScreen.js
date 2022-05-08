@@ -51,6 +51,7 @@ const RegisterScreen = () => {
 
   return (
     <Container maxWidth="lg" disableGutters>
+      <div className="loginBack">
       <div className="row center">
       {isLoading && (
         <Box sx={{ display: "flex", alignItem:"center" }}>
@@ -134,11 +135,12 @@ const RegisterScreen = () => {
         <label />
         <div>
           <Link to={`/signin?redirect=${redirect}`}>
-            Already have an account
+           <h3> Already have an account </h3>
           </Link>
         </div>
       </div>
     </form>
+    </div>
     </Container>
   );
 };

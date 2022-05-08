@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
@@ -10,6 +10,8 @@ import Product from "../components/Product";
 import { listProducts } from "../features/products/productsListSlice";
 import { listProductsCategories } from "../features/products/productsCategoryListSlice";
 import { listProductsBrand } from "../features/products/productsBrandListSlice";
+import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from '@mui/icons-material/Close';
 
 const Conatainer = styled.div`
   display: grid;
@@ -40,7 +42,10 @@ const SideWrapper = styled.div`
   margin-bottom: 20px;
 `;
 
+
+
 const SearchScreen = () => {
+  const [active, setActive] = useState(false)
   const { category = "all", brand = "all" } = useParams();
   const productsList = useSelector((state) => state.productsList);
   const { isLoading, error, products } = productsList;
@@ -68,11 +73,22 @@ const SearchScreen = () => {
     dispatch(listProductsCategories());
     dispatch(listProductsBrand());
   }, [brand, category, dispatch]);
+  const handleSearch = () => {
+    setActive(!active);
+  }
+
 
   return (
     <Conatainer>
-      <SideBar>
+     <div className="search-wrapper"onClick={handleSearch} > 
+      <SearchIcon   fontSize="large"  />
+      Search more 
+      </div> 
+
+      {active && (
+      <SideBar onClick={handleSearch}>
         <SideWrapper>
+          <CloseIcon sx={{  }}/>
           <h2>Categories</h2>
           <ul>
             {categories?.map((category) => (
@@ -97,6 +113,7 @@ const SearchScreen = () => {
           </SideWrapper>
         
       </SideBar>
+      )}
       <Main>
         <div>
           {isLoading ? (

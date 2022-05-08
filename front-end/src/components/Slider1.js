@@ -63,7 +63,7 @@ const Text = styled.div`
     width: inherit;
     align-items: center;
     justify-content: center;
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: bolder;
     color: white;
     
@@ -106,7 +106,8 @@ const Slider1 = () => {
             style={{ backgroundImage: `url(${backgroundImage})` }}
           >
            
-          </Slide>
+           
+          </Slide>            
         ))}
       </SlideShowSlider>
 
