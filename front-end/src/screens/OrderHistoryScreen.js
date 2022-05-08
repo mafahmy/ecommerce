@@ -58,7 +58,7 @@ export default function OrderHistoryScreen(props) {
                   <td>{order.createdAt.substring(1, 10)}</td>
                   <td>{order.totalPrice.toFixed(2)}</td>
                   <td>{order.isPaid ? "Paid" : "No"}</td>
-                  {console.log(order.isPaidAt)}
+
                   <td>
                     {order.isDelivered
                       ? order.deliveredAt.substring(1, 10)

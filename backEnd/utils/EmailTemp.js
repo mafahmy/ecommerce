@@ -7,3 +7,7 @@ export const orderReciept = (order) => {
     <p>we have recieved your order for total ${order.totalPrice}</p>`
     return html;
 }
+export const resetPassword = (link) => {
+    const html = `Please Click On Link to reset your Password <a href=${link}>here</a>`
+    return html;
+}

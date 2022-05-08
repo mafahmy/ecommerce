@@ -75,11 +75,13 @@ const ProductScreen = (props) => {
       setRating("");
       setComment("");
       dispatch(resetReview());
+      
       navigate("/");
     }
-    // dispatch(detailsProduct(productId));
+    dispatch(detailsProduct(productId));
+     
 
-  }, [dispatch, navigate, successReviewCreate]);
+  }, [dispatch, navigate, productId, successReviewCreate]);
 
  
 

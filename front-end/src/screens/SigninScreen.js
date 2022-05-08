@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useFormik } from "formik";
 
+
 import * as Yup from "yup";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -47,6 +48,7 @@ const SigninScreen = () => {
 
   return (
     <Container maxWidth="lg" disableGutters>
+      <div className="loginBack">
       <div className="row center">
         {isLoading && (
           <Box sx={{ display: "flex", alignItem: "center" }}>
@@ -105,10 +107,12 @@ const SigninScreen = () => {
           )}
           <label />
           <div>
-            <Link to={`/register?redirect=${redirect}`}>Create an account</Link>
+            <Link to={`/register?redirect=${redirect}`}><h3>Create an account </h3></Link>
+            <Link to="/resetpasslink"><h3>Forget Password</h3></Link>
           </div>
         </div>
       </form>
+      </div>
     </Container>
   );
 };
