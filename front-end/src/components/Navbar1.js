@@ -36,58 +36,58 @@ import AdminMenu from "./AdminMenu";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Grid, ListItemText } from "@mui/material";
 
-// const StyledSearch = styled("div")(({ theme }) => ({
-//   position: "relative",
-//   borderRadius: theme.shape.borderRadius,
-//   backgroundColor: alpha(theme.palette.primary.main, 0.15),
-//   "&:hover": {
-//     backgroundColor: alpha(theme.palette.primary.main, 0.25),
-//   },
-//   marginRight: theme.spacing(2),
-//   marginLeft: 0,
-//   width: "100%",
-//   [theme.breakpoints.up("sm")]: {
-//     marginLeft: theme.spacing(3),
-//     width: "auto",
-//   },
-// }));
+const StyledSearch = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.primary.main, 0.15),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.primary.main, 0.25),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(3),
+    width: "auto",
+  },
+}));
 
-// const SearchIconWrapper = styled("div")(({ theme }) => ({
-//   padding: theme.spacing(0, 2),
-//   height: "100%",
-//   position: "absolute",
-//   pointerEvents: "none",
-//   display: "flex",
-//   alignItems: "center",
-//   justifyContent: "center",
-// }));
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
 
-// const StyledInputBase = styled(InputBase)(({ theme }) => ({
-//   color: "inherit",
-//   "& .MuiInputBase-input": {
-//     padding: theme.spacing(1, 1, 1, 0),
-//     // vertical padding + font size from searchIcon
-//     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-//     transition: theme.transitions.create("width"),
-//     width: "100%",
-//     [theme.breakpoints.up("md")]: {
-//       width: "20ch",
-//     },
-//   },
-// }));
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
+  },
+}));
 
-//search as JSX
-// const search = (
-//   <StyledSearch>
-//     <SearchIconWrapper>
-//       <SearchIcon />
-//     </SearchIconWrapper>
-//     <StyledInputBase
-//       placeholder="Suchen…"
-//       inputProps={{ "aria-label": "search" }}
-//     />
-//   </StyledSearch>
-// );
+const search = (
+  <StyledSearch>
+    <SearchIconWrapper>
+      <SearchIcon />
+    </SearchIconWrapper>
+    <StyledInputBase
+      placeholder="Search...."
+      inputProps={{  }}
+      
+    />
+  </StyledSearch>
+);
 
 const MenuWrapper = styled("div")(({ theme }) => ({
   display: "flex",
@@ -134,6 +134,8 @@ export default function Navbar1() {
             <Typography variant="h4" sx={{ flexGrow: 1, fontWeight: 500 }}>
               <Link to="/">Brand</Link>
             </Typography>
+
+            {/* {search} */}
 
             <Box
               component="div"
