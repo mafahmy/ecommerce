@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema(
     isAdmin: { type: Boolean, default: false, required: true },
     isVerified: { type: Boolean, default:false },
     status: { type: String, default: "Active" },
-    emailVerificationToken: { type: String }
+    emailVerificationToken: { type: String },
+    tickets: { type: Array }
   },
   {
     timestamps: true,

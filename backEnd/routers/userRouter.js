@@ -150,6 +150,22 @@ userRouter.post(
     res.send({ message: "Password Reset Successfully" });
   })
 );
+userRouter.post(
+  "/tickets/:id",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    let user = await User.findById(req.params.id);
+    if (user) {
+      user.tickets.push(req.body.ticket);
+      await user.save();
+      res.send({
+        message: "Submitted successfully will get back to you shortly",
+      });
+    } else {
+      res.status(404).send({ message: "Unable to submit now" });
+    }
+  })
+);
 
 userRouter.get(
   "/:id",

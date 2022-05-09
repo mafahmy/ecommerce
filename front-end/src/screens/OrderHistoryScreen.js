@@ -53,7 +53,7 @@ export default function OrderHistoryScreen(props) {
             {orders &&
               orders.map((order) => (
                 <tr key={order._id}>
-                  {console.log(order.createdAt)}
+                  
                   <td>{order._id}</td>
                   <td>{order.createdAt.substring(1, 10)}</td>
                   <td>{order.totalPrice.toFixed(2)}</td>

@@ -22,20 +22,16 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import { HomeOutlined } from "@material-ui/icons";
 import { detailsProduct } from "../features/admin/productDetailsSlice";
 
-const Image = styled.img
-  `margin-top: 2rem;
+const Image = styled.img`
+  margin-top: 2rem;
   max-width: 50%;
-  max-height: 500px;`
-
+  max-height: 500px;
+`;
 
 const ProductScreen = (props) => {
   const { id: productId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // const productDetails = useSelector((state) => state.productDetails);
-  // const { data, isLoading, error } = productDetails;
-
 
   const { data, error, isLoading, isFetching, isSuccess } =
     useGetProductQuery(productId);
@@ -52,11 +48,7 @@ const ProductScreen = (props) => {
     error: errorReviewCreate,
     success: successReviewCreate,
   } = productReview;
-  // dispatch(detailsProduct(productId));
-  //const product = data.products.filter((x) => x._id ===id);
-  // if (!data) {
-  //   return <div>Product not found</div>;
-  // }
+
   const payload = {
     name: data?.name,
     image: data?.image,
@@ -67,23 +59,16 @@ const ProductScreen = (props) => {
   };
 
   useEffect(() => {
-
-    
-
     if (successReviewCreate) {
       window.alert("Review Submitted Successfully");
       setRating("");
       setComment("");
       dispatch(resetReview());
-      
+
       navigate("/");
     }
     dispatch(detailsProduct(productId));
-     
-
   }, [dispatch, navigate, productId, successReviewCreate]);
-
- 
 
   const addToCartHandler = (payload) => {
     navigate(`/cart/${productId}?qty=${qty}`);
@@ -97,24 +82,18 @@ const ProductScreen = (props) => {
       );
     }
   };
-  console.log(rating);
-  console.log("mahmoud")
-  // if (!data) {
-  //   return <h2>....Loading</h2>
-  // }
+
   return (
     <Container maxWidth="lg" disableGutters>
-
       <div>
         {isLoading ? (
           <div className="row center">
             <Box sx={{ display: "flex" }}>
               <CircularProgress />
             </Box>
-            </div>
-            
-            ) : error ? (
-              <div className="row center">
+          </div>
+        ) : error ? (
+          <div className="row center">
             <Alert severity="error">
               <AlertTitle>Error</AlertTitle>
               <h3>{error} </h3>
@@ -122,8 +101,6 @@ const ProductScreen = (props) => {
           </div>
         ) : (
           <div>
-            {console.log('mahmoud')}
-            {console.log(payload)}
             <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 700 }}>
               <Link to="/">
                 <HomeOutlined />
@@ -133,7 +110,6 @@ const ProductScreen = (props) => {
             <div className="row top">
               <div className="col-2">
                 <Image src={data.image} alt={data.name}></Image>
-                {console.log(data.image)}
               </div>
               <div className="col-1">
                 <ul>
@@ -218,7 +194,7 @@ const ProductScreen = (props) => {
                 {data.reviews.map((review) => (
                   <li key={review._id}>
                     <strong>{review.name}</strong>
-                    {/* <Rating rating={review.rating} caption=" "></Rating> */}
+
                     <Ratings size="large" rating={review.rating} />
                     <p>{review.createdAt.substring(0, 10)}</p>
                     <p>{review.comment}</p>
