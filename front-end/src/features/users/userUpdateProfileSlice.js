@@ -45,6 +45,7 @@ const userUpdateProfileSlice = createSlice({
     [updateUserProfile.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.user = action.payload;
+      state.success = true;
     },
     [updateUserProfile.rejected]: (state, action) => {
       state.isLoading = false;
