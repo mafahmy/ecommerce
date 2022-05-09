@@ -22,6 +22,7 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import HistoryIcon from "@mui/icons-material/History";
 import LogoutIcon from "@mui/icons-material/Logout";
+import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 
 //import IconButton from '@mui/material/IconButton';
 //import MenuIcon from '@mui/icons-material/Menu';
@@ -81,11 +82,7 @@ const search = (
     <SearchIconWrapper>
       <SearchIcon />
     </SearchIconWrapper>
-    <StyledInputBase
-      placeholder="Search...."
-      inputProps={{  }}
-      
-    />
+    <StyledInputBase placeholder="Search...." inputProps={{}} />
   </StyledSearch>
 );
 
@@ -157,6 +154,21 @@ export default function Navbar1() {
                 </Typography>
               </div>
             </Box>
+            <Box
+              component="div"
+              sx={{
+                display: {
+                  xs: "none",
+                  sm: "block",
+                },
+              }}
+            >
+              <div>
+                <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 500 }}>
+                  <Link to="/contactus">Contact Us</Link>
+                </Typography>
+              </div>
+            </Box>
             {!userInfo && (
               <Box
                 component="div"
@@ -192,17 +204,17 @@ export default function Navbar1() {
                     <Link to="#">
                       <Stack direction="row">
                         <MenuWrapper>
-                        <Typography
-                          variant="h6"
-                          sx={{
-                            flexGrow: 1,
-                            fontWeight: 500,
-                            alignItems: "center",
-                          }}
-                        >
-                          {userInfo.name}
-                        </Typography>
-                        <ArrowDropDownIcon color="white" />
+                          <Typography
+                            variant="h6"
+                            sx={{
+                              flexGrow: 1,
+                              fontWeight: 500,
+                              alignItems: "center",
+                            }}
+                          >
+                            {userInfo.name}
+                          </Typography>
+                          <ArrowDropDownIcon color="white" />
                         </MenuWrapper>
                       </Stack>
                     </Link>
@@ -330,7 +342,7 @@ export default function Navbar1() {
 
                   <MenuItemSign  />
                   <ListItemIcon>
-                    <ImageIcon sx={{ color: "primary.main" }} />
+                    <SupportAgentIcon sx={{ color: "primary.main" }} />
                   </ListItemIcon>
                   <ListItemText primary="Pictures" />
                 </ListItemButton> */}
@@ -342,13 +354,25 @@ export default function Navbar1() {
                     {/* <ListItemText primary="CART" /> */}
                     <div>
                       <Link to="/cart/:id">
-                        Cart
+                        <Typography sx={{ color: "black" }}> Cart </Typography>
                         {cartItems.length > 0 && (
                           <span className="badge">{cartItems.length}</span>
                         )}
                       </Link>
                     </div>
                   </ListItemButton>
+                  <Link to="/contactus">
+                    <ListItemButton>
+                      <ListItemIcon>
+                        <SupportAgentIcon sx={{ color: "primary.main" }} />
+                      </ListItemIcon>
+
+                      <ListItemText
+                        sx={{ color: "black" }}
+                        primary="Contact Us"
+                      />
+                    </ListItemButton>
+                  </Link>
 
                   <ListItemButton>
                     <ListItemIcon>

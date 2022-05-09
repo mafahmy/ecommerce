@@ -58,10 +58,17 @@ export default function ProductsListScreen(props) {
   return (
     <Container maxWidth="lg" disableGutters>
     <div>
+      
       <div className="row">
         <h1>Products</h1>
         <button type="button" className="primary" onClick={createHandler}>
           Create Product
+        </button>
+        <button type="button" className="primary" onClick={createHandler}>
+          Create Category
+        </button>
+        <button type="button" className="primary" onClick={createHandler}>
+          Create Brand
         </button>
       </div>
       
