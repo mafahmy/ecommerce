@@ -9,6 +9,7 @@ import {
   resetSubmitTicket,
   submitTicket,
 } from "../features/users/userSubmitTicketSlice";
+import { Container } from "@mui/material";
 
 const ContactScreen = () => {
   const [message, setMessage] = useState("");
@@ -40,6 +41,7 @@ const ContactScreen = () => {
   };
 
   return (
+    
     <div className="loginBack">
       {!isLoggedIn ? (
         <Alert severity="info">
@@ -78,7 +80,7 @@ const ContactScreen = () => {
               <label htmlFor="comment" />
               <textarea
                 rows="10"
-                cols="50"
+                cols="30"
                 id="comment"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
@@ -95,7 +97,9 @@ const ContactScreen = () => {
         </div>
       )}
     </div>
+    
   );
+  
 };
 
 export default ContactScreen;
