@@ -10,22 +10,17 @@ export const updateUserProfile = createAsyncThunk(
     } = thunkAPI.getState();
 
     try {
-      const { data } = await axios.put(
-        `/api/users/profile`, user,
-        {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
-        }
-      );
+      const { data } = await axios.put(`/api/users/profile`, user, {
+        headers: { Authorization: `Bearer ${userInfo.token}` },
+      });
       return data;
     } catch (error) {
-      
       const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
 
-    return thunkAPI.rejectWithValue(message);
-      
+      return thunkAPI.rejectWithValue(message);
     }
   }
 );
@@ -38,12 +33,11 @@ const userUpdateProfileSlice = createSlice({
   name: "userUpdateProfile",
   initialState,
   reducers: {
-    resetUpdateProfile(state, action)  {
-        return {};
-    }
+    resetUpdateProfile(state, action) {
+      return {};
+    },
   },
 
-  
   extraReducers: {
     [updateUserProfile.pending]: (state, action) => {
       state.isLoading = true;

@@ -98,9 +98,7 @@ const ProductScreen = (props) => {
     }
   };
   console.log(rating);
-  // if (!data) {
-  //   return <h2>....Loading</h2>
-  // }
+  
   return (
     <Container maxWidth="lg" disableGutters>
 
@@ -120,7 +118,7 @@ const ProductScreen = (props) => {
           </div>
         ) : (
           <div>
-            {console.log(payload)}
+            
             <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 700 }}>
               <Link to="/">
                 <HomeOutlined />
@@ -130,7 +128,7 @@ const ProductScreen = (props) => {
             <div className="row top">
               <div className="col-2">
                 <Image src={data.image} alt={data.name}></Image>
-                {console.log(data.image)}
+                
               </div>
               <div className="col-1">
                 <ul>

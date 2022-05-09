@@ -29,6 +29,7 @@ import VerificationEmailScreen from "./screens/VerificationEmailScreen";
 import UserVerifyEmail from "./screens/UserVerifyEmail";
 import ResetPassword1 from "./screens/ResetPassword1";
 import ResetPassword2 from "./screens/ResetPassword2";
+import ContactScreen from "./screens/ContactScreen";
 
 export const theme = createTheme({
   palette: {
@@ -73,6 +74,7 @@ function App() {
               <Route path="/email/verify/:token" element={<UserVerifyEmail />} />
               <Route path="/resetpasslink" element={<ResetPassword1 />} />
               <Route path="/resetpassword/:token" element={<ResetPassword2 />} />
+              <Route path="/contactus" element={<ContactScreen />} />
               <Route
                 path="/search/name/:name?"
                 element={<SearchScreen />}
