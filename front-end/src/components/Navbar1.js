@@ -22,6 +22,7 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import HistoryIcon from "@mui/icons-material/History";
 import LogoutIcon from "@mui/icons-material/Logout";
+import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 
 //import IconButton from '@mui/material/IconButton';
 //import MenuIcon from '@mui/icons-material/Menu';
@@ -36,58 +37,54 @@ import AdminMenu from "./AdminMenu";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Grid, ListItemText } from "@mui/material";
 
-// const StyledSearch = styled("div")(({ theme }) => ({
-//   position: "relative",
-//   borderRadius: theme.shape.borderRadius,
-//   backgroundColor: alpha(theme.palette.primary.main, 0.15),
-//   "&:hover": {
-//     backgroundColor: alpha(theme.palette.primary.main, 0.25),
-//   },
-//   marginRight: theme.spacing(2),
-//   marginLeft: 0,
-//   width: "100%",
-//   [theme.breakpoints.up("sm")]: {
-//     marginLeft: theme.spacing(3),
-//     width: "auto",
-//   },
-// }));
+const StyledSearch = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.primary.main, 0.15),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.primary.main, 0.25),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(3),
+    width: "auto",
+  },
+}));
 
-// const SearchIconWrapper = styled("div")(({ theme }) => ({
-//   padding: theme.spacing(0, 2),
-//   height: "100%",
-//   position: "absolute",
-//   pointerEvents: "none",
-//   display: "flex",
-//   alignItems: "center",
-//   justifyContent: "center",
-// }));
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
 
-// const StyledInputBase = styled(InputBase)(({ theme }) => ({
-//   color: "inherit",
-//   "& .MuiInputBase-input": {
-//     padding: theme.spacing(1, 1, 1, 0),
-//     // vertical padding + font size from searchIcon
-//     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-//     transition: theme.transitions.create("width"),
-//     width: "100%",
-//     [theme.breakpoints.up("md")]: {
-//       width: "20ch",
-//     },
-//   },
-// }));
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
+  },
+}));
 
-//search as JSX
-// const search = (
-//   <StyledSearch>
-//     <SearchIconWrapper>
-//       <SearchIcon />
-//     </SearchIconWrapper>
-//     <StyledInputBase
-//       placeholder="Suchen…"
-//       inputProps={{ "aria-label": "search" }}
-//     />
-//   </StyledSearch>
-// );
+const search = (
+  <StyledSearch>
+    <SearchIconWrapper>
+      <SearchIcon />
+    </SearchIconWrapper>
+    <StyledInputBase placeholder="Search...." inputProps={{}} />
+  </StyledSearch>
+);
 
 const MenuWrapper = styled("div")(({ theme }) => ({
   display: "flex",
@@ -135,6 +132,8 @@ export default function Navbar1() {
               <Link to="/">Brand</Link>
             </Typography>
 
+            {/* {search} */}
+
             <Box
               component="div"
               sx={{
@@ -152,6 +151,21 @@ export default function Navbar1() {
                       <span className="badge">{cartItems.length}</span>
                     )}
                   </Link>
+                </Typography>
+              </div>
+            </Box>
+            <Box
+              component="div"
+              sx={{
+                display: {
+                  xs: "none",
+                  sm: "block",
+                },
+              }}
+            >
+              <div>
+                <Typography variant="h6" sx={{ flexGrow: 1, fontWeight: 500 }}>
+                  <Link to="/contactus">Contact Us</Link>
                 </Typography>
               </div>
             </Box>
@@ -190,17 +204,17 @@ export default function Navbar1() {
                     <Link to="#">
                       <Stack direction="row">
                         <MenuWrapper>
-                        <Typography
-                          variant="h6"
-                          sx={{
-                            flexGrow: 1,
-                            fontWeight: 500,
-                            alignItems: "center",
-                          }}
-                        >
-                          {userInfo.name}
-                        </Typography>
-                        <ArrowDropDownIcon color="white" />
+                          <Typography
+                            variant="h6"
+                            sx={{
+                              flexGrow: 1,
+                              fontWeight: 500,
+                              alignItems: "center",
+                            }}
+                          >
+                            {userInfo.name}
+                          </Typography>
+                          <ArrowDropDownIcon color="white" />
                         </MenuWrapper>
                       </Stack>
                     </Link>
@@ -328,7 +342,7 @@ export default function Navbar1() {
 
                   <MenuItemSign  />
                   <ListItemIcon>
-                    <ImageIcon sx={{ color: "primary.main" }} />
+                    <SupportAgentIcon sx={{ color: "primary.main" }} />
                   </ListItemIcon>
                   <ListItemText primary="Pictures" />
                 </ListItemButton> */}
@@ -340,13 +354,25 @@ export default function Navbar1() {
                     {/* <ListItemText primary="CART" /> */}
                     <div>
                       <Link to="/cart/:id">
-                        Cart
+                        <Typography sx={{ color: "black" }}> Cart </Typography>
                         {cartItems.length > 0 && (
                           <span className="badge">{cartItems.length}</span>
                         )}
                       </Link>
                     </div>
                   </ListItemButton>
+                  <Link to="/contactus">
+                    <ListItemButton>
+                      <ListItemIcon>
+                        <SupportAgentIcon sx={{ color: "primary.main" }} />
+                      </ListItemIcon>
+
+                      <ListItemText
+                        sx={{ color: "black" }}
+                        primary="Contact Us"
+                      />
+                    </ListItemButton>
+                  </Link>
 
                   <ListItemButton>
                     <ListItemIcon>

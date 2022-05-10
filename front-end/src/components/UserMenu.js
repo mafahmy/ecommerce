@@ -48,7 +48,7 @@ export default function UserMenu() {
               <Link to="/profile">Your Profile</Link>
             </MenuItem>
             <MenuItem onClick={handleClose}>
-              <Link to="/orderhistory">Order History</Link>
+              <Link to="/ordershistory">Order History</Link>
             </MenuItem>
             <MenuItem onClick={handleClose}>
                 

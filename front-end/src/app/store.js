@@ -28,6 +28,9 @@ import messageReducer from "../features/messages/messageSlice";
 import adminPayReducer from "../features/admin/adminPaySlice";
 import userVerificationReducer from "../features/users/userVerificationSlice";
 import userCheckTokenReducer from "../features/users/userCheckTokenSlice";
+import passLinkReducer from "../features/users/passLinkSlice";
+import resetPassReducer from "../features/users/resetPassSlice";
+import userSubmitTicketReducer from "../features/users/userSubmitTicketSlice";
 
 const preloadedState = {
   cart: {
@@ -71,6 +74,9 @@ export const store = configureStore({
     userUpdate: userUpdateReducer,
     userVerification: userVerificationReducer,
     userCheckToken: userCheckTokenReducer,
+    userSubmitTicket: userSubmitTicketReducer,
+    passLink: passLinkReducer,
+    resetPass: resetPassReducer,
     message: messageReducer,
     [productsApi.reducerPath]: productsApi.reducer,
 

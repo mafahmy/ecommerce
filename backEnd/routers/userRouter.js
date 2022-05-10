@@ -10,7 +10,7 @@ import {
   generateEmailVerificationToken,
 } from "../utils.js";
 import { sendEmail } from "../utils/email.js";
-import { verifyEmailTemp } from "../utils/EmailTemp.js";
+import { resetPassword, verifyEmailTemp } from "../utils/EmailTemp.js";
 
 const userRouter = express.Router();
 
@@ -92,7 +92,7 @@ userRouter.post(
         subject,
         verifyEmailTemp(link)
       );
-      res.send({ message: `An email was sent to ${user.email} please verify` })
+      res.send({ message: `An email was sent to ${user.email} please verify` });
     }
   })
 );
@@ -107,9 +107,65 @@ userRouter.post(
     user.isVerified = true;
     user.emailVerificationToken = "";
     await user.save();
-    
 
     res.send({ message: "Email Verified Successfully" });
+  })
+);
+userRouter.post(
+  "/resetpasslink",
+  expressAsyncHandler(async (req, res) => {
+    let user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      res.status(400).send({ message: "User Not FOUND" });
+    } else {
+      const verificationToken = generateEmailVerificationToken(user);
+      user.emailVerificationToken = verificationToken;
+      await user.save();
+
+      const link = `https://ecommerse191.herokuapp.com/resetpassword/${verificationToken}`;
+      const subject = "reset password";
+      const sendMail = await sendEmail(
+        user.email,
+        subject,
+        resetPassword(link)
+      );
+      res.send({
+        message: `An email was sent to ${user.email} please Reset password`,
+      });
+    }
+  })
+);
+userRouter.post(
+  "/resetpassword/:token",
+  expressAsyncHandler(async (req, res) => {
+    let user = await User.findOne({ emailVerificationToken: req.params.token });
+
+    if (!user) {
+      res.status(400).send({ message: "Invalid Link" });
+    }
+    user.password = bcrypt.hashSync(req.body.password, 8);
+    user.emailVerificationToken = "";
+    await user.save();
+
+    res.send({ message: "Password Reset Successfully" });
+  })
+);
+userRouter.post(
+  "/tickets/:id",
+  isAuth,
+  expressAsyncHandler(async (req, res) => {
+    let user = await User.findById(req.params.id);
+    if (user && !user.tickets.active) {
+      
+      user.tickets.ticket = req.body.ticket;
+      user.tickets.active = true
+      await user.save();
+      res.send({
+        message: "Submitted successfully will get back to you shortly",
+      });
+    } else {
+      res.status(404).send({ message: "Error or You have an active ticket, Please wait and we'll get back to you!" });
+    }
   })
 );
 
@@ -188,7 +244,7 @@ userRouter.put(
     if (user) {
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
-      user.password = req.body.password || user.password;
+      user.password = bcrypt.hashSync(req.body.password, 8) || user.password;
       user.status = req.body.status || user.status;
       user.isAdmin = req.body.isAdmin || user.isAdmin;
       const updatedUser = await user.save();
