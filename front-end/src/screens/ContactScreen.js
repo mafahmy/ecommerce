@@ -63,7 +63,7 @@ const ContactScreen = () => {
             )}
             {errorTicket && (
               <Alert severity="error">
-                <AlertTitle>{error} </AlertTitle>
+                <AlertTitle>{errorTicket} </AlertTitle>
               </Alert>
             )}
             {success && (

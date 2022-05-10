@@ -155,14 +155,16 @@ userRouter.post(
   isAuth,
   expressAsyncHandler(async (req, res) => {
     let user = await User.findById(req.params.id);
-    if (user) {
-      user.tickets.push(req.body.ticket);
+    if (user && !user.tickets.active) {
+      
+      user.tickets.ticket = req.body.ticket;
+      user.tickets.active = true
       await user.save();
       res.send({
         message: "Submitted successfully will get back to you shortly",
       });
     } else {
-      res.status(404).send({ message: "Unable to submit now" });
+      res.status(404).send({ message: "Error or You have an active ticket, Please wait and we'll get back to you!" });
     }
   })
 );

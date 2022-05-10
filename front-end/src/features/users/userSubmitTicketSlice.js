@@ -10,7 +10,7 @@ export const submitTicket = createAsyncThunk(
     try {
       const { data } = await axios.post(
         `/api/users/tickets/${userInfo._id}`,
-        [ticket],
+        {ticket},
         {
           headers: { Authorization: `Bearer ${userInfo.token}` },
         }

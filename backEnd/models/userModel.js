@@ -9,7 +9,10 @@ const userSchema = new mongoose.Schema(
     isVerified: { type: Boolean, default:false },
     status: { type: String, default: "Active" },
     emailVerificationToken: { type: String },
-    tickets: { type: Array }
+    tickets: { 
+      active: {type: Boolean, default: false},
+      ticket: {type: String, required: true},
+     }
   },
   {
     timestamps: true,
