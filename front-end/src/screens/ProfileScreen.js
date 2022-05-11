@@ -30,19 +30,25 @@ export default function ProfileScreen() {
   } = userUpdateProfile;
 
   const dispatch = useDispatch();
+  
   useEffect(() => {
-    if (!user) {
+    
+    if (!isLoggedIn) {
+      return <Navigate to="/" />;
+    }
+    
+    if (!user && isLoggedIn) {
       dispatch(resetUpdateProfile());
       dispatch(detailsUser(userInfo._id));
     } else {
-      setName(user.name);
-      setEmail(user.email);
+      setName(userInfo.name);
+      setEmail(userInfo.email);
       setTimeout(() => {
         dispatch(resetUpdateProfile());
         
-      }, 8000);
+      }, 5000);
     }
-  }, [dispatch, user, userInfo]);
+  }, [dispatch, isLoggedIn, user, userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -50,11 +56,13 @@ export default function ProfileScreen() {
       alert("Password and confirm Password Are Not Matched");
     } else {
       dispatch(updateUserProfile({ userId: user._id, name, email, password }));
+      dispatch(resetUpdateProfile());
     }
   };
-  if (!isLoggedIn) {
-    return <Navigate to="/" />;
+  if(!userInfo) {
+    return <Navigate to="/signin" />;
   }
+  
   return (
     <div>
       <Container maxWidth="lg" disableGutters>
