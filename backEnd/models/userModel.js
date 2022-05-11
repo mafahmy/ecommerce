@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema(
     emailVerificationToken: { type: String },
     tickets: { 
       active: {type: Boolean, default: false},
-      ticket: {type: String, required: true},
+      ticket: {type: String},
      }
   },
   {
